@@ -9,18 +9,45 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="Script.js"></script>
 
-<div style="position:relative;width:200px;height:25px;border:0;padding:0;margin:0;">
-  <select style="position:absolute;top:0px;left:0px;width:200px; height:25px;line-height:20px;margin:0;padding:0;"
-          onchange="document.getElementById('displayValue').value=this.options[this.selectedIndex].text; document.getElementById('idValue').value=this.options[this.selectedIndex].value;">
-    <option></option>
-    <option value="one">one</option>
-    <option value="two">two</option>
-    <option value="three">three</option>
-  </select>
-  <input type="text" name="displayValue" id="displayValue" 
-         placeholder="add/select a value" onfocus="this.select()"
-         style="position:absolute;top:0px;left:0px;width:183px;width:180px\9;#width:180px;height:23px; height:21px\9;#height:18px;border:1px solid #556;"  >
-  <input name="idValue" id="idValue" type="hidden">
+<div>
+	<select id="allyChamp1" class="champSelect"></select>
+	<select id="allyPos1" class="PosSelect"></select>
+
+	<select id="enemyChamp1" class="champSelect"></select>
+	<select id="enemyPos1" class="PosSelect"></select>
 </div>
+
+<div>
+	<select id="allyChamp2" class="champSelect"></select>
+	<select id="allyPos2" class="PosSelect"></select>
+
+	<select id="enemyChamp2" class="champSelect"></select>
+	<select id="enemyPos2" class="PosSelect"></select>
+</div>
+
+<div>
+	<select id="allyChamp3" class="champSelect"></select>
+	<select id="allyPos3" class="PosSelect"></select>
+
+	<select id="enemyChamp3" class="champSelect"></select>
+	<select id="enemyPos3" class="PosSelect"></select>
+</div>
+
+<div>
+	<select id="allyChamp4" class="champSelect"></select>
+	<select id="allyPos4" class="PosSelect"></select>
+
+	<select id="enemyChamp4" class="champSelect"></select>
+	<select id="enemyPos4" class="PosSelect"></select>
+</div>
+
+<div>
+	<select id="allyChamp5" class="champSelect"></select>
+	<select id="allyPos5" class="PosSelect"></select>
+
+	<select id="enemyChamp5" class="champSelect"></select>
+	<select id="enemyPos5" class="PosSelect"></select>
+</div>
+
 </body>
 </html>
