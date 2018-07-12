@@ -2,6 +2,6 @@
 
 .enemyChampSelect, .enemyPosSelect
 {
-	position: relative;
-	right: 0px;
+	position: absolute;
+	right: 8px;
 }
