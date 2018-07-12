@@ -9,12 +9,12 @@ p
 {
 	position: absolute;
 	top: 0px;
-	left: 0px;
+	left: 8px;
 }
 
 .enemyBlock
 {
 	position: absolute;
 	top: 0px;
-	right: 0px;
+	right: 8px;
 }
