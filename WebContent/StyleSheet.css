@@ -1,1 +1,8 @@
 @charset "ISO-8859-1";
+
+.enemyChampSelect
+{
+	position: relative;
+	right: 0px;
+	top: 0px;
+}
