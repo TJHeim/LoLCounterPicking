@@ -1,5 +1,8 @@
-$(document).ready(function(){
-	$("p").click(function(){
-		$(this).css("background-color", "yellow");
+function setToYellow()
+{
+	$(document).ready(function(){
+		$("p").click(function(){
+			$(this).css("background-color", "yellow");
+		})
 	})
-})
+}
