@@ -1,4 +1,4 @@
-function onStart()
+function onBodyLoad()
 {
 	const champsPerTeam=5;
 	const teamArray=["ally", "enemy"];
@@ -58,4 +58,14 @@ function onStart()
 			document.body.appendChild(posBlock);
 		}
 	}
+}
+
+
+
+
+function refreshCounterSource()
+{
+	$.get('https://allorigins.me/get?method=raw&url=' + encodeURIComponent('https://lolcounter.com/champions/zed/weak'), function(data){
+	    console.log(data);
+	});
 }
