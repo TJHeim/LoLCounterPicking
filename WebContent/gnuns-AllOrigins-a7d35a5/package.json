@@ -1,0 +1,12 @@
+{
+    "name": "allorigins",
+    "description": "Pull content from any page as JSON via API",
+    "author": "Gabriel Nunes <gabriel@multiverso.me>",
+    "version": "0.4.4",
+    "main": "server.js",
+    "license": "MIT",
+    "dependencies": {
+        "express": "~4.0.0",
+        "got": "^8.2.0"
+    }
+}
