@@ -3,8 +3,8 @@ function onStart()
 	const champsPerTeam=5;
 	const teamArray=["ally", "enemy"];
 	const teamArrayUppercased=["Ally", "Enemy"];
-	const spaceBetweenChampAndPosBlocks=10;
-	const spaceBetweenChampBlocks=30;
+	const spaceBetweenChampAndPosBlocks=25;
+	const spaceBetweenChampBlocks=70;
 	
 	for(var atChampBlock=1; atChampBlock<=champsPerTeam; atChampBlock++)
 	{
