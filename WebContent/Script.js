@@ -1,7 +1,13 @@
 const champList=["Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Ashe", "Aurelion Sol", "Azir", "Bard", "Blitzcrank", "Brand", "Braum", "Caitlyn", "Camille", "Cassiopeia", "Cho"+"'"+"gath", "Corki", "Darius", "Diana", "Dr. Mundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Hecarim", "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "Jarvan IV", "Jax", "Jayce", "Jhin", "Jinx", "Kai"+"'"+"Sa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen", "Kha"+"'"+"Zix", "Kindred", "Kled", "Kog"+"'"+"Maw", "LeBlanc", "Lee Sin", "Leona", "Lissandra", "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "Master Yi", "Miss Fortune", "Mordekaiser", "Morgana", "Nami", "Nasus", "Nautilus", "Nidalee", "Nocturne", "Nunu", "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Quinn", "Rakan", "Rammus", "Rek"+"'"+"Sai", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Sejuani", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Sona", "Soraka", "Swain", "Syndra", "Tahm Kench", "Taliyah", "Talon", "Taric", "Teemo", "Thresh", "Tristana", "Trundle", "Tryndamere", "Twisted Fate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Vel"+"'"+"Koz", "Vi", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong", "Xayah", "Xerath", "Xin Zhao", "Yasuo", "Yorick", "Zac", "Zed", "Ziggs", "Zilean", "Zoe", "Zyra"];
 const champAccessList=["aatrox", "ahri", "akali", "alistar", "amumu", "anivia", "annie", "ashe", "aurelionsol", "azir", "bard", "blitzcrank", "brand", "braum", "caitlyn", "camille", "cassiopeia", "chogath", "corki", "darius", "diana", "drmundo", "draven", "ekko", "elise", "evelynn", "ezreal", "fiddlesticks", "fiora", "fizz", "galio", "gangplank", "garen", "gnar", "gragas", "graves", "hecarim", "heimerdinger", "illaoi", "irelia", "ivern", "janna", "jarvaniv", "jax", "jayce", "jhin", "jinx", "kaisa", "kalista", "karma", "karthus", "kassadin", "katarina", "kayle", "kayn", "kennen", "khazix", "kindred", "kled", "kogmaw", "leblanc", "lee-sin", "leona", "lissandra", "lucian", "lulu", "lux", "malphite", "malzahar", "maokai", "masteryi", "missfortune", "mordekaiser", "morgana", "nami", "nasus", "nautilus", "nidalee", "nocturne", "nunu", "olaf", "orianna", "ornn", "pantheon", "poppy", "pyke", "quinn", "rakan", "rammus", "reksai", "renekton", "rengar", "riven", "rumble", "ryze", "sejuani", "shaco", "shen", "shyvana", "singed", "sion", "sivir", "skarner", "sona", "soraka", "swain", "syndra", "tahmkench", "taliyah", "talon", "taric", "teemo", "thresh", "tristana", "trundle", "tryndamere", "twistedfate", "twitch", "udyr", "urgot", "varus", "vayne", "veigar", "velkoz", "vi", "viktor", "vladimir", "volibear", "warwick", "wukong", "xayah", "xerath", "xinzhao", "yasuo", "yorick", "zac", "zed", "ziggs", "zilean", "zoe", "zyra"];
-const champPosList=["", "Top", "Mid", "Bot", "Sup", "Jg"]
-const champPosAccessList=["general", "top", "mid", "bottom", "bottom", "jungle"]
+const champPosList=["", "Top", "Mid", "Bot", "Sup", "Jg"];
+const champPosAccessList=["general", "top", "mid", "bottom", "jungle"];
+const champPosMapList=["general", "top", "mid", "bottom", "bottom", "jungle"];
+
+var websiteHTMLArray=Array(0);
+
+var grabHTML=function(counter, activeChamp, activeCompareType, activeChampPos){$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?", function(html){websiteHTMLArray.push(html);});}
+var runCollectDataAndSaveFile=function(counter, activeChamp, activeCompareType, activeChampPos){collectDataAndSaveFile(websiteHTMLArray[counter], activeChamp, activeCompareType, activeChampPos);}
 
 function onBodyLoad()
 {
@@ -69,22 +75,38 @@ function onBodyLoad()
 
 
 
-function refreshCounterSource()
+function refreshCounterSourceCode(startIndex)
 {
-	var compareTypeList=["Strong", "Weak", "Even", "Well"];
-	var compareTypeAccessList=["strong", "weak", "even", "good"];
+	runThroughAccessLists(grabHTML, startIndex);
+}
+
+function collectDataFiles(startIndex)
+{
+	runThroughAccessLists(runCollectDataAndSaveFile, startIndex);
+}
+
+
+
+
+function runThroughAccessLists(myFunction, startIndex)
+{
+	const compareTypeList=["Strong", "Weak", "Even", "Well"];
+	const compareTypeAccessList=["strong", "weak", "even", "good"];
+	
+	var counter=0;
 	for(var champ=0; champ<champAccessList.length; champ++)
 	{
-		for(var compareType=0; compareType<compareTypeAccessList.length-2; compareType++)
+		for(var compareType=0; compareType<compareTypeAccessList.length; compareType++)
 		{
 			for(var champPos=0; champPos<champPosAccessList.length; champPos++)
 			{
 				var activeChamp=champAccessList[champ];
 				var activeCompareType=compareTypeAccessList[compareType];
 				var activeChampPos=champPosAccessList[champPos];
+				if(counter>=startIndex)
+					myFunction.call(undefined, counter-startIndex, activeChamp, activeCompareType, activeChampPos);
 				
-				$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?", function(html){
-																																																collectDataAndSaveFile(html, activeChamp, activeCompareType, activeChampPos);});
+				counter++;
 			}
 		}
 	}
@@ -97,8 +119,7 @@ function collectDataAndSaveFile(html, activeChamp, activeCompareType, activeCham
 {
 	var data=collectData(html);
 	
-	saveAs(new Blob([data]), activeChamp+activeCompareType+activeChampPos+".txt");
-	
+	saveAs(new Blob([data]), activeChamp+"!"+activeCompareType+"!"+activeChampPos+".txt");
 }
 
 
@@ -111,7 +132,6 @@ function collectData(html)
 	
 	/*Find the start and end of the data and trim the html*/
 	var startOfData=html.indexOf("<div class='weak-block full'");
-	//var endOfData=findEndOfDiv(html, startOfData, 1);
 	html=html.substring(startOfData, /*endOfData*/).replace(/\s/g, "");
 	
 	/*Run through the html to find the data and give it to the data var*/
@@ -150,18 +170,10 @@ function collectData(html)
 
 
 
-function findEndOfDiv(html, pos, numberOfDivsInside)
+
+function calculatePercentages()
 {
-	if(numberOfDivsInside==0)
-		return pos;
 	
-	var indexOfNextDiv=html.indexOf("div", pos);
-	
-	if(html.substring(indexOfNextDiv-1, indexOfNextDiv)=="<")
-		return findEndOfDiv(html, indexOfNextDiv+"div>".length, numberOfDivsInside+1);
-	
-	else //if(html.substring(indexOfNextDiv-1, indexOfNextDiv)=="/")
-		return findEndOfDiv(html, indexOfNextDiv+"div>".length, numberOfDivsInside-1)
 }
 
 
