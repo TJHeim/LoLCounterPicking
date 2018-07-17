@@ -42,7 +42,7 @@ function onBodyLoad()
 			/*Set the id and class of all elements*/
 			var teamName=teamArray[team];
 			champBlock.setAttribute("id", teamName+"ChampBlock"+summonerBlock);
-			champBlock.setAttribute("class", teamName+"Block");x
+			champBlock.setAttribute("class", teamName+"Block");
 			champSelect.setAttribute("id", teamName+"ChampSelect"+summonerBlock);
 			champSelect.setAttribute("class", teamName+"ChampSelect");
 			
@@ -211,7 +211,7 @@ function calculatePercentages()
 	var allyChamps=Array(0);
 	var enemyChamps=Array(0);
 	
-	for(var summonerNumber=1; summonerNumber<=champsPerTeam; summonerNumber++))
+	for(var summonerNumber=1; summonerNumber<=champsPerTeam; summonerNumber++)
 	{
 		if($("#allyChampSelect"+summonerNumber).val()!="")
 		{
@@ -240,7 +240,7 @@ function calculatePercentages()
 function calculatePercentagesForSummoner(summonerNumber, champPos, allyChamps, enemyChamps)
 {
 	/*Calculate from allies*/
-	for(var ally=0; ally<allyChamps.length; ally++))
+	for(var ally=0; ally<allyChamps.length; ally++)
 	{
 			
 	}
@@ -251,9 +251,12 @@ function calculatePercentagesForSummoner(summonerNumber, champPos, allyChamps, e
 
 function grabDataFromFile(champ, champPos, compareType)
 {
-	fetch("https://tjheim.github.io/LoLCounterPicking/WebContent/ChampionCounterSource/"+champ+"!"+compareType+"!"champPos)
+	var data;
+	fetch("https://tjheim.github.io/LoLCounterPicking/WebContent/ChampionCounterSource/"+champ+"!"+compareType+"!"+champPos)
 	  .then(response => response.text())
-	  .then(text => return text)
+	  .then(text => data=text);
+	
+	return data;
 }
 
 
