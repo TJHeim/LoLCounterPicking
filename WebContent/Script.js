@@ -252,7 +252,7 @@ function calculatePercentagesForSummoner(summonerNumber, champPos, allyChamps, e
 function grabDataFromFile(champ, champPos, compareType)
 {
 	var data;
-	fetch("https://tjheim.github.io/LoLCounterPicking/WebContent/ChampionCounterSource/"+champ+"!"+compareType+"!"+champPos)
+	fetch("https://tjheim.github.io/LoLCounterPicking/WebContent/ChampionCounterSource/"+champ+"!"+compareType+"!"+champPos+".txt")
 	  .then(response => response.text())
 	  .then(text => data=text);
 	
