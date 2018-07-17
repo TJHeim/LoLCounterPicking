@@ -11,6 +11,17 @@ const pixelsBetweenChampBlocks=70;
 
 var websiteHTMLArray=Array(0);
 
+var summoner1Champs=Array(0);
+var summoner1Pers=Array(0);
+var summoner2Champs=Array(0);
+var summoner2Pers=Array(0);
+var summoner3Champs=Array(0);
+var summoner3Pers=Array(0);
+var summoner4Champs=Array(0);
+var summoner4Pers=Array(0);
+var summoner5Champs=Array(0);
+var summoner5Pers=Array(0);
+
 var grabHTML=function(counter, activeChamp, activeCompareType, activeChampPos){$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?", function(html){websiteHTMLArray.push(html);});}
 var runCollectDataAndSaveFile=function(counter, activeChamp, activeCompareType, activeChampPos){collectDataAndSaveFile(websiteHTMLArray[counter], activeChamp, activeCompareType, activeChampPos);}
 
@@ -19,7 +30,7 @@ function onBodyLoad()
 	const teamArray=["ally", "enemy"];
 	const teamArrayUppercased=["Ally", "Enemy"];
 	
-	for(var atChampBlock=1; atChampBlock<=champsPerTeam; atChampBlock++)
+	for(var summonerBlock=1; summonerBlock<=champsPerTeam; summonerBlock++)
 	{
 		/*Create an allyChamp and an enemyChamp block*/
 		for(var team=0; team<teamArray.length; team++)
@@ -30,13 +41,13 @@ function onBodyLoad()
 			
 			/*Set the id and class of all elements*/
 			var teamName=teamArray[team];
-			champBlock.setAttribute("id", teamName+"ChampBlock"+atChampBlock);
-			champBlock.setAttribute("class", teamName+"Block");
-			champSelect.setAttribute("id", teamName+"ChampSelect"+atChampBlock);
+			champBlock.setAttribute("id", teamName+"ChampBlock"+summonerBlock);
+			champBlock.setAttribute("class", teamName+"Block");x
+			champSelect.setAttribute("id", teamName+"ChampSelect"+summonerBlock);
 			champSelect.setAttribute("class", teamName+"ChampSelect");
 			
 			/*Set the position of the block*/
-			champBlock.setAttribute("style", "top:"+(pixelsBeforeStartofBlocks+pixelsBetweenChampAndPosBlocks*(atChampBlock-1)+pixelsBetweenChampBlocks*(atChampBlock-1))+"px")
+			champBlock.setAttribute("style", "top:"+(pixelsBeforeStartofBlocks+pixelsBetweenChampAndPosBlocks*(summonerBlock-1)+pixelsBetweenChampBlocks*(summonerBlock-1))+"px")
 			
 			/*Add the blank option to the champ select tag*/
 			var champOption=document.createElement("option");
@@ -69,13 +80,13 @@ function onBodyLoad()
 			
 			/*Set the id and class of all elements*/
 			var teamName=teamArray[team];
-			posBlock.setAttribute("id", teamName+"PosBlock"+atChampBlock);
+			posBlock.setAttribute("id", teamName+"PosBlock"+summonerBlock);
 			posBlock.setAttribute("class", teamName+"Block");
-			posSelect.setAttribute("id", teamName+"PosSelect"+atChampBlock);
+			posSelect.setAttribute("id", teamName+"PosSelect"+summonerBlock);
 			posSelect.setAttribute("class", teamName+"PosSelect");
 			
 			/*Set the position of the block*/
-			posBlock.setAttribute("style", "top:"+(pixelsBeforeStartofBlocks+pixelsBetweenChampAndPosBlocks*atChampBlock+pixelsBetweenChampBlocks*(atChampBlock-1))+"px")
+			posBlock.setAttribute("style", "top:"+(pixelsBeforeStartofBlocks+pixelsBetweenChampAndPosBlocks*summonerBlock+pixelsBetweenChampBlocks*(summonerBlock-1))+"px")
 			
 			/*Add the options to the pos select tag*/
 			for(var champPos=0; champPos<champPosList.length; champPos++)
@@ -195,18 +206,55 @@ function collectData(html)
 
 
 
-//function calculatePercentages()
-//{
-//	for(var champNumber=1; champNumber<=champsPerTeam; champNumber++)
-//	{
-//		if($("#allyChampBlock"+champNumber))
-//	}
-//}
-//
-//
-//
-//
-//function calculatePercentageForChamp()
+function calculatePercentages()
+{
+	var allyChamps=Array(0);
+	var enemyChamps=Array(0);
+	
+	for(var summonerNumber=1; summonerNumber<=champsPerTeam; summonerNumber++))
+	{
+		if($("#allyChampSelect"+summonerNumber).val()!="")
+		{
+			allyChamps.append($("#allyChampSelect"+summonerNumber).val());
+		}
+		
+		if($("#enemyChampSelect"+summonerNumber).val()!="")
+		{
+			enemyChamps.append($("#enemyChampSelect"+summonerNumber).val());
+		}
+	}
+	
+	
+	for(var summonerNumber=1; summonerNumber<=champsPerTeam; summonerNumber++)
+	{
+		if($("#allyChampSelect"+summonerNumber).val()=="")
+		{
+			calculatePercentagesForSummoner(summonerNumber, $("#allyPosSelect"+summonerNumber).val(), allyChamps, enemyChamps)
+		}
+	}
+}
+
+
+
+
+function calculatePercentagesForSummoner(summonerNumber, champPos, allyChamps, enemyChamps)
+{
+	/*Calculate from allies*/
+	for(var ally=0; ally<allyChamps.length; ally++))
+	{
+			
+	}
+}
+
+
+
+
+function grabDataFromFile(champ, champPos, compareType)
+{
+	fetch("https://tjheim.github.io/LoLCounterPicking/WebContent/ChampionCounterSource/"+champ+"!"+compareType+"!"champPos)
+	  .then(response => response.text())
+	  .then(text => return text)
+}
 
 
 
