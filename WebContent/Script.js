@@ -4,6 +4,11 @@ const champPosList=["", "Top", "Mid", "Bot", "Sup", "Jg"];
 const champPosAccessList=["general", "top", "mid", "bottom", "jungle"];
 const champPosMapList=["general", "top", "mid", "bottom", "bottom", "jungle"];
 
+const champsPerTeam=5;
+const pixelsBeforeStartofBlocks=40;
+const pixelsBetweenChampAndPosBlocks=25;
+const pixelsBetweenChampBlocks=70;
+
 var websiteHTMLArray=Array(0);
 
 var grabHTML=function(counter, activeChamp, activeCompareType, activeChampPos){$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?", function(html){websiteHTMLArray.push(html);});}
@@ -11,12 +16,8 @@ var runCollectDataAndSaveFile=function(counter, activeChamp, activeCompareType, 
 
 function onBodyLoad()
 {
-	const champsPerTeam=5;
 	const teamArray=["ally", "enemy"];
 	const teamArrayUppercased=["Ally", "Enemy"];
-	const pixelsBeforeStartofBlocks=40;
-	const pixelsBetweenChampAndPosBlocks=25;
-	const pixelsBetweenChampBlocks=70;
 	
 	for(var atChampBlock=1; atChampBlock<=champsPerTeam; atChampBlock++)
 	{
@@ -36,6 +37,20 @@ function onBodyLoad()
 			
 			/*Set the position of the block*/
 			champBlock.setAttribute("style", "top:"+(pixelsBeforeStartofBlocks+pixelsBetweenChampAndPosBlocks*(atChampBlock-1)+pixelsBetweenChampBlocks*(atChampBlock-1))+"px")
+			
+			/*Add the blank option to the champ select tag*/
+			var champOption=document.createElement("option");
+			champOption.setAttribute("value", "");
+			champSelect.appendChild(champOption);
+
+			/*Add the options to the champ select tag*/
+			for(var champ=0; champ<champList.length; champ++)
+			{
+				champOption=document.createElement("option");
+				champOption.setAttribute("value", champAccessList[champ]);
+				champOption.innerHTML=champList[champ];
+				champSelect.appendChild(champOption);
+			}
 			
 			/*Append the contents of the block*/
 			champBlock.innerHTML=teamArrayUppercased[team]+" Champion: ";
@@ -61,6 +76,15 @@ function onBodyLoad()
 			
 			/*Set the position of the block*/
 			posBlock.setAttribute("style", "top:"+(pixelsBeforeStartofBlocks+pixelsBetweenChampAndPosBlocks*atChampBlock+pixelsBetweenChampBlocks*(atChampBlock-1))+"px")
+			
+			/*Add the options to the pos select tag*/
+			for(var champPos=0; champPos<champPosList.length; champPos++)
+			{
+				posOption=document.createElement("option");
+				posOption.setAttribute("value", champPosAccessList[champPos]);
+				posOption.innerHTML=champPosList[champPos];
+				posSelect.appendChild(posOption);
+			}
 			
 			/*Append the contents of the block*/
 			posBlock.innerHTML=teamArrayUppercased[team]+" Position: ";
@@ -171,10 +195,18 @@ function collectData(html)
 
 
 
-function calculatePercentages()
-{
-	
-}
+//function calculatePercentages()
+//{
+//	for(var champNumber=1; champNumber<=champsPerTeam; champNumber++)
+//	{
+//		if($("#allyChampBlock"+champNumber))
+//	}
+//}
+//
+//
+//
+//
+//function calculatePercentageForChamp()
 
 
 
