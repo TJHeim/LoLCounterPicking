@@ -11,16 +11,8 @@ const pixelsBetweenChampBlocks=70;
 
 var websiteHTMLArray=Array(0);
 
-var summoner1Champs=Array(0);
-var summoner1Pers=Array(0);
-var summoner2Champs=Array(0);
-var summoner2Pers=Array(0);
-var summoner3Champs=Array(0);
-var summoner3Pers=Array(0);
-var summoner4Champs=Array(0);
-var summoner4Pers=Array(0);
-var summoner5Champs=Array(0);
-var summoner5Pers=Array(0);
+var summonerChamps=Array(0);
+var summonerPers=Array(0);
 
 var grabHTML=function(counter, activeChamp, activeCompareType, activeChampPos){$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?", function(html){websiteHTMLArray.push(html);});}
 var runCollectDataAndSaveFile=function(counter, activeChamp, activeCompareType, activeChampPos){collectDataAndSaveFile(websiteHTMLArray[counter], activeChamp, activeCompareType, activeChampPos);}
@@ -29,6 +21,17 @@ function onBodyLoad()
 {
 	const teamArray=["ally", "enemy"];
 	const teamArrayUppercased=["Ally", "Enemy"];
+	
+	
+//	for(var summoner=1; summoner<=champsPerTeam; summoner++)
+//	{
+//		var showSelectionsButton=document.createElement("input");
+//		showSelectionsButton.setAttribute("type", "button");
+//		showSelectionsButton.setAttribute("id", "showSelectionsButton"+summoner)
+//		showSelectionsButton.setAttribute("value", "Show Selections");
+//		document.body.appendChild(showSelectionsButton);
+//	}
+	
 	
 	for(var summonerBlock=1; summonerBlock<=champsPerTeam; summonerBlock++)
 	{
@@ -66,6 +69,19 @@ function onBodyLoad()
 			/*Append the contents of the block*/
 			champBlock.innerHTML=teamArrayUppercased[team]+" Champion: ";
 			champBlock.appendChild(champSelect);
+			
+			/*Add the showSelections buttons*/
+			if(teamArray[team]=="ally")
+			{
+				var showSelectionsButton=document.createElement("input");
+				showSelectionsButton.setAttribute("type", "button");
+				showSelectionsButton.setAttribute("id", "showSelectionsButton"+summonerBlock)
+				showSelectionsButton.setAttribute("class", "showSelectionsButton")
+				showSelectionsButton.setAttribute("value", "Show Selections");
+				showSelectionsButton.setAttribute("style", "position: relative; top: 10px; left: 5px")
+				champBlock.appendChild(showSelectionsButton);
+			}
+			
 			
 			/*Append the block to the body*/
 			document.body.appendChild(champBlock);
@@ -208,6 +224,17 @@ function collectData(html)
 
 function calculatePercentages()
 {
+	summoner1Champs=Array(0);
+	summoner1Pers=Array(0);
+	summoner2Champs=Array(0);
+	summoner2Pers=Array(0);
+	summoner3Champs=Array(0);
+	summoner3Pers=Array(0);
+	summoner4Champs=Array(0);
+	summoner4Pers=Array(0);
+	summoner5Champs=Array(0);
+	summoner5Pers=Array(0);
+	
 	var allyChamps=Array(0);
 	var enemyChamps=Array(0);
 	
@@ -249,14 +276,43 @@ function calculatePercentagesForSummoner(summonerNumber, champPos, allyChamps, e
 
 
 
-function grabDataFromFile(champ, champPos, compareType)
+function grabDataFromFile(summonerNumber, champ, champPos, compareType)
 {
 	var data;
 	fetch("https://tjheim.github.io/LoLCounterPicking/WebContent/ChampionCounterSource/"+champ+"!"+compareType+"!"+champPos+".txt")
 	  .then(response => response.text())
-	  .then(text => data)
+	  .then(text => addDataToArrays(text, summonerNumber, compareType))
+}
+
+
+
+
+function addDataToArrays(text, summonerNumber, compareType)
+{
+	if(summonerNumber=1)
+	{
+		
+	}
 	
-	return data;
+	else if(summonerNumber=2)
+	{
+		
+	}
+	
+	else if(summonerNumber=3)
+	{
+		
+	}
+	
+	else if(summonerNumber=4)
+	{
+		
+	}
+	
+	else if(summonerNumber=5)
+	{
+		
+	}
 }
 
 
@@ -273,4 +329,9 @@ function binarySearch(array, champ, low, high)
     return binarySearch(array, champ, low, mid-1);
   else if(array[mid]<champ)
     return binarySearch(array, champ, mid+1, high);
+}
+
+function test()
+{
+	$("#allyChampSelect1").attr("data", "aatrox34anivia64");
 }
