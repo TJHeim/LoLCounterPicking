@@ -9,29 +9,21 @@ const pixelsBeforeStartofBlocks=40;
 const pixelsBetweenChampAndPosBlocks=25;
 const pixelsBetweenChampBlocks=70;
 
-var websiteHTMLArray=Array(0);
+var websiteHTMLArray=Array(2820);
 
-var summonerChamps=Array(0);
-var summonerPers=Array(0);
+var summonerChampSelections=Array(0);
+var summonerChampTotalPers=Array(0);
+var summonerTotalDataPoints=Array(0);
 
-var grabHTML=function(counter, activeChamp, activeCompareType, activeChampPos){$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?", function(html){websiteHTMLArray.push(html);});}
-var runCollectDataAndSaveFile=function(counter, activeChamp, activeCompareType, activeChampPos){collectDataAndSaveFile(websiteHTMLArray[counter], activeChamp, activeCompareType, activeChampPos);}
+var summonerChampPers=Array(0);
+
+var grabHTML=function(activeChamp, activeCompareType, activeChampPos){$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?").then(html => collectDataAndSaveFile(html, activeChamp, activeCompareType, activeChampPos))};
+var runCollectDataAndSaveFile=function(activeChamp, activeCompareType, activeChampPos, counter){collectDataAndSaveFile(websiteHTMLArray[counter], activeChamp, activeCompareType, activeChampPos);};
 
 function onBodyLoad()
 {
 	const teamArray=["ally", "enemy"];
 	const teamArrayUppercased=["Ally", "Enemy"];
-	
-	
-//	for(var summoner=1; summoner<=champsPerTeam; summoner++)
-//	{
-//		var showSelectionsButton=document.createElement("input");
-//		showSelectionsButton.setAttribute("type", "button");
-//		showSelectionsButton.setAttribute("id", "showSelectionsButton"+summoner)
-//		showSelectionsButton.setAttribute("value", "Show Selections");
-//		document.body.appendChild(showSelectionsButton);
-//	}
-	
 	
 	for(var summonerBlock=1; summonerBlock<=champsPerTeam; summonerBlock++)
 	{
@@ -139,7 +131,7 @@ function collectDataFiles(startIndex)
 
 
 
-function runThroughAccessLists(myFunction, startIndex)
+function runThroughAccessLists(myFunction, startIndex, timeout)
 {
 	const compareTypeList=["Strong", "Weak", "Even", "Well"];
 	const compareTypeAccessList=["strong", "weak", "even", "good"];
@@ -155,7 +147,7 @@ function runThroughAccessLists(myFunction, startIndex)
 				var activeCompareType=compareTypeAccessList[compareType];
 				var activeChampPos=champPosAccessList[champPos];
 				if(counter>=startIndex)
-					myFunction.call(undefined, counter-startIndex, activeChamp, activeCompareType, activeChampPos);
+					myFunction(activeChamp, activeCompareType, activeChampPos, counter-startIndex);
 				
 				counter++;
 			}
@@ -183,7 +175,7 @@ function collectData(html)
 	
 	/*Find the start and end of the data and trim the html*/
 	var startOfData=html.indexOf("<div class='weak-block full'");
-	html=html.substring(startOfData, /*endOfData*/).replace(/\s/g, "");
+	html=html.substring(startOfData).replace(/\s/g, "");
 	
 	/*Run through the html to find the data and give it to the data var*/
 	var activePos=0;
@@ -202,7 +194,7 @@ function collectData(html)
 		
 		/*Get name and add it to the data*/
 		var champAccessName=html.substring(startOfChampName, endOfChampName);
-		data=data.concat(champAccessName);
+		data=data.concat(champAccessName+"/");
 		
 		/*Find the start of the champion's per*/
 		var startOfChampPer=html.indexOf("width:", activePos)+"width:".length;
@@ -213,7 +205,7 @@ function collectData(html)
 		
 		/*Get per and add it to the data*/
 		var champPer=html.substring(startOfChampPer, endOfChampPer);
-		data=data.concat(champPer);
+		data=data.concat(champPer+"/");
 	}
 	
 	return data;
@@ -224,16 +216,9 @@ function collectData(html)
 
 function calculatePercentages()
 {
-	summoner1Champs=Array(0);
-	summoner1Pers=Array(0);
-	summoner2Champs=Array(0);
-	summoner2Pers=Array(0);
-	summoner3Champs=Array(0);
-	summoner3Pers=Array(0);
-	summoner4Champs=Array(0);
-	summoner4Pers=Array(0);
-	summoner5Champs=Array(0);
-	summoner5Pers=Array(0);
+	summonerChampSelections=Array(0);
+	summonerChampTotalPers=Array(0);
+	summonerTotalDataPoints=Array(0);
 	
 	var allyChamps=Array(0);
 	var enemyChamps=Array(0);
@@ -276,42 +261,54 @@ function calculatePercentagesForSummoner(summonerNumber, champPos, allyChamps, e
 
 
 
-function grabDataFromFile(summonerNumber, champ, champPos, compareType)
+function grabDataFromFile(champ, champPos, compareType)
 {
 	var data;
 	fetch("https://tjheim.github.io/LoLCounterPicking/WebContent/ChampionCounterSource/"+champ+"!"+compareType+"!"+champPos+".txt")
 	  .then(response => response.text())
-	  .then(text => addDataToArrays(text, summonerNumber, compareType))
+	  .then(text => addDataToArrays(text, compareType))
 }
 
 
 
 
-function addDataToArrays(text, summonerNumber, compareType)
+function addDataToArrays(text, compareType)
 {
-	if(summonerNumber=1)
-	{
-		
-	}
+	var lastPos=0;
+	var textPos=0;
 	
-	else if(summonerNumber=2)
+	while(textPos<text.length)
 	{
+		if(text.charAt(textPos)=="/")
+		{
+			var champ=text.substring(lastPos, textPos);
+			lastPos=textPos+1;
+			
+			while(textPos<text.length)
+			{
+				if(text.charAt(textPos)=="/")
+				{
+					var champPer=text.substring(lastPos, textPos)
+					lastPos=textPos+1;
+					
+					if(!summonerChampSelections.includes(champ))
+					{
+						summonerChampSelections.append(champ);
+						summonerChampTotalPers.append(champPer);
+						summonerTotalDataPoints.append(1);
+					}
+			
+					else
+					{
+						champPos=binarySearch(summonerChampSelections, champ, 0, summonerChampSelections.length-1);
+						summonerChampTotalPers[champPos]+=champPer;
+						summonerTotalDataPoints[champPos]+=1;
+					}
+				}
+			}
+		}
 		
-	}
-	
-	else if(summonerNumber=3)
-	{
-		
-	}
-	
-	else if(summonerNumber=4)
-	{
-		
-	}
-	
-	else if(summonerNumber=5)
-	{
-		
+		textPos++;
 	}
 }
 
@@ -329,9 +326,4 @@ function binarySearch(array, champ, low, high)
     return binarySearch(array, champ, low, mid-1);
   else if(array[mid]<champ)
     return binarySearch(array, champ, mid+1, high);
-}
-
-function test()
-{
-	$("#allyChampSelect1").attr("data", "aatrox34anivia64");
 }
