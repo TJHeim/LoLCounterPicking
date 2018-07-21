@@ -1,25 +1,24 @@
+/*All access and name lists*/
 const champList=["Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Ashe", "Aurelion Sol", "Azir", "Bard", "Blitzcrank", "Brand", "Braum", "Caitlyn", "Camille", "Cassiopeia", "Cho"+"'"+"gath", "Corki", "Darius", "Diana", "Dr. Mundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Hecarim", "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "Jarvan IV", "Jax", "Jayce", "Jhin", "Jinx", "Kai"+"'"+"Sa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen", "Kha"+"'"+"Zix", "Kindred", "Kled", "Kog"+"'"+"Maw", "LeBlanc", "Lee Sin", "Leona", "Lissandra", "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "Master Yi", "Miss Fortune", "Mordekaiser", "Morgana", "Nami", "Nasus", "Nautilus", "Nidalee", "Nocturne", "Nunu", "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Quinn", "Rakan", "Rammus", "Rek"+"'"+"Sai", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Sejuani", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Sona", "Soraka", "Swain", "Syndra", "Tahm Kench", "Taliyah", "Talon", "Taric", "Teemo", "Thresh", "Tristana", "Trundle", "Tryndamere", "Twisted Fate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Vel"+"'"+"Koz", "Vi", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong", "Xayah", "Xerath", "Xin Zhao", "Yasuo", "Yorick", "Zac", "Zed", "Ziggs", "Zilean", "Zoe", "Zyra"];
-const champAccessList=["aatrox", "ahri", "akali", "alistar", "amumu", "anivia", "annie", "ashe", "aurelionsol", "azir", "bard", "blitzcrank", "brand", "braum", "caitlyn", "camille", "cassiopeia", "chogath", "corki", "darius", "diana", "drmundo", "draven", "ekko", "elise", "evelynn", "ezreal", "fiddlesticks", "fiora", "fizz", "galio", "gangplank", "garen", "gnar", "gragas", "graves", "hecarim", "heimerdinger", "illaoi", "irelia", "ivern", "janna", "jarvaniv", "jax", "jayce", "jhin", "jinx", "kaisa", "kalista", "karma", "karthus", "kassadin", "katarina", "kayle", "kayn", "kennen", "khazix", "kindred", "kled", "kogmaw", "leblanc", "lee-sin", "leona", "lissandra", "lucian", "lulu", "lux", "malphite", "malzahar", "maokai", "masteryi", "missfortune", "mordekaiser", "morgana", "nami", "nasus", "nautilus", "nidalee", "nocturne", "nunu", "olaf", "orianna", "ornn", "pantheon", "poppy", "pyke", "quinn", "rakan", "rammus", "reksai", "renekton", "rengar", "riven", "rumble", "ryze", "sejuani", "shaco", "shen", "shyvana", "singed", "sion", "sivir", "skarner", "sona", "soraka", "swain", "syndra", "tahmkench", "taliyah", "talon", "taric", "teemo", "thresh", "tristana", "trundle", "tryndamere", "twistedfate", "twitch", "udyr", "urgot", "varus", "vayne", "veigar", "velkoz", "vi", "viktor", "vladimir", "volibear", "warwick", "wukong", "xayah", "xerath", "xinzhao", "yasuo", "yorick", "zac", "zed", "ziggs", "zilean", "zoe", "zyra"];
+const champAccessList=["aatrox", "ahri", "akali", "alistar", "amumu", "anivia", "annie", "ashe", "aurelionsol", "azir", "bard", "blitzcrank", "brand", "braum", "caitlyn", "camille", "cassiopeia", "chogath", "corki", "darius", "diana", "drmundo", "draven", "ekko", "elise", "evelynn", "ezreal", "fiddlesticks", "fiora", "fizz", "galio", "gangplank", "garen", "gnar", "gragas", "graves", "hecarim", "heimerdinger", "illaoi", "irelia", "ivern", "janna", "jarvaniv", "jax", "jayce", "jhin", "jinx", "kaisa", "kalista", "karma", "karthus", "kassadin", "katarina", "kayle", "kayn", "kennen", "khazix", "kindred", "kled", "kogmaw", "leblanc", "leesin", "leona", "lissandra", "lucian", "lulu", "lux", "malphite", "malzahar", "maokai", "masteryi", "missfortune", "mordekaiser", "morgana", "nami", "nasus", "nautilus", "nidalee", "nocturne", "nunu", "olaf", "orianna", "ornn", "pantheon", "poppy", "pyke", "quinn", "rakan", "rammus", "reksai", "renekton", "rengar", "riven", "rumble", "ryze", "sejuani", "shaco", "shen", "shyvana", "singed", "sion", "sivir", "skarner", "sona", "soraka", "swain", "syndra", "tahmkench", "taliyah", "talon", "taric", "teemo", "thresh", "tristana", "trundle", "tryndamere", "twistedfate", "twitch", "udyr", "urgot", "varus", "vayne", "veigar", "velkoz", "vi", "viktor", "vladimir", "volibear", "warwick", "wukong", "xayah", "xerath", "xinzhao", "yasuo", "yorick", "zac", "zed", "ziggs", "zilean", "zoe", "zyra"];
 const champPosList=["", "Top", "Mid", "Bot", "Sup", "Jg"];
 const champPosAccessList=["general", "top", "mid", "bottom", "jungle"];
 const champPosMapList=["general", "top", "mid", "bottom", "bottom", "jungle"];
 
 const champsPerTeam=5;
+
+/*Variables to set up BasePage.html*/
 const pixelsBeforeStartofBlocks=40;
 const pixelsBetweenChampAndPosBlocks=25;
 const pixelsBetweenChampBlocks=70;
 
-var websiteHTMLArray=Array(2820);
-
+/*Holds the champs and the percentages for calculation*/
 var summonerChampSelections=Array(0);
 var summonerChampTotalPers=Array(0);
 var summonerTotalDataPoints=Array(0);
+var summonerChampFinalPers=Array(0);
 
-var summonerChampPers=Array(0);
-
-var grabHTML=function(activeChamp, activeCompareType, activeChampPos){$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?").then(html => collectDataAndSaveFile(html, activeChamp, activeCompareType, activeChampPos))};
-var runCollectDataAndSaveFile=function(activeChamp, activeCompareType, activeChampPos, counter){collectDataAndSaveFile(websiteHTMLArray[counter], activeChamp, activeCompareType, activeChampPos);};
-
+/*Create necessary elements in the BasePage.html*/
 function onBodyLoad()
 {
 	const teamArray=["ally", "enemy"];
@@ -117,24 +116,14 @@ function onBodyLoad()
 
 
 
-
+/*Grabs all the data from the website and saves it to this computer's files*/
 function refreshCounterSourceCode(startIndex)
-{
-	runThroughAccessLists(grabHTML, startIndex);
-}
-
-function collectDataFiles(startIndex)
-{
-	runThroughAccessLists(runCollectDataAndSaveFile, startIndex);
-}
-
-
-
-
-function runThroughAccessLists(myFunction, startIndex, timeout)
 {
 	const compareTypeList=["Strong", "Weak", "Even", "Well"];
 	const compareTypeAccessList=["strong", "weak", "even", "good"];
+	
+	if(arguments[0]==undefined)
+		arguments[0]=0;
 	
 	var counter=0;
 	for(var champ=0; champ<champAccessList.length; champ++)
@@ -147,17 +136,15 @@ function runThroughAccessLists(myFunction, startIndex, timeout)
 				var activeCompareType=compareTypeAccessList[compareType];
 				var activeChampPos=champPosAccessList[champPos];
 				if(counter>=startIndex)
-					myFunction(activeChamp, activeCompareType, activeChampPos, counter-startIndex);
-				
-				counter++;
+					$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?")
+					.then(html => collectDataAndSaveFile(html, activeChamp, activeCompareType, activeChampPos));
 			}
 		}
 	}
 }
 
 
-
-
+/*Collect the data from the given html and save it as a file on this computer*/
 function collectDataAndSaveFile(html, activeChamp, activeCompareType, activeChampPos)
 {
 	var data=collectData(html);
@@ -167,7 +154,7 @@ function collectDataAndSaveFile(html, activeChamp, activeCompareType, activeCham
 
 
 
-
+/*Collect the data from the given html file*/
 function collectData(html)
 {
 	/*String to contain the collected data*/
@@ -213,7 +200,7 @@ function collectData(html)
 
 
 
-
+/*Calculate the percentages for each unidentified ally*/
 function calculatePercentages()
 {
 	summonerChampSelections=Array(0);
@@ -248,7 +235,7 @@ function calculatePercentages()
 
 
 
-
+/*Calculate the percentages for one summoner*/
 function calculatePercentagesForSummoner(summonerNumber, champPos, allyChamps, enemyChamps)
 {
 	/*Calculate from allies*/
@@ -260,7 +247,7 @@ function calculatePercentagesForSummoner(summonerNumber, champPos, allyChamps, e
 
 
 
-
+/*Grab the percentage data from the specified files*/
 function grabDataFromFile(champ, champPos, compareType)
 {
 	var data;
@@ -271,7 +258,7 @@ function grabDataFromFile(champ, champPos, compareType)
 
 
 
-
+/*Add the found data to the arrays*/
 function addDataToArrays(text, compareType)
 {
 	var lastPos=0;
@@ -300,9 +287,9 @@ function addDataToArrays(text, compareType)
 			
 					else
 					{
-						champPos=binarySearch(summonerChampSelections, champ, 0, summonerChampSelections.length-1);
-						summonerChampTotalPers[champPos]+=champPer;
-						summonerTotalDataPoints[champPos]+=1;
+						var champPosInArray=binarySearch(summonerChampSelections, champ, 0, summonerChampSelections.length-1);
+						summonerChampTotalPers[champPosInArray]+=champPer;
+						summonerTotalDataPoints[champPosInArray]+=1;
 					}
 				}
 			}
