@@ -18,9 +18,13 @@ var summonerChampTotalPers=Array(0);
 var summonerTotalDataPoints=Array(0);
 var summonerChampFinalPers=Array(0);
 
+
+			
 /*Create necessary elements in the BasePage.html*/
 function onBodyLoad()
 {
+	$("#tabsDiv").css("width", $("#choicesDiv").width()+6); 
+	
 	const teamArray=["ally", "enemy"];
 	const teamArrayUppercased=["Ally", "Enemy"];
 	
@@ -116,6 +120,11 @@ function onBodyLoad()
 
 
 
+
+
+
+
+
 /*Grabs all the data from the website and saves it to this computer's files*/
 function refreshCounterSourceCode(startIndex)
 {
@@ -201,7 +210,7 @@ function collectData(html)
 
 
 /*Calculate the percentages for each unidentified ally*/
-function calculatePercentages()
+function calculateAndPrintPercentages()
 {
 	summonerChampSelections=Array(0);
 	summonerChampTotalPers=Array(0);
@@ -214,12 +223,12 @@ function calculatePercentages()
 	{
 		if($("#allyChampSelect"+summonerNumber).val()!="")
 		{
-			allyChamps.append($("#allyChampSelect"+summonerNumber).val());
+			allyChamps.push($("#allyChampSelect"+summonerNumber).val());
 		}
 		
 		if($("#enemyChampSelect"+summonerNumber).val()!="")
 		{
-			enemyChamps.append($("#enemyChampSelect"+summonerNumber).val());
+			enemyChamps.push($("#enemyChampSelect"+summonerNumber).val());
 		}
 	}
 	
@@ -228,7 +237,7 @@ function calculatePercentages()
 	{
 		if($("#allyChampSelect"+summonerNumber).val()=="")
 		{
-			calculatePercentagesForSummoner(summonerNumber, $("#allyPosSelect"+summonerNumber).val(), allyChamps, enemyChamps)
+			calculateAndPrintPercentagesForSummoner(summonerNumber, $("#allyPosSelect"+summonerNumber).val(), allyChamps, enemyChamps);
 		}
 	}
 }
@@ -236,30 +245,35 @@ function calculatePercentages()
 
 
 /*Calculate the percentages for one summoner*/
-function calculatePercentagesForSummoner(summonerNumber, champPos, allyChamps, enemyChamps)
+function calculateAndPrintPercentagesForSummoner(summonerNumber, champPos, allyChamps, enemyChamps, promise)
 {
 	/*Calculate from allies*/
 	for(var ally=0; ally<allyChamps.length; ally++)
 	{
+		if(ally==allyChamps.length-1)
+		{
+			grabDataFromFile(summonerNumber, allyChamps[ally], champPos, "good", true);
+		}
 			
+		
+		grabDataFromFile(summonerNumber, allyChamps[ally], champPos, "good", false);
 	}
 }
 
 
 
 /*Grab the percentage data from the specified files*/
-function grabDataFromFile(champ, champPos, compareType)
+function grabDataFromFile(summonerNumber, champ, champPos, compareType, isLastRun)
 {
-	var data;
 	fetch("https://tjheim.github.io/LoLCounterPicking/WebContent/ChampionCounterSource/"+champ+"!"+compareType+"!"+champPos+".txt")
-	  .then(response => response.text())
-	  .then(text => addDataToArrays(text, compareType))
+	.then(response => response.text())
+	.then(text => addDataToArraysAndPrint(summonerNumber, text, compareType, isLastRun))
 }
 
 
 
 /*Add the found data to the arrays*/
-function addDataToArrays(text, compareType)
+function addDataToArraysAndPrint(summonerNumber, text, compareType, isLastRun)
 {
 	var lastPos=0;
 	var textPos=0;
@@ -270,33 +284,54 @@ function addDataToArrays(text, compareType)
 		{
 			var champ=text.substring(lastPos, textPos);
 			lastPos=textPos+1;
+			textPos=lastPos;
 			
 			while(textPos<text.length)
 			{
 				if(text.charAt(textPos)=="/")
 				{
-					var champPer=text.substring(lastPos, textPos)
+					var champPer=parseInt(text.substring(lastPos, textPos));
 					lastPos=textPos+1;
 					
 					if(!summonerChampSelections.includes(champ))
 					{
-						summonerChampSelections.append(champ);
-						summonerChampTotalPers.append(champPer);
-						summonerTotalDataPoints.append(1);
+						summonerChampSelections.push(champ);
+						summonerChampTotalPers.push(champPer);
+						summonerTotalDataPoints.push(1);
 					}
 			
 					else
 					{
-						var champPosInArray=binarySearch(summonerChampSelections, champ, 0, summonerChampSelections.length-1);
+						var champPosInArray=summonerChampSelections.indexOf(champ)
 						summonerChampTotalPers[champPosInArray]+=champPer;
 						summonerTotalDataPoints[champPosInArray]+=1;
 					}
+					
+					break;
 				}
+				
+				textPos++;
 			}
 		}
 		
 		textPos++;
 	}
+	
+	if(isLastRun)
+	{
+		sortAndPrintData(summonerNumber)
+	}
+}
+
+
+
+
+function sortAndPrintData(summonerNumber)
+{
+	var data="";
+	for(var champ=0; champ<summonerChampSelections.length; champ++)
+		data=data.concat(summonerChampSelections[champ]+"/"+Math.round((summonerChampTotalPers[champ]/summonerTotalDataPoints[champ])*10)/10+"/");
+	$("#showSelectionsButton"+summonerNumber).attr("data", data);
 }
 
 

@@ -1,0 +1,78 @@
+@charset "ISO-8859-1";
+
+body
+{
+	background: #d0d0d0;
+	text-align: center;
+}
+
+div#tabsDiv
+{
+	display: inline-block;
+	text-align: left;
+}
+
+div.tab
+{
+	display: inline;
+	z-index: -2;
+	padding: 1.5px;
+	border-style: solid solid none solid;
+	border-radius: 3px 3px 0px 0px;
+}
+
+div#tabGood, div#choicesDiv
+{
+	border-color: lightgreen;
+	background: lightgreen;
+}
+
+div#tabFair
+{
+	border-color: lightblue;
+	background: lightblue;
+}
+
+div#tabBad
+{
+	border-color: pink;
+	background: pink;
+}
+
+div#choicesDiv
+{
+	display: inline-block;
+	width: 30%;
+	z-index: -1;	
+	border-radius: 0px 3px 3px 3px;
+	border-style: outset;
+}
+
+div.championBlock
+{
+	border-style: solid;
+	border-color: blue;
+	margin: 3px;
+	border-width: 2px;
+	padding: 0px;
+	text-align: left;
+}
+
+p.championBlock
+{
+	background: gold;
+	margin: 0px;
+	white-space: nowrap;
+}
+
+.allyBlock
+{
+	position: absolute;
+	left: 8px;
+}
+
+.enemyBlock
+{
+	position: absolute;
+	right: 8px;
+}

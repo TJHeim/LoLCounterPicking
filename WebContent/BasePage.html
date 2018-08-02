@@ -3,7 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>LoL Counter Picking</title>
-<link rel="stylesheet" href="StyleSheet.css">
+<link rel="stylesheet" href="BasePageStyleSheet.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="Script.js"></script>
@@ -11,12 +11,124 @@
 
 </head>
 <body onload="onBodyLoad()">
+<script>
+	$(window).resize(function(){
+		$("#tabsDiv").css("width", $("#choicesDiv").width()+6);
+	})
 
-<div style="text-align: center">
-	<input type="button" value="Calculate" onclick="calculatePercentages()">
-	<br>
-	<iframe src="ChoicePage.html"></iframe>
+	$("document").ready(function(){
+		$("div.championBlock").click(function(){
+			$("div.championBlock").css("border-color", "blue");
+			$(this).css("border-color", "red");
+			$("#helpText").html($(this).attr("help"));
+		})
+	})
+	
+	$("document").ready(function(){
+		$(".showSelectionsButton").click(function(){
+			$("div.championBlock").css("border-color", "blue");
+			$("#helpText").html("");
+		})
+	})
+	
+	$("document").ready(function(){
+		$("div.tab").click(function(){
+			var color=$(this).css("background-color");
+			$("#choicesDiv").css("background", color); 
+			$("#choicesDiv").css("border-color", color);
+		})
+	})
+</script>
+
+<input type="button" value="Calculate" onclick="calculateAndPrintPercentages()">
+
+<br><br>
+
+<div id=tabsDiv>
+	<div class="tab" id="tabGood">Good</div>
+	<div class="tab" id="tabFair">Even</div>
+	<div class="tab" id="tabBad">Bad</div>
 </div>
+
+<br>
+	
+<div id="choicesDiv"">
+	<div style="display: none" class="championBlock" help="Darius Help">
+		<p class="championBlock" style="width: 64%">Darius 64%</p>
+	</div>
+
+	<div class="championBlock" help="Zyra Help">
+		<p class="championBlock" style="width: 61%">Zyra 61%</p>
+	</div>
+
+	<div class="championBlock" help="Ashe Help">
+		<p class="championBlock"; style="width: 54%">Ashe 54%</p>
+	</div>
+	<div class="championBlock" help="Darius Help">
+		<p class="championBlock" style="width: 64%">Darius 64%</p>
+	</div>
+
+	<div class="championBlock" help="Zyra Help">
+		<p class="championBlock" style="width: 61%">Zyra 61%</p>
+	</div>
+
+	<div class="championBlock" help="Ashe Help">
+		<p class="championBlock"; style="width: 54%">Ashe 54%</p>
+	</div>
+	<div class="championBlock" help="Darius Help">
+		<p class="championBlock" style="width: 64%">Darius 64%</p>
+	</div>
+
+	<div class="championBlock" help="Zyra Help">
+		<p class="championBlock" style="width: 61%">Zyra 61%</p>
+	</div>
+
+	<div class="championBlock" help="Ashe Help">
+		<p class="championBlock"; style="width: 54%">Ashe 54%</p>
+	</div>
+	<div class="championBlock" help="Darius Help">
+		<p class="championBlock" style="width: 64%">Darius 64%</p>
+	</div>
+
+	<div class="championBlock" help="Zyra Help">
+		<p class="championBlock" style="width: 61%">Zyra 61%</p>
+	</div>
+
+	<div class="championBlock" help="Ashe Help">
+		<p class="championBlock"; style="width: 54%">Ashe 54%</p>
+	</div>
+	<div class="championBlock" help="Darius Help">
+		<p class="championBlock" style="width: 64%">Darius 64%</p>
+	</div>
+
+	<div class="championBlock" help="Zyra Help">
+		<p class="championBlock" style="width: 61%">Zyra 61%</p>
+	</div>
+
+	<div class="championBlock" help="Ashe Help">
+		<p class="championBlock"; style="width: 54%">Ashe 54%</p>
+	</div>
+	<div class="championBlock" help="Darius Help">
+		<p class="championBlock" style="width: 64%">Darius 64%</p>
+	</div>
+
+	<div class="championBlock" help="Zyra Help">
+		<p class="championBlock" style="width: 61%">Zyra 61%</p>
+	</div>
+
+	<div class="championBlock" help="Ashe Help">
+		<p class="championBlock"; style="width: 54%">Ashe 54%</p>
+	</div>
+	<div class="championBlock" help="Darius Help">
+		<p class="championBlock" style="width: 64%">Darius 64%</p>
+	</div>
+
+	<div class="championBlock" help="Zyra Help">
+		<p class="championBlock" style="width: 61%">Zyra 61%</p>
+	</div>
+</div>
+<br>
+<p id="helpText"><p>
 
 
 </body>
