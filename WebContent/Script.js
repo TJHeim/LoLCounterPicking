@@ -23,7 +23,7 @@ var summonerChampFinalPers=Array(0);
 /*Create necessary elements in the BasePage.html*/
 function onBodyLoad()
 {
-	$("#tabsDiv").css("width", $("#choicesDiv").width()+6); 
+	$("#tabsDiv").css("width", $("#choicesDiv").width()+6);
 	
 	const teamArray=["ally", "enemy"];
 	const teamArrayUppercased=["Ally", "Enemy"];
