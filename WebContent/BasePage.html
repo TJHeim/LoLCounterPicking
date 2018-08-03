@@ -29,17 +29,25 @@
 		})
 	})
 	
-	/*Tab change background color*/
+	/*Tab change*/
 	$("document").ready(function(){
 		$("button.tab").click(function(){
 			var color=$(this).css("background-color");
 			var endOfFirstColor=color.indexOf(")");
 			color=color.substring(0, endOfFirstColor+1);
-			$("button.tab").css("border-bottom-color", "#737373");
-			$(this).css("border-bottom-color", color);
-			$("#choicesDiv").css("background", color);
-			$("#choicesDiv").css("border-color", color);
-			$("button.championBlock").css("background", color);
+			var choicesDivColor=$("#choicesDiv").css("background");
+			var ChoicesDivEndOfFirstColor=choicesDivColor.indexOf(")");
+			choicesDivColor=choicesDivColor.substring(0, endOfFirstColor+1);
+			if(color!=choicesDivColor)
+			{
+				$("button.tab").css("border-bottom-color", "#737373");
+				$(this).css("border-bottom-color", color);
+				$("#choicesDiv").css("background", color);
+				$("#choicesDiv").css("border-color", color);
+				$("button.championBlock").css("background", color);
+				$("button.championBlock").css("border-color", "blue");
+				$("#helpText").html("");			
+			}
 		})
 	})
 </script>
