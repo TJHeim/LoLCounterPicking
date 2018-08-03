@@ -71,7 +71,7 @@ function onBodyLoad()
 				showSelectionsButton.setAttribute("id", "showSelectionsButton"+summonerBlock)
 				showSelectionsButton.setAttribute("class", "showSelectionsButton")
 				showSelectionsButton.setAttribute("value", "Show Selections");
-				showSelectionsButton.setAttribute("style", "position: relative; top: 10px; left: 5px")
+				showSelectionsButton.setAttribute("style", "position: relative; top: 10px; left: 10px")
 				champBlock.appendChild(showSelectionsButton);
 			}
 			

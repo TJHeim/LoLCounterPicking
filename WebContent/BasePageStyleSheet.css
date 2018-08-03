@@ -6,12 +6,19 @@ body
 	text-align: center;
 }
 
-button:focus,  input:focus, select:focus
+button:focus, input:focus, select:focus
 {
 	outline:0;
 }
 
-.showSelectionsButton
+select
+{
+	background: #e6e6e6;
+	border-color: gold;
+	border-radius: 3px;
+}
+
+#calculateButton, .showSelectionsButton
 {
 	background: gold;
 	border-color: gold;
@@ -22,7 +29,7 @@ div#tabsDiv
 {
 	display: inline-block;
 	text-align: left;
-	width: calc(30% + 8px);
+	width: calc(40% + 8px);
 }
 
 button.tab
@@ -42,35 +49,25 @@ button#tabGood, div#choicesDiv
 
 button#tabFair
 {
-	border-color: lightblue lightblue darkgray;
+	border-color: lightblue lightblue #737373;
 	background: lightblue;
 }
 
 button#tabBad
 {
-	border-color: pink pink darkgray;
+	border-color: pink pink #737373;
 	background: pink;
 }
 
 div#choicesDiv
 {
 	display: inline-block;
-	width: 30%;
-	z-index: -1;
+	width: 40%;
+	text-align: left;
 	border-style: outset;
 	border-width: 4px;
 	border-radius: 0px 4px 4px 4px;
-}
-
-div.championBlock
-{
-	border-color: blue;
-	border-style: inset;
-	border-width: 4px;
-	border-radius: 5px;
-	margin: 5px;
-	padding: 0px;
-	text-align: left;
+	padding: 0px 0px 5px 0px;
 }
 
 button.championBlock
@@ -79,20 +76,19 @@ button.championBlock
 	border-style: inset;
 	border-width: 4px;
 	border-radius: 5px;
-	box-sizing: border-box;
-	margin: 5px;
+	margin: 4px 5px;
 	padding: 0px;
+	background: lightgreen;
 	text-align: left;
-	width: 100%;	
+	width: calc(100% - 10px);	
 }
 
-p.championBlock
+div.championBlock
 {
 	background: gold;
 	padding: 5px;
 	margin: 0px;
 	white-space: nowrap;
-	z-index: -2;
 }
 
 .allyBlock
