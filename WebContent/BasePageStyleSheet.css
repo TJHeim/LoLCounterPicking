@@ -6,36 +6,49 @@ body
 	text-align: center;
 }
 
+button:focus,  input:focus, select:focus
+{
+	outline:0;
+}
+
+.showSelectionsButton
+{
+	background: gold;
+	border-color: gold;
+	border-radius: 10px;
+}
+
 div#tabsDiv
 {
 	display: inline-block;
 	text-align: left;
+	width: calc(30% + 8px);
 }
 
-div.tab
+button.tab
 {
 	display: inline;
-	z-index: -2;
-	padding: 1.5px;
-	border-style: solid solid none solid;
-	border-radius: 3px 3px 0px 0px;
+	padding: 5px;
+	border-style: outset outset solid;
+	border-width: 4px 4px 2px;
+	border-radius: 4px 4px 0px 0px;
 }
 
-div#tabGood, div#choicesDiv
+button#tabGood, div#choicesDiv
 {
 	border-color: lightgreen;
 	background: lightgreen;
 }
 
-div#tabFair
+button#tabFair
 {
-	border-color: lightblue;
+	border-color: lightblue lightblue darkgray;
 	background: lightblue;
 }
 
-div#tabBad
+button#tabBad
 {
-	border-color: pink;
+	border-color: pink pink darkgray;
 	background: pink;
 }
 
@@ -43,26 +56,43 @@ div#choicesDiv
 {
 	display: inline-block;
 	width: 30%;
-	z-index: -1;	
-	border-radius: 0px 3px 3px 3px;
+	z-index: -1;
 	border-style: outset;
+	border-width: 4px;
+	border-radius: 0px 4px 4px 4px;
 }
 
 div.championBlock
 {
-	border-style: solid;
 	border-color: blue;
-	margin: 3px;
-	border-width: 2px;
+	border-style: inset;
+	border-width: 4px;
+	border-radius: 5px;
+	margin: 5px;
 	padding: 0px;
 	text-align: left;
+}
+
+button.championBlock
+{
+	border-color: blue;
+	border-style: inset;
+	border-width: 4px;
+	border-radius: 5px;
+	box-sizing: border-box;
+	margin: 5px;
+	padding: 0px;
+	text-align: left;
+	width: 100%;	
 }
 
 p.championBlock
 {
 	background: gold;
+	padding: 5px;
 	margin: 0px;
 	white-space: nowrap;
+	z-index: -2;
 }
 
 .allyBlock

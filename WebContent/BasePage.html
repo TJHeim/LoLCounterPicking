@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>LoL Counter Picking</title>
@@ -12,12 +12,8 @@
 </head>
 <body onload="onBodyLoad()">
 <script>
-	$(window).resize(function(){
-		$("#tabsDiv").css("width", $("#choicesDiv").width()+6);
-	})
-
 	$("document").ready(function(){
-		$("div.championBlock").click(function(){
+		$("button.championBlock").click(function(){
 			$("div.championBlock").css("border-color", "blue");
 			$(this).css("border-color", "red");
 			$("#helpText").html($(this).attr("help"));
@@ -32,8 +28,12 @@
 	})
 	
 	$("document").ready(function(){
-		$("div.tab").click(function(){
+		$("button.tab").click(function(){
 			var color=$(this).css("background-color");
+			var endOfFirstColor=color.indexOf(")");
+			color=color.substring(0, endOfFirstColor+1)
+			$("button.tab").css("border-bottom-color", "darkgray");
+			$(this).css("border-bottom-color", color);
 			$("#choicesDiv").css("background", color); 
 			$("#choicesDiv").css("border-color", color);
 		})
@@ -45,17 +45,17 @@
 <br><br>
 
 <div id=tabsDiv>
-	<div class="tab" id="tabGood">Good</div>
-	<div class="tab" id="tabFair">Even</div>
-	<div class="tab" id="tabBad">Bad</div>
+	<button class="tab" id="tabGood">Good</button>
+	<button class="tab" id="tabFair">Even</button>
+	<button class="tab" id="tabBad">Bad</button>
 </div>
 
 <br>
 	
 <div id="choicesDiv"">
-	<div style="display: none" class="championBlock" help="Darius Help">
+	<button class="championBlock" help="Darius Help">
 		<p class="championBlock" style="width: 64%">Darius 64%</p>
-	</div>
+	</button>
 
 	<div class="championBlock" help="Zyra Help">
 		<p class="championBlock" style="width: 61%">Zyra 61%</p>
@@ -127,7 +127,9 @@
 		<p class="championBlock" style="width: 61%">Zyra 61%</p>
 	</div>
 </div>
+
 <br>
+
 <p id="helpText"><p>
 
 
