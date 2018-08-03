@@ -29,7 +29,7 @@ div#tabsDiv
 {
 	display: inline-block;
 	text-align: left;
-	width: calc(40% + 8px);
+	width: calc(35% + 8px);
 }
 
 button.tab
@@ -62,7 +62,7 @@ button#tabBad
 div#choicesDiv
 {
 	display: inline-block;
-	width: 40%;
+	width: 35%;
 	text-align: left;
 	border-style: outset;
 	border-width: 4px;
