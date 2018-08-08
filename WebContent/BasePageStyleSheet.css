@@ -72,15 +72,30 @@ div#choicesDiv
 
 button.championBlock
 {
+	display: none;
 	border-color: blue;
 	border-style: inset;
 	border-width: 4px;
 	border-radius: 5px;
 	margin: 4px 5px;
 	padding: 0px;
-	background: lightgreen;
 	text-align: left;
 	width: calc(100% - 10px);	
+}
+
+button[dataType="Good"]
+{
+	background: lightgreen;
+}
+
+button[dataType="Fair"]
+{
+	background: lightblue;
+}
+
+button[dataType="Bad"]
+{
+	background: pink;
 }
 
 div.championBlock
