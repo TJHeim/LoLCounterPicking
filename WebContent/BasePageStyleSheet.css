@@ -34,16 +34,16 @@ div#tabsDiv
 
 button.tab
 {
-	display: inline;
+	display: none; /*inline*/
 	padding: 5px;
 	border-style: outset outset solid;
 	border-width: 4px 4px 2px;
 	border-radius: 4px 4px 0px 0px;
 }
 
-button#tabGood, div#choicesDiv
+button#tabGood
 {
-	border-color: lightgreen;
+	border-color: lightgreen lightgreen #737373;
 	background: lightgreen;
 }
 
@@ -61,7 +61,7 @@ button#tabBad
 
 div#choicesDiv
 {
-	display: inline-block;
+	display: none; /*inline-block*/
 	width: 35%;
 	text-align: left;
 	border-style: outset;

@@ -289,175 +289,255 @@ function calculateAndPrintPercentagesForSummoner(summonerNumber, champPos)
 
 
 
-
 function grabAllDataAndPrint(summonerNumber, champPos, champsAtPosList, champsAtPosAccessList)
 {
-	/*Calculate Good*/
-	resetDataArrays()
-	
-	/*Calculate "Works Well With" from allies*/
-	for(var ally=0; ally<allyChamps.length; ally++)
-	{
-		grabDataAndPrint(summonerNumber, allyChamps[ally], "general", "good", champsAtPosList, champsAtPosAccessList, false);
-	}
-	
-	/*Calculate "Weak Against" for all enemies in general and the enemy at this ally's position*/
-	var enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
-	if(champPos!="general" && enemyChampAtSamePosIndex!=-1)
-	{
-		for(var enemy=0; enemy<enemyChamps.length; enemy++)
+	grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champsAtPosAccessList, "Good")
+	.then(grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champsAtPosAccessList, "Fair"))
+	.then(grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champsAtPosAccessList, "Bad"))
+	.then(setColorOfChoicesDiv());
+}
+
+
+
+
+function grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champsAtPosAccessList, dataType)
+{
+	return new Promise(function(resolve){
+		/*Calculate Good*/
+		if(dataType=="Good")
 		{
-			grabDataAndPrint(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList, false);
-		}
-		
-		grabDataAndPrint(summonerNumber, enemyChamps[enemyChampAtSamePosIndex], champPos, "weak", champsAtPosList, champsAtPosAccessList, true);
-	}
-	
-	/*Else Calculate only "Weak Against" for all enemies in general*/
-	else
-	{
-		for(var enemy=0; enemy<enemyChamps.length; enemy++)
-		{
-			if(enemy==enemyChamps.length-1)
+			resetDataArrays()
+			
+			if(allyChamps.length==0)
 			{
-				grabDataAndPrint(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList, true);
-				break;
+				if(enemyChamps.length>0)
+				{
+					/*Calculate "Weak Against" for all enemies in general and the enemy at this ally's position*/
+					var enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
+					if(champPos!="general" && enemyChampAtSamePosIndex!=-1)
+					{
+						for(var enemy=0; enemy<enemyChamps.length; enemy++)
+						{
+							grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList);
+						}
+						
+						grabDataAndAddToArrays(summonerNumber, enemyChamps[enemyChampAtSamePosIndex], champPos, "weak", champsAtPosList, champsAtPosAccessList)
+						.then(sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPosAccessList))
+						.then(resolve());
+					}
+					
+					/*Else Calculate only "Weak Against" for all enemies in general*/
+					else
+					{
+						for(var enemy=0; enemy<enemyChamps.length; enemy++)
+						{
+							if(enemy==enemyChamps.length-1)
+							{
+								grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList)
+								.then(sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPosAccessList))
+								.then(resolve());
+								break;
+							}
+								
+							grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList);
+						}
+					}
+				}
 			}
 				
-			grabDataAndPrint(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList, false);
-		}
-	}
-		
-	
-	
-	/*Calculate Fair*/
-	resetDataArrays()
-	
-	/*Calculate "Goes Even With" for all enemies in general and the enemy at this ally's position*/
-	enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
-	if(champPos!="general" && enemyChampAtSamePosIndex!=-1)
-	{
-		for(var enemy=0; enemy<enemyChamps.length; enemy++)
-		{
-			grabDataAndPrint(summonerNumber, enemyChamps[enemy], "general", "even", champsAtPosList, champsAtPosAccessList, false);
-		}
-		
-		grabDataAndPrint(summonerNumber, enemyChamps[enemyChampAtSamePosIndex], champPos, "even", champsAtPosList, champsAtPosAccessList, true);
-	}
-	
-	/*Else Calculate only "Goes Even With" for all enemies in general*/
-	else
-	{
-		for(var enemy=0; enemy<enemyChamps.length; enemy++)
-		{
-			if(enemy==enemyChamps.length-1)
+			else //if(allyChamps.length>0)
 			{
-				grabDataAndPrint(summonerNumber, enemyChamps[enemy], "general", "even", champsAtPosList, champsAtPosAccessList, true);
-				break;
-			}
+				/*Calculate "Works Well With" from allies*/
+				for(var ally=0; ally<allyChamps.length; ally++)
+				{
+					grabDataAndAddToArrays(summonerNumber, allyChamps[ally], "general", "good", champsAtPosList, champsAtPosAccessList);
+				}
 				
-			grabDataAndPrint(summonerNumber, enemyChamps[enemy], "general", "even", champsAtPosList, champsAtPosAccessList, false);
-		}
-	}
-	
-	
-	/*Calculate Bad*/
-	resetDataArrays()
-	
-	/*Calculate "Strong Against" for all enemies in general and the enemy at this ally's position*/
-	enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
-	if(champPos!="general" && enemyChampAtSamePosIndex!=-1)
-	{
-		for(var enemy=0; enemy<enemyChamps.length; enemy++)
-		{
-			grabDataAndPrint(summonerNumber, enemyChamps[enemy], "general", "strong", champsAtPosList, champsAtPosAccessList, false);
+				if(enemyChamps.length>0)
+				{
+					/*Calculate "Weak Against" for all enemies in general and the enemy at this ally's position*/
+					var enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
+					if(champPos!="general" && enemyChampAtSamePosIndex!=-1)
+					{
+						for(var enemy=0; enemy<enemyChamps.length; enemy++)
+						{
+							grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList);
+						}
+						
+						grabDataAndAddToArrays(summonerNumber, enemyChamps[enemyChampAtSamePosIndex], champPos, "weak", champsAtPosList, champsAtPosAccessList)
+						.then(sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPosAccessList))
+						.then(resolve());
+					}
+					
+					/*Else Calculate only "Weak Against" for all enemies in general*/
+					else
+					{
+						for(var enemy=0; enemy<enemyChamps.length; enemy++)
+						{
+							if(enemy==enemyChamps.length-1)
+							{
+								grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList)
+								.then(sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPosAccessList))
+								.then(resolve());
+								break;
+							}
+								
+							grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList);
+						}
+					}
+				}
+			}
 		}
 		
-		grabDataAndPrint(summonerNumber, enemyChamps[enemyChampAtSamePosIndex], champPos, "strong", champsAtPosList, champsAtPosAccessList, true);
-	}
-	
-	/*Else Calculate only "Strong Against" for all enemies in general*/
-	else
-	{
-		for(var enemy=0; enemy<enemyChamps.length; enemy++)
+		
+		/*Calculate Fair*/
+		else if(dataType=="Fair")
 		{
-			if(enemy==enemyChamps.length-1)
+			resetDataArrays()
+			
+			if(enemyChamps.length>0)
 			{
-				grabDataAndPrint(summonerNumber, enemyChamps[enemy], "general", "strong", champsAtPosList, champsAtPosAccessList, true);
-				break;
-			}
+				/*Calculate "Goes Even With" for all enemies in general and the enemy at this ally's position*/
+				enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
+				if(champPos!="general" && enemyChampAtSamePosIndex!=-1)
+				{
+					for(var enemy=0; enemy<enemyChamps.length; enemy++)
+					{
+						grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "even", champsAtPosList, champsAtPosAccessList);
+					}
+					
+					grabDataAndAddToArrays(summonerNumber, enemyChamps[enemyChampAtSamePosIndex], champPos, "even", champsAtPosList, champsAtPosAccessList)
+					.then(sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPosAccessList))
+					.then(resolve());
+				}
 				
-			grabDataAndPrint(summonerNumber, enemyChamps[enemy], "general", "strong", champsAtPosList, champsAtPosAccessList, false);
+				/*Else Calculate only "Goes Even With" for all enemies in general*/
+				else
+				{
+					for(var enemy=0; enemy<enemyChamps.length; enemy++)
+					{
+						if(enemy==enemyChamps.length-1)
+						{
+							grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "even", champsAtPosList, champsAtPosAccessList)
+							.then(sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPosAccessList))
+							.then(resolve());
+							
+							break;
+						}
+							
+						grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "even", champsAtPosList, champsAtPosAccessList);
+					}
+				}
+			}
 		}
-	}
+		
+		
+		/*Calculate Bad*/
+		else if(dataType=="Bad")
+		{
+			resetDataArrays()
+			
+			if(enemyChamps.length>0)
+			{
+				/*Calculate "Strong Against" for all enemies in general and the enemy at this ally's position*/
+				enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
+				if(champPos!="general" && enemyChampAtSamePosIndex!=-1)
+				{
+					for(var enemy=0; enemy<enemyChamps.length; enemy++)
+					{
+						grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "strong", champsAtPosList, champsAtPosAccessList);
+					}
+					
+					grabDataAndAddToArrays(summonerNumber, enemyChamps[enemyChampAtSamePosIndex], champPos, "strong", champsAtPosList, champsAtPosAccessList)
+					.then(sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPosAccessList))
+					.then(resolve())
+				}
+				
+				/*Else Calculate only "Strong Against" for all enemies in general*/
+				else
+				{
+					for(var enemy=0; enemy<enemyChamps.length; enemy++)
+					{
+						if(enemy==enemyChamps.length-1)
+						{
+							grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "strong", champsAtPosList, champsAtPosAccessList)
+							.then(sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPosAccessList))
+							.then(resolve());
+							break;
+						}
+							
+						grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "strong", champsAtPosList, champsAtPosAccessList);
+					}
+				}
+			}
+		}
+	})
 }
 
 
 
 /*Grab the percentage data from the specified files*/
-function grabDataAndPrint(summonerNumber, champ, champPos, compareType, champsAtPosList, champsAtPosAccessList, createBlocks)
+function grabDataAndAddToArrays(summonerNumber, champ, champPos, compareType, champsAtPosList, champsAtPosAccessList)
 {
-	fetch("https://tjheim.github.io/LoLCounterPicking/WebContent/ChampionCounterSource/"+champ+"!"+compareType+"!"+champPos+".txt")
-	.then(response => response.text())
-	.then(text => addDataToArraysAndPrint(summonerNumber, champPos, compareType, champsAtPosList, champsAtPosAccessList, text, createBlocks))
+	return new Promise(function(resolve){
+		fetch("https://tjheim.github.io/LoLCounterPicking/WebContent/ChampionCounterSource/"+champ+"!"+compareType+"!"+champPos+".txt")
+		.then(response => response.text())
+		.then(text => addDataToArraysAndPrint(summonerNumber, champPos, compareType, champsAtPosList, champsAtPosAccessList, text))
+		.then(resolve());
+	})
+	
 }
 
 
 
 /*Add the found data to the arrays*/
-function addDataToArraysAndPrint(summonerNumber, champPos, compareType, champsAtPosList, champsAtPosAccessList, text, createBlocks)
+function addDataToArraysAndPrint(summonerNumber, champPos, compareType, champsAtPosList, champsAtPosAccessList, text)
 {
-	var lastPos=0;
-	var textPos=0;
-	
-	while(textPos<text.length)
-	{
-		if(text.charAt(textPos)=="/")
+	return new Promise(function(resolve){
+		var lastPos=0;
+		var textPos=0;
+		
+		while(textPos<text.length)
 		{
-			var champ=text.substring(lastPos, textPos);
-			lastPos=textPos+1;
-			textPos=lastPos;
-			
-			while(textPos<text.length)
+			if(text.charAt(textPos)=="/")
 			{
-				if(text.charAt(textPos)=="/")
-				{
-					var champPer=parseInt(text.substring(lastPos, textPos));
-					lastPos=textPos+1;
-					
-					if(summonerChampSelections.includes(champ))
-					{
-						var champPosInArray=summonerChampSelections.indexOf(champ)
-						summonerChampTotalPers[champPosInArray]+=champPer;
-						summonerTotalDataPoints[champPosInArray]+=1;
-					}
-					
-					else if(champsAtPosAccessList.includes(champ))
-					{
-						summonerChampSelections.push(champ);
-						summonerChampTotalPers.push(champPer);
-						summonerTotalDataPoints.push(1);
-					}
-					
-					break;
-				}
+				var champ=text.substring(lastPos, textPos);
+				lastPos=textPos+1;
+				textPos=lastPos;
 				
-				textPos++;
+				while(textPos<text.length)
+				{
+					if(text.charAt(textPos)=="/")
+					{
+						var champPer=parseInt(text.substring(lastPos, textPos));
+						lastPos=textPos+1;
+						
+						if(summonerChampSelections.includes(champ))
+						{
+							var champPosInArray=summonerChampSelections.indexOf(champ)
+							summonerChampTotalPers[champPosInArray]+=champPer;
+							summonerTotalDataPoints[champPosInArray]+=1;
+						}
+						
+						else if(champsAtPosAccessList.includes(champ))
+						{
+							summonerChampSelections.push(champ);
+							summonerChampTotalPers.push(champPer);
+							summonerTotalDataPoints.push(1);
+						}
+						
+						break;
+					}
+					
+					textPos++;
+				}
 			}
+			
+			textPos++;
 		}
 		
-		textPos++;
-	}
-	
-	if(createBlocks)
-	{
-		if(compareType=="good" || compareType=="weak")
-			sortAndPrintData(summonerNumber, "Good", champsAtPosList, champsAtPosAccessList)
-		if(compareType=="even")
-			sortAndPrintData(summonerNumber, "Fair", champsAtPosList, champsAtPosAccessList)
-		if(compareType=="strong")
-			sortAndPrintData(summonerNumber, "Bad", champsAtPosList, champsAtPosAccessList)
-	}
+		resolve();
+	})
 }
 
 
@@ -465,38 +545,61 @@ function addDataToArraysAndPrint(summonerNumber, champPos, compareType, champsAt
 
 function sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPosAccessList)
 {
-	/*Find the average pers for each champ*/
-	var summonerChampFinalPers=Array(0)
-	for(var champ=0; champ<summonerChampFinalPers.length; champ++)
+	if(summonerChampSelections.length>0)
 	{
-		summonerChampFinalPers.push(summonerChampTotalPers[champ]/summonerTotalDataPoints[champ]);
+		$("#choicesDiv").css("display", "inline-block");
+		$("#tab"+dataType).css("display", "inline")
 	}
 	
-	/*Sort the data largest first*/
-	for(var i=0; i<summonerChampSelections.length-1; i++)
-	{
-		var maxIndex=i;
-		for(var j=i+1; j<summonerChampSelections.length; j++)
+	return new Promise(function(resolve){
+		/*Find the average pers for each champ*/
+		var summonerChampFinalPers=Array(0)
+		for(var champ=0; champ<summonerChampFinalPers.length; champ++)
 		{
-			if(summonerChampFinalPers[j]>summonerChampFinalPers[maxIndex])
-				maxIndex==j;
+			summonerChampFinalPers.push(summonerChampTotalPers[champ]/summonerTotalDataPoints[champ]);
 		}
 		
-		var tempChamp=summonerChampSelections[i];
-		var tempPer=summonerChampFinalPers[i];
-		summonerChampSelections[i]=summonerChampSelections[maxIndex];
-		summonerChampFinalPers[i]=summonerChampPers[maxIndex];
-		summonerChampSelections[maxIndex]=tempChamp;
-		summonerChampFinalPers[maxIndex]=tempPer;
-	}
-	
-	
-	for(var ranking=0; ranking<summonerChampSelections.length; ranking++)
-	{
-		var champ=champsAtPosList[champsAtPosAccessList.indexOf(summonerChampSelections[ranking])];
-		var per=summonerChampFinalPers[ranking];
-		$("#choicesDiv").append('<button class="championBlock" summonerNumber="'+summonerNumber+'" dataType="'+dataType+'" ranking="'+ranking+'"></button>'+
-													'<div class="championBlock" style="width:'+per+'%">'+champ+' '+per+'%</div>'+
-								'</button>');
-	}
+		/*Sort the data largest first*/
+		for(var i=0; i<summonerChampSelections.length-1; i++)
+		{
+			var maxIndex=i;
+			for(var j=i+1; j<summonerChampSelections.length; j++)
+			{
+				if(summonerChampFinalPers[j]>summonerChampFinalPers[maxIndex])
+					maxIndex==j;
+			}
+			
+			var tempChamp=summonerChampSelections[i];
+			var tempPer=summonerChampFinalPers[i];
+			summonerChampSelections[i]=summonerChampSelections[maxIndex];
+			summonerChampFinalPers[i]=summonerChampPers[maxIndex];
+			summonerChampSelections[maxIndex]=tempChamp;
+			summonerChampFinalPers[maxIndex]=tempPer;
+		}
+		
+		
+		for(var ranking=0; ranking<summonerChampSelections.length; ranking++)
+		{
+			var champ=champsAtPosList[champsAtPosAccessList.indexOf(summonerChampSelections[ranking])];
+			var per=summonerChampFinalPers[ranking];
+			$("#choicesDiv").append('<button class="championBlock" summonerNumber="'+summonerNumber+'" dataType="'+dataType+'" ranking="'+ranking+'"></button>'+
+														'<div class="championBlock" style="width:'+per+'%">'+champ+' '+per+'%</div>'+
+									'</button>');
+		}
+		
+		resolve();
+	})
+}
+
+
+
+
+function setColorOfChoicesDiv()
+{
+	if($("#tabGood").css("display")!="none")
+		$("#choicesDiv").css("background-color", "lightgreen")
+	else if($("#tabFair").css("display")!="none")
+		$("#choicesDiv").css("background-color", "lightblue")
+	else if($("#tabBad").css("display")!="none")
+		$("#choicesDiv").css("background-color", "pink")
 }
