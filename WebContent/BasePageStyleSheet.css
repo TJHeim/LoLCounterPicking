@@ -18,6 +18,11 @@ select
 	border-radius: 3px;
 }
 
+.showSelectionsButton
+{
+	display: none;
+}
+
 #calculateButton, .showSelectionsButton
 {
 	background: gold;
