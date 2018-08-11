@@ -174,8 +174,9 @@ async function refreshCounterSourceCode(startIndex)
 /*Collect the data at the given indicators and save it as a file on this computer*/
 function collectDataAndSaveFile(activeChamp, activeCompareType, activeChampPos)
 {
-	$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?")
-	.then(html =>collectData(html))
+	var html=$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?");
+	html.catch((activeChamp, activeCompareType, activeChampPos) => collectDataAndSaveFile(activeChamp, activeCompareType, activeChampPos));
+	html.then(html => collectData(html))
 	.then(data => saveAs(new Blob([data]), activeChamp+"!"+activeCompareType+"!"+activeChampPos+".txt"));
 }
 
