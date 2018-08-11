@@ -1,1 +1,1 @@
-thresh/60/braum/60/kassadin/59/ezreal/57/nami/56/zilean/50/annie/50/ashe/49/twitch/48/zyra/48/vayne/48/katarina/47/zed/47/riven/46/morgana/45/teemo/45/mordekaiser/44/xayah/44/sona/44/gnar/43/
+braum/60/thresh/60/kassadin/59/ezreal/57/nami/56/annie/49/ashe/49/zilean/49/zyra/48/twitch/48/vayne/48/katarina/47/zed/46/riven/45/morgana/45/mordekaiser/45/teemo/45/sona/44/gnar/44/xayah/44/

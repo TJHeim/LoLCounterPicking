@@ -1,1 +1,1 @@
-pantheon/66/renekton/64/teemo/60/gangplank/59/garen/59/rengar/57/katarina/57/swain/56/kennen/50/ryze/50/mordekaiser/48/darius/48/yasuo/47/yorick/47/khazix/47/vayne/45/jayce/45/elise/45/trundle/45/irelia/44/
+pantheon/66/renekton/64/gangplank/59/teemo/59/garen/59/rengar/57/katarina/57/kennen/56/swain/50/ryze/50/darius/48/mordekaiser/48/yorick/47/yasuo/47/khazix/47/vayne/45/elise/45/jayce/45/trundle/45/irelia/44/

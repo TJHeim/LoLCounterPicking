@@ -135,13 +135,13 @@ function onBodyLoad()
 
 
 /*Grabs all the data from the website and saves it to this computer's files*/
-function refreshCounterSourceCode(startIndex)
+async function refreshCounterSourceCode(startIndex)
 {
 	const compareTypeList=["Strong", "Weak", "Even", "Well"];
 	const compareTypeAccessList=["strong", "weak", "even", "good"];
 	
 	if(arguments[0]==undefined)
-		arguments[0]=0;
+		startIndex=0;
 	
 	var counter=0;
 	for(var champ=0; champ<champAccessList.length; champ++)
@@ -154,20 +154,29 @@ function refreshCounterSourceCode(startIndex)
 				var activeCompareType=compareTypeAccessList[compareType];
 				var activeChampPos=champPosAccessList[champPos];
 				if(counter>=startIndex)
-					$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?")
-					.then(html => collectDataAndSaveFile(html, activeChamp, activeCompareType, activeChampPos));
+				{
+					collectDataAndSaveFile(activeChamp, activeCompareType, activeChampPos);
+				}
+					
 			}
 		}
 	}
+	
+	return Promise.resolve();
 }
 
 
-/*Collect the data from the given html and save it as a file on this computer*/
-function collectDataAndSaveFile(html, activeChamp, activeCompareType, activeChampPos)
+
+
+
+
+
+/*Collect the data at the given indicators and save it as a file on this computer*/
+function collectDataAndSaveFile(activeChamp, activeCompareType, activeChampPos)
 {
-	var data=collectData(html);
-	
-	saveAs(new Blob([data]), activeChamp+"!"+activeCompareType+"!"+activeChampPos+".txt");
+	$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?")
+	.then(html =>collectData(html))
+	.then(data => saveAs(new Blob([data]), activeChamp+"!"+activeCompareType+"!"+activeChampPos+".txt"));
 }
 
 

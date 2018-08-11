@@ -1,1 +1,1 @@
-trundle/79/singed/75/pantheon/73/udyr/73/renekton/72/riven/72/garen/71/jax/66/gangplank/64/yorick/63/darius/63/fiora/63/chogath/62/ekko/62/shen/62/xinzhao/62/elise/61/shyvana/61/volibear/61/malphite/61/
+trundle/79/singed/74/pantheon/73/udyr/73/renekton/72/riven/72/garen/71/jax/65/gangplank/64/darius/63/fiora/63/yorick/63/chogath/62/ekko/62/shen/62/xinzhao/62/elise/61/shyvana/61/malphite/61/volibear/60/

@@ -1,1 +1,1 @@
-yorick/50/nasus/50/riven/49/gragas/48/elise/48/shaco/48/zed/48/tristana/48/aatrox/48/soraka/48/udyr/47/lissandra/47/malphite/47/sivir/45/jax/45/viktor/44/ahri/44/kayle/42/anivia/42/jarvaniv/42/
+nasus/50/yorick/50/riven/49/elise/48/gragas/48/shaco/48/soraka/48/tristana/48/aatrox/48/zed/48/udyr/47/lissandra/47/malphite/47/sivir/46/jax/45/ahri/44/viktor/44/kayle/42/anivia/42/jarvaniv/42/

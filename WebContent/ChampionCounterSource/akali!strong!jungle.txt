@@ -1,1 +1,1 @@
-nasus/50/aatrox/50/tryndamere/49/garen/49/olaf/49/skarner/49/rengar/49/orianna/48/morgana/48/tristana/48/trundle/48/udyr/48/shen/48/fizz/47/xerath/46/riven/46/blitzcrank/45/twitch/45/volibear/45/fiora/45/
+nasus/50/garen/50/aatrox/49/tryndamere/49/olaf/49/skarner/49/orianna/49/morgana/49/rengar/48/trundle/48/udyr/48/tristana/48/shen/47/fizz/47/xerath/46/riven/46/twitch/45/blitzcrank/45/volibear/45/fiora/45/

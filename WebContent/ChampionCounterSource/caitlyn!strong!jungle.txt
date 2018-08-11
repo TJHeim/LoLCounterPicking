@@ -1,1 +1,1 @@
-twitch/50/gangplank/50/gnar/50/trundle/49/amumu/49/malzahar/49/akali/49/quinn/49/evelynn/48/aatrox/48/varus/48/braum/48/galio/48/shen/46/sejuani/46/tryndamere/45/teemo/45/leesin/45/fiddlesticks/44/masteryi/44/
+gangplank/50/gnar/50/twitch/50/amumu/49/trundle/49/quinn/49/akali/49/varus/49/malzahar/49/evelynn/49/aatrox/48/braum/48/galio/48/sejuani/47/shen/46/tryndamere/46/teemo/45/leesin/45/fiddlesticks/44/masteryi/44/
