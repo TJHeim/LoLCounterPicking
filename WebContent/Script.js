@@ -621,6 +621,8 @@ function sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPos
 
 function setPrimaryStyleOfChoicesDiv(summonerNumber)
 {
+	$("button.tab").css("border-bottom-color", "#737373");
+	
 	if($("#tabGood").css("display")!="none")
 	{
 		$("#tabGood").css("border-bottom-color", "lightgreen");
