@@ -236,9 +236,11 @@ function resetDataArrays()
 async function calculateAndPrintPercentages()
 {
 	$("#choicesDiv").css("display", "none");
+	$("#choicesDiv").attr("summonerNumber", "");
 	$(".tab").css("display", "none");
 	$("button.championBlock").remove();
 	$(".showSelectionsButton").css("display", "none");
+	$(".showSelectionsButton").attr("display", "no");
 	
 	allyChamps=Array(0);
 	enemyChamps=Array(0);
@@ -269,6 +271,11 @@ async function calculateAndPrintPercentages()
 			await calculateAndPrintPercentagesForSummoner(summonerNumber, $("#allyPosSelect"+summonerNumber).val());
 		}
 	}
+	
+	$(".showSelectionsButton").each(function(){
+		if($(this).attr("display")=="yes")
+			$(this).css("display", "inline");
+	})
 }
 
 
@@ -293,12 +300,12 @@ async function calculateAndPrintPercentagesForSummoner(summonerNumber, champPos)
 	}
 	else if(champPos=="bottom")
 	{
-		if($("#allyPosSelect"+summonerNumber).text()=="Bot")
+		if($("#allyPosSelect"+summonerNumber+" option:selected").text()=="Bot")
 		{
 			await grabAllDataAndPrint(summonerNumber, champPos, champBotList, champBotAccessList);
 			return Promise.resolve();
 		}
-		else if($("#allyPosSelect"+summonerNumber).text()=="Sup")
+		else if($("#allyPosSelect"+summonerNumber+" option:selected").text()=="Sup")
 		{
 			await grabAllDataAndPrint(summonerNumber, champPos, champSupList, champSupAccessList);
 			return Promise.resolve();
@@ -407,10 +414,10 @@ async function grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champ
 				{
 					for(var enemy=0; enemy<enemyChamps.length; enemy++)
 					{
-						await grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList)
+						await grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList);
 					}
 					
-					await sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPosAccessList)
+					await sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPosAccessList);
 					return Promise.resolve();
 				}
 			}
@@ -559,7 +566,7 @@ function addDataToArrays(summonerNumber, champPos, compareType, champsAtPosList,
 function sortAndPrintData(summonerNumber, dataType, champsAtPosList, champsAtPosAccessList)
 {
 	if(summonerChampSelections.length>0)
-		$("#showSelectionsButton"+summonerNumber).css("display", "inline");
+		$("#showSelectionsButton"+summonerNumber).attr("display", "yes");
 	
 	/*Find the average pers for each champ*/
 	var summonerChampFinalPers=Array(0)
@@ -606,31 +613,22 @@ function setPrimaryStyleOfChoicesDiv(summonerNumber)
 {
 	if($("#tabGood").css("display")!="none")
 	{
+		$("#tabGood").css("border-bottom-color", "lightgreen");
 		$("#choicesDiv").css({"background-color":"lightgreen", "border-color":"lightgreen"});
 		$("button.championBlock[dataType=Good][summonerNumber="+summonerNumber+"]").css("display", "block");
 	}
 	
 	else if($("#tabFair").css("display")!="none")
 	{
+		$("#tabFair").css("border-bottom-color", "lightblue");
 		$("#choicesDiv").css({"background-color":"lightblue", "border-color":"lightblue"});
 		$("button.championBlock[dataType=Fair][summonerNumber="+summonerNumber+"]").css("display", "block");
 	}
 
 	else if($("#tabBad").css("display")!="none")
 	{
+		$("#tabBad").css("border-bottom-color", "pink");
 		$("#choicesDiv").css({"background-color":"pink", "border-color":"pink"});
 		$("button.championBlock[dataType=Bad][summonerNumber="+summonerNumber+"]").css("display", "block");
 	}
-}
-
-
-
-
-
-function waitforData(count, endValue, msec) {
-    while (count != endValue) {
-        setTimeout(function() {
-            waitfor(count, endValue, msec);
-        }, msec);
-    }
 }
