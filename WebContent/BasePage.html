@@ -19,7 +19,7 @@
 			$(this).css("border-color", "red");
 			$("#helpText").html($(this).attr("help"));
 		})
-	})
+	});
 	
 	/*showSelectionsButton reset highlight*/
 	$("document").ready(function(){
@@ -27,7 +27,7 @@
 			$("button.championBlock").css("border-color", "blue");
 			$("#helpText").html("");
 		})
-	})
+	});
 	
 	/*Tab change*/
 	$("document").ready(function(){
@@ -47,11 +47,11 @@
 				$("#choicesDiv").css("background", color);
 				$("#choicesDiv").css("border-color", color);
 				$("button.championBlock").css({"display": "none", "border-color": "blue"});
-				$("button.championBlock[dataType="+dataType+"][summonerNumber="+summonerNumber+"]").css("display", "block")
+				$("button.championBlock[dataType="+dataType+"][summonerNumber="+summonerNumber+"]").css("display", "block");
 				$("#helpText").html("");			
 			}
 		})
-	})
+	});
 	
 	/*Show Selection Click*/
 	$("document").ready(function(){
@@ -69,10 +69,10 @@
 				if($("button.championBlock[dataType=Bad]").length>0)
 					$("#tabBad").css("display", "inline");
 				
-				setPrimaryStyleOfChoicesDiv(summonerNumber)
+				setPrimaryStyleOfChoicesDiv(summonerNumber);
 			}
 		})
-	})
+	});
 </script>
 
 <button id="calculateButton"onclick="calculateAndPrintPercentages()">Calculate</button>
