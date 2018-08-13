@@ -18,7 +18,7 @@
 			$("button.championBlock").css("border-color", "blue");
 			$(this).css("border-color", "red");
 			$("#helpText").html($(this).attr("help"));
-		})
+		});
 	});
 	
 	/*showSelectionsButton reset highlight*/
@@ -26,7 +26,7 @@
 		$(".showSelectionsButton").click(function(){
 			$("button.championBlock").css("border-color", "blue");
 			$("#helpText").html("");
-		})
+		});
 	});
 	
 	/*Tab change*/
@@ -50,7 +50,7 @@
 				$("button.championBlock[dataType="+dataType+"][summonerNumber="+summonerNumber+"]").css("display", "block");
 				$("#helpText").html("");			
 			}
-		})
+		});
 	});
 	
 	/*Show Selection Click*/
@@ -71,7 +71,7 @@
 				
 				setPrimaryStyleOfChoicesDiv(summonerNumber);
 			}
-		})
+		});
 	});
 </script>
 
