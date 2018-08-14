@@ -46,7 +46,6 @@
 	});
 	
 	/*Show Selection Click*/
-	$("document").ready(function(){
 		$(".showSelectionsButton").click(function(){
 			var summonerNumber=$(this).attr("summonerNumber");
 			if(summonerNumber!=$("#choicesDiv").attr("summonerNumber"))
@@ -64,7 +63,6 @@
 				setPrimaryStyleOfChoicesDiv(summonerNumber);
 			}
 		});
-	});
 </script>
 
 <button id="calculateButton"onclick="calculateAndPrintPercentages()">Calculate</button>
