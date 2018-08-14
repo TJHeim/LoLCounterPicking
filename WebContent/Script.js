@@ -79,7 +79,7 @@ function onBodyLoad()
 				var showSelectionsButton=document.createElement("button");
 				showSelectionsButton.setAttribute("id", "showSelectionsButton"+summonerBlock);
 				showSelectionsButton.setAttribute("class", "showSelectionsButton");
-				showSelectionsButton.setAttribute("style", "position: relative; top: 10px; left: 10px");
+				showSelectionsButton.setAttribute("style", "position: relative; top: -6px; left: 225px");
 				showSelectionsButton.setAttribute("summonerNumber", summonerBlock)
 				showSelectionsButton.innerHTML = "Show Selections";
 				champBlock.appendChild(showSelectionsButton);
@@ -352,7 +352,7 @@ async function calculateAndPrintPercentages()
 	
 	$(".showSelectionsButton").each(function(){
 		if($(this).attr("display")=="yes")
-			$(this).css("display", "inline");
+			$(this).css("display", "block");
 	})
 	
 	activateChampionBlockClickListeners()
