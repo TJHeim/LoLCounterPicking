@@ -76,13 +76,12 @@ function onBodyLoad()
 			/*Add the showSelections buttons*/
 			if(teamArray[team]=="ally")
 			{
-				var showSelectionsButton=document.createElement("input");
-				showSelectionsButton.setAttribute("type", "button");
+				var showSelectionsButton=document.createElement("button");
 				showSelectionsButton.setAttribute("id", "showSelectionsButton"+summonerBlock);
 				showSelectionsButton.setAttribute("class", "showSelectionsButton");
-				showSelectionsButton.setAttribute("value", "Show Selections");
 				showSelectionsButton.setAttribute("style", "position: relative; top: 10px; left: 10px");
 				showSelectionsButton.setAttribute("summonerNumber", summonerBlock)
+				showSelectionsButton.innerHTML = "Show Selections";
 				champBlock.appendChild(showSelectionsButton);
 			}
 			
@@ -125,6 +124,21 @@ function onBodyLoad()
 			document.body.appendChild(posBlock);
 		}
 	}
+}
+
+
+
+
+function activateChampionBlockClickListeners()
+{
+	/*Highlight championBlock*/
+	$(document).ready(function(){
+    	$("button.championBlock").click(function(){
+			$("button.championBlock").css("border-color", "blue");
+			$(this).css("border-color", "red");
+			$("p#helpText").html($(this).attr("help"));
+		});
+	});
 }
 
 
@@ -286,6 +300,8 @@ async function calculateAndPrintPercentages()
 		if($(this).attr("display")=="yes")
 			$(this).css("display", "inline");
 	})
+	
+	activateChampionBlockClickListeners()
 }
 
 
