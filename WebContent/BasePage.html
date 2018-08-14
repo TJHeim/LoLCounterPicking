@@ -45,11 +45,26 @@
 		});
 	});
 	
+	/*Show Selection Click*/
 	$("document").ready(function(){
 		$(".showSelectionsButton").click(function(){
-			alert("Test")
-		})
-	})
+			var summonerNumber=$(this).attr("summonerNumber");
+			if(summonerNumber!=$("#choicesDiv").attr("summonerNumber"))
+			{
+				$("#choicesDiv").attr("summonerNumber", summonerNumber);
+				$("#choicesDiv").css("display", "inline-block");
+				$("button.championBlock").css({"display": "none", "border-color": "blue"});
+				if($("button.championBlock[dataType=Good]").length>0)
+					$("#tabGood").css("display", "inline");
+				if($("button.championBlock[dataType=Fair]").length>0)
+					$("#tabFair").css("display", "inline");
+				if($("button.championBlock[dataType=Bad]").length>0)
+					$("#tabBad").css("display", "inline");
+				
+				setPrimaryStyleOfChoicesDiv(summonerNumber);
+			}
+		});
+	});
 </script>
 
 <button id="calculateButton"onclick="calculateAndPrintPercentages()">Calculate</button>
