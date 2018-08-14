@@ -31,53 +31,5 @@
 
 <p id="helpText"></p>
 
-<script>
-	/*Tab change*/
-	$(document).ready(function(){
-		$("button.tab").click(function(){
-			var dataType=$(this).html();
-			var summonerNumber=$("div#choicesDiv").attr("summonerNumber");
-			var color=$(this).css("background-color");
-			var endOfFirstColor=color.indexOf(")");
-			color=color.substring(0, endOfFirstColor+1);
-			var choicesDivColor=$("#choicesDiv").css("background");
-			var ChoicesDivEndOfFirstColor=choicesDivColor.indexOf(")");
-			choicesDivColor=choicesDivColor.substring(0, endOfFirstColor+1);
-			if(color!=choicesDivColor)
-			{
-				$("button.tab").css("border-bottom-color", "#737373");
-				$(this).css("border-bottom-color", color);
-				$("div#choicesDiv").css("background", color);
-				$("div#choicesDiv").css("border-color", color);
-				$("button.championBlock").css({"display": "none", "border-color": "blue"});
-				$("button.championBlock[dataType="+dataType+"][summonerNumber="+summonerNumber+"]").css("display", "block");
-				$("p#helpText").html("");			
-			}
-		});
-	});
-	
-	/*Show Selection Click*/
-	$("html").ready(function(){
-		console.log($("button.showSelectionsButton").length)
-		$("button.showSelectionsButton").click(function(){
-			var summonerNumber=$(this).attr("summonerNumber");
-			if(summonerNumber!=$("div#choicesDiv").attr("summonerNumber"))
-			{
-				$("div#choicesDiv").attr("summonerNumber", summonerNumber);
-				$("div#choicesDiv").css("display", "inline-block");
-				$("button.championBlock").css({"display": "none", "border-color": "blue"});
-				if($("button.championBlock[dataType=Good]").length>0)
-					$("#tabGood").css("display", "inline");
-				if($("button.championBlock[dataType=Fair]").length>0)
-					$("#tabFair").css("display", "inline");
-				if($("button.championBlock[dataType=Bad]").length>0)
-					$("#tabBad").css("display", "inline");
-				
-				setPrimaryStyleOfChoicesDiv(summonerNumber);
-			}
-		});
-	});
-</script>
-
 </body>
 </html>
