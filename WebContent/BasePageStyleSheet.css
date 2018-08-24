@@ -23,7 +23,7 @@ button.showSelectionsButton
 	display: none;
 }
 
-#calculateButton, .showSelectionsButton
+button#calculateButton, button.showSelectionsButton
 {
 	background: gold;
 	border-color: gold;
