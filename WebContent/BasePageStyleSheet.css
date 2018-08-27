@@ -85,30 +85,54 @@ button.championBlock
 	margin: 4px 5px;
 	padding: 0px;
 	text-align: left;
-	width: calc(100% - 10px);	
+	width: calc(100% - 10px);
+	height: 50px;	
 }
 
-button[dataType="Good"]
+button.championBlock[dataType="Good"]
 {
 	background: lightgreen;
 }
 
-button[dataType="Fair"]
+button.championBlock[dataType="Fair"]
 {
 	background: lightblue;
 }
 
-button[dataType="Bad"]
+button.championBlock[dataType="Bad"]
 {
 	background: pink;
 }
 
-div.championBlock
+div.championBlockImg
 {
+	display: inline-block;
+	position: relative;
+	top: 3.5px;
+	left: 3.5px;
+	background-size: 10px 10px;
+	width: 35px;
+	height: 35px;
+}
+
+div.championBlockPercentageBox
+{
+	position: relative;
+	bottom: 28px;
+	left: 42px;
+	border-style: solid;
+	border-width: 2px;
+	padding: 0px;
+	margin: 2px;
+	width: calc(100% - 53px);
+	height: 15px;
+}
+
+div.championBlockPercentage
+{
+	display: inline-block;
 	background: gold;
-	padding: 5px;
-	margin: 0px;
-	white-space: nowrap;
+	height: 15px;
 }
 
 .allyBlock

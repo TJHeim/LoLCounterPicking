@@ -5,6 +5,9 @@ const champPosList=["", "Top", "Mid", "Bot", "Sup", "Jg"];
 const champPosAccessList=["general", "top", "mid", "bottom", "jungle"];
 const champPosMapList=["general", "top", "mid", "bottom", "bottom", "jungle"];
 
+const champImgAccessList=["Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Ashe", "AurelionSol", "Azir", "Bard", "Blitzcrank", "Brand", "Braum", "Caitlyn", "Camille", "Cassiopeia", "Chogath", "Corki", "Darius", "Diana", "DrMundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Hecarim", "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin", "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen", "Khazix", "Kindred", "Kled", "Kogmaw", "Leblanc", "LeeSin", "Leona", "Lissandra", "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "MissFortune", "Mordekaiser", "Morgana", "Nami", "Nasus", "Nautilus", "Nidalee", "Nocturne", "Nunu", "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Quinn", "Rakan", "Rammus", "Reksai", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Sejuani", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Sona", "Soraka", "Swain", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo", "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Velkoz", "Vi", "Viktor", "Vladimir", "Volibear", "Warwick", "Wukong", "Xayah", "Xerath", "XinZhao", "Yasuo", "Yorick", "Zac", "Zed", "Ziggs", "Zilean", "Zoe", "Zyra"];
+
+
 const champTopList=["Aatrox", "Amumu", "Camille", "Cho'Gath", "Darius", "Diana", "Dr. Mundo", "Ekko", "Fiora", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Hecarim", "Illaoi", "Irelia", "Ivern", "Jarvan IV", "Jax", "Jayce", "Jhin", "Kai'Sa", "Karma", "Kayle", "Kennen", "Kled", "Lee Sin", "Malphite", "Maokai", "Master Yi", "Nasus", "Nautilus", "Nunu", "Olaf", "Ornn", "Pantheon", "Poppy", "Quinn", "Rammus", "Renekton", "Riven", "Rumble", "Sejuani", "Shen", "Shyvana", "Singed", "Sion", "Swain", "Tahm Kench", "Teemo", "Trundle", "Tryndamere", "Urgot", "Vi", "Viktor", "Wukong", "Xin Zhao", "Yasuo", "Yorick", "Zac", "Zed"];
 const champTopAccessList=["aatrox", "amumu", "camille", "chogath", "darius", "diana", "drmundo", "ekko", "fiora", "galio", "gangplank", "garen", "gnar", "gragas", "graves", "hecarim", "illaoi", "irelia", "ivern", "jarvaniv", "jax", "jayce", "jhin", "kaisa", "karma", "kayle", "kennen", "kled", "leesin", "malphite", "maokai", "masteryi", "nasus", "nautilus", "nunu", "olaf", "ornn", "pantheon", "poppy", "quinn", "rammus", "renekton", "riven", "rumble", "sejuani", "shen", "shyvana", "singed", "sion", "swain", "tahmkench", "teemo", "trundle", "tryndamere", "urgot", "vi", "viktor", "wukong", "xinzhao", "yasuo", "yorick", "zac", "zed"];
 const champMidList=["Ahri", "Akali", "Anivia", "Annie", "Aurelion Sol", "Azir", "Brand", "Cassiopeia", "Cho'Gath", "Corki", "Diana", "Ekko", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gragas", "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Jax", "Jhin", "Kai'Sa", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kennen", "LeBlanc", "Lissandra", "Lux", "Malzahar", "Master Yi", "Mordekaiser", "Morgana", "Nidalee", "Nunu", "Orianna", "Pyke", "Rammus", "Riven", "Ryze", "Swain", "Syndra", "Taliyah", "Talon", "Teemo", "Twisted Fate", "Varus", "Veigar", "Vel'Koz", "Viktor", "Vladimir", "Xerath", "Yasuo", "Zed", "Ziggs", "Zoe", "Zyra"];
@@ -214,7 +217,6 @@ function activateChampionBlockClickListeners()
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
 
@@ -865,7 +867,7 @@ function sortAndPrintData(summonerNumber, dataType, summonerChampSelections, sum
 	/*Print the champion blocks*/
 	for(var ranking=0; ranking<summonerChampSelections.length; ranking++)
 	{
-		var champ=champList[champAccessList.indexOf(summonerChampSelections[ranking])];
+		var champ=champImgAccessList[champAccessList.indexOf(summonerChampSelections[ranking])];
 		var per=summonerChampPers[ranking];
 		var helpText=summonerChampHelp[ranking];
 		
@@ -877,14 +879,23 @@ function sortAndPrintData(summonerNumber, dataType, summonerChampSelections, sum
 		championBlockButton.setAttribute("dataType", dataType);
 		championBlockButton.setAttribute("ranking", ranking);
 		championBlockButton.setAttribute("help", helpText);
+		
+		var championBlockChampImg=document.createElement("div");
+		championBlockChampImg.setAttribute("class", "championBlockImg");
+		championBlockChampImg.style="background: url(http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/"+champ+".png) left/40px 40px";
 
-		var championBlockDiv=document.createElement("div");
-		championBlockDiv.setAttribute("class", "championBlock");
-		championBlockDiv.style="width: calc("+per+"% - 10px)";
-		championBlockDiv.innerHTML=champ+" "+per+"%";
+		var championBlockPercentageBoxDiv=document.createElement("div");
+		championBlockPercentageBoxDiv.setAttribute("class", "championBlockPercentageBox");
 		
-		championBlockButton.appendChild(championBlockDiv);
+		var championBlockPercentageDiv=document.createElement("div");
+		championBlockPercentageDiv.setAttribute("class","championBlockPercentage");
+		championBlockPercentageDiv.style="width: "+per+"%;";
 		
+		championBlockPercentageBoxDiv.appendChild(championBlockPercentageDiv);
+
+		championBlockButton.appendChild(championBlockChampImg);
+		championBlockButton.appendChild(championBlockPercentageBoxDiv);
+
 		choicesDiv.appendChild(championBlockButton);
 	}
 	
