@@ -1,1 +1,1 @@
-trundle/56/jarvaniv/50/xerath/49/evelynn/49/jax/49/soraka/49/amumu/49/zyra/49/sona/48/leblanc/48/nasus/48/poppy/48/viktor/46/brand/46/kogmaw/46/rengar/46/shaco/45/nunu/45/varus/44/warwick/44/
+xerath/56/jarvaniv/56/trundle/56/soraka/49/evelynn/49/jax/49/leblanc/49/sona/49/amumu/49/kogmaw/48/zyra/48/poppy/48/nasus/48/brand/47/viktor/46/shaco/46/rengar/46/varus/44/warwick/44/wukong/44/

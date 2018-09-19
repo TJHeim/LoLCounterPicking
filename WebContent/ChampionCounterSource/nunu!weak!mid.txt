@@ -1,1 +1,1 @@
-aurelionsol/43/brand/42/katarina/41/yasuo/41/karthus/41/orianna/41/fizz/40/talon/40/akali/40/darius/40/evelynn/40/galio/39/twistedfate/38/ryze/37/riven/36/mordekaiser/36/diana/35/ahri/35/ziggs/33/zed/33/
+brand/44/katarina/44/karthus/44/yasuo/43/galio/43/talon/43/orianna/43/twistedfate/41/akali/41/aurelionsol/41/ryze/41/darius/41/fizz/40/evelynn/39/ahri/38/mordekaiser/37/diana/37/riven/37/ziggs/35/zed/35/

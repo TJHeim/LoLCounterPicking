@@ -1,1 +1,1 @@
-thresh/65/leona/65/janna/60/morgana/58/sona/57/alistar/57/katarina/56/lulu/50/draven/50/lux/49/taric/49/soraka/48/annie/48/riven/48/blitzcrank/47/jinx/46/nasus/46/ezreal/46/bard/45/braum/45/
+thresh/65/leona/65/janna/60/sona/58/morgana/57/alistar/57/katarina/56/lux/50/lulu/50/draven/49/soraka/49/taric/48/annie/48/blitzcrank/48/riven/47/nasus/47/jinx/46/ezreal/46/braum/46/bard/45/

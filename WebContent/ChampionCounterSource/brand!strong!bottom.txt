@@ -1,1 +1,1 @@
-thresh/50/kayle/48/draven/48/elise/48/leona/47/zyra/47/ashe/47/ezreal/46/soraka/46/jayce/46/janna/46/sona/45/lucian/44/vayne/43/caitlyn/43/missfortune/42/kennen/42/braum/41/graves/41/sivir/39/
+thresh/49/draven/49/kayle/49/elise/48/janna/48/ashe/47/zyra/47/leona/47/ezreal/46/jayce/46/soraka/46/sona/46/lucian/44/caitlyn/43/vayne/42/missfortune/42/kennen/42/braum/41/graves/41/tahmkench/39/

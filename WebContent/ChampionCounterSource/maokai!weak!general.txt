@@ -1,1 +1,1 @@
-yorick/64/singed/59/shyvana/59/ryze/57/soraka/57/varus/57/leona/56/sivir/50/aatrox/50/mordekaiser/49/trundle/49/wukong/49/sion/49/galio/48/xinzhao/48/khazix/48/ahri/47/renekton/47/caitlyn/47/teemo/46/
+yorick/65/singed/60/shyvana/59/ryze/57/varus/57/soraka/57/sivir/56/leona/50/aatrox/50/mordekaiser/49/trundle/49/wukong/49/galio/48/xinzhao/48/sion/48/khazix/47/renekton/47/ahri/47/caitlyn/47/quinn/46/

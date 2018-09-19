@@ -1,1 +1,1 @@
-brand/50/caitlyn/49/vayne/49/xerath/48/aatrox/48/yorick/47/leesin/47/ahri/47/jax/47/draven/46/katarina/46/tryndamere/45/ashe/4/orianna/2/vi/2/darius/2/jayce/2/shen/2/
+brand/50/vayne/49/xerath/49/caitlyn/49/aatrox/48/ahri/47/jax/47/draven/46/yorick/46/leesin/46/katarina/46/tryndamere/46/ashe/4/orianna/2/vi/2/darius/2/jayce/2/shen/2/

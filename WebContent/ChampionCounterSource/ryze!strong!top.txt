@@ -1,1 +1,1 @@
-jax/74/nasus/74/pantheon/71/shyvana/70/riven/68/renekton/68/tryndamere/67/singed/65/garen/64/fiora/63/teemo/62/gnar/62/irelia/62/shen/62/aatrox/61/malphite/61/darius/61/volibear/60/rumble/60/leesin/60/
+nasus/75/jax/74/pantheon/71/shyvana/70/riven/68/renekton/68/tryndamere/67/singed/65/garen/64/fiora/62/teemo/62/gnar/61/irelia/61/malphite/61/shen/61/leesin/60/volibear/60/rumble/60/trundle/59/olaf/59/

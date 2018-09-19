@@ -1,1 +1,1 @@
-brand/64/annie/63/braum/60/varus/59/kogmaw/57/galio/57/leona/57/fizz/49/azir/49/karma/49/janna/48/nidalee/48/nunu/48/leblanc/48/sona/48/katarina/47/malphite/47/caitlyn/46/morgana/45/quinn/45/
+brand/64/annie/63/braum/59/varus/59/galio/57/kogmaw/57/leona/57/azir/50/fizz/49/karma/49/bard/49/janna/48/nidalee/48/sona/48/nunu/48/amumu/47/malphite/47/katarina/47/leblanc/46/caitlyn/46/

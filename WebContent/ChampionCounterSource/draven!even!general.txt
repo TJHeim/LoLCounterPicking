@@ -1,1 +1,1 @@
-thresh/60/alistar/59/brand/59/janna/59/braum/58/darius/57/fizz/57/zac/57/swain/56/katarina/50/aatrox/50/mordekaiser/50/leona/49/vladimir/49/twistedfate/48/ashe/47/jarvaniv/47/fiddlesticks/46/jax/45/morgana/45/
+thresh/60/braum/59/alistar/59/janna/59/brand/59/fizz/57/darius/57/swain/57/zac/56/aatrox/50/katarina/50/mordekaiser/49/leona/49/vladimir/48/twistedfate/47/ashe/47/jarvaniv/47/fiddlesticks/46/jax/45/jhin/45/
