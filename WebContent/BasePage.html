@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="ISO-8859-1">
-<title>LoL Counter Picking</title>
-<link rel="stylesheet" href="BasePageStyleSheet.css">
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>LoL Counter Picking</title>
+		<link rel="stylesheet" href="BasePageStyleSheet.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="Script.js"></script>
-<script src="FileSaver.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="Script.js"></script>
+		<script src="FileSaver.js"></script>
 
-</head>
-<body onload="onBodyLoad()">
+	</head>
 
-<button id="calculateButton"onclick="calculateAndPrintPercentages()">Calculate</button>
+	<body onload="onBodyLoad()">
 
-<br><br>
+		<button id="calculateButton"onclick="calculateAndPrintPercentages()">Calculate</button>
 
-<div id=tabsDiv>
-	<button class="tab" id="tabGood">Good</button>
-	<button class="tab" id="tabFair">Fair</button>
-	<button class="tab" id="tabBad">Bad</button>
-</div>
+		<br><br>
 
-<br>
+		<div id=tabsDiv>
+			<button class="tab" id="tabGood">Good</button>
+			<button class="tab" id="tabFair">Fair</button>
+			<button class="tab" id="tabBad">Bad</button>
+		</div>
+
+		<br>
 	
-<div id="choicesDiv">
-</div>
+		<div id="choicesDiv">
+		</div>
 
-<br>
+		<br>
 
-<p id="helpText"></p>
+		<p id="helpText"></p>
 
-</body>
+	</body>
 </html>
