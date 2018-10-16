@@ -4,7 +4,8 @@ var a=document.createElement("a")
 a.innerHTML="Press"
 a.setAttribute("href", "https://tjheim.github.io/LoLCounterPicking/WebContent/ChampionCounterSource/annie!weak!mid.txt")
 a.setAttribute("download", "test")
-document.body.appendChild(a);
+a.click()
+
 }
 
 /*All access and name lists*/
