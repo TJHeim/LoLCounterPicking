@@ -238,7 +238,7 @@ async function calculateAndPrintPercentages()
 		
 		if($("#allyChampSelect"+summonerNumber).val()=="")
 		{
-			await calculateAndPrintPercentagesForSummoner(summonerNumber, $("#allyPosSelect"+summonerNumber).val());
+			await calculateAndPrintPercentagesForSummoner(summonerNumber, champPosMap[$("#allyPosSelect"+summonerNumber).val()]);
 		}
 		
 		await normalizeAllData();
