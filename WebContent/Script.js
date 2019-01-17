@@ -121,7 +121,7 @@ function activateTabClickListeners()
 			$("div#choicesDiv").css("background", color);
 			$("div#choicesDiv").css("border-color", color);
 			$("button.championBlock").css({"display": "none", "border-color": "blue"});
-			$("button.championBlock[dataType="+dataType+"][summonerNumber="+summonerNumber+"]").css("display", "block");
+			$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page=1]").css("display", "block");
 			$("p#helpText").html("");			
 		}
 	});	
@@ -740,6 +740,7 @@ function sortAndPrintData(summonerNumber, dataType, summonerChampSelections, sum
 		championBlockButton.setAttribute("class", "championBlock");
 		championBlockButton.setAttribute("summonerNumber", summonerNumber);
 		championBlockButton.setAttribute("dataType", dataType);
+		championBlockButton.setAttribute("page", Math.floor(ranking/champsPerPage));
 		championBlockButton.setAttribute("ranking", ranking);
 		championBlockButton.setAttribute("help", helpText);
 		
@@ -776,20 +777,20 @@ function setPrimaryStyleOfChoicesDiv(summonerNumber)
 	{
 		$("#tabGood").css("border-bottom-color", "lightgreen");
 		$("#choicesDiv").css({"background-color":"lightgreen", "border-color":"lightgreen"});
-		$("button.championBlock[dataType=Good][summonerNumber="+summonerNumber+"]").css("display", "block");
+		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Good][page=1]").css("display", "block");
 	}
 	
 	else if($("#tabFair").css("display")!="none")
 	{
 		$("#tabFair").css("border-bottom-color", "lightblue");
 		$("#choicesDiv").css({"background-color":"lightblue", "border-color":"lightblue"});
-		$("button.championBlock[dataType=Fair][summonerNumber="+summonerNumber+"]").css("display", "block");
+		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Fair][page=1]").css("display", "block");
 	}
 
 	else if($("#tabBad").css("display")!="none")
 	{
 		$("#tabBad").css("border-bottom-color", "pink");
 		$("#choicesDiv").css({"background-color":"pink", "border-color":"pink"});
-		$("button.championBlock[dataType=Bad][summonerNumber="+summonerNumber+"]").css("display", "block");
+		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Bad][page=1]").css("display", "block");
 	}
 }
