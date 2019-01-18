@@ -1,6 +1,3 @@
-
-
-
 /*Create necessary elements in the BasePage.html*/
 function onBodyLoad()
 {
@@ -96,6 +93,7 @@ function onBodyLoad()
 			
 			activateShowSelectionClickListeners();
 			activateTabClickListeners();
+			activatePageButtonClickListeners();
 		}
 	}
 }
@@ -105,24 +103,25 @@ function onBodyLoad()
 
 function activateTabClickListeners()
 {
-	$("button.tab").click(function(){
-		var dataType=$(this).html();
-		var summonerNumber=$("div#choicesDiv").attr("summonerNumber");
+	$("button.tab").off().click(function(){
+		var choicesDiv=$("div#choicesDiv");
 		var color=$(this).css("background-color");
 		var endOfFirstColor=color.indexOf(")");
 		color=color.substring(0, endOfFirstColor+1);
-		var choicesDivColor=$("#choicesDiv").css("background");
+		var choicesDivColor=choicesDiv.css("background");
 		var ChoicesDivEndOfFirstColor=choicesDivColor.indexOf(")");
 		choicesDivColor=choicesDivColor.substring(0, endOfFirstColor+1);
 		if(color!=choicesDivColor)
 		{
+			var dataType=$(this).html();
+			var summonerNumber=choicesDiv.attr("summonerNumber");
 			$("button.tab").css("border-bottom-color", "#737373");
 			$(this).css("border-bottom-color", color);
-			$("div#choicesDiv").css("background", color);
-			$("div#choicesDiv").css("border-color", color);
+			choicesDiv.css("background", color);
+			choicesDiv.css("border-color", color);
 			$("button.championBlock").css({"display": "none", "border-color": "blue"});
-			$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page=1]").css("display", "block");
-			$("p#helpText").html("");			
+			$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page=0]").css("display", "block");
+			$("p#helpText").html("");
 		}
 	});	
 }
@@ -130,14 +129,61 @@ function activateTabClickListeners()
 
 
 
+function activatePageButtonClickListeners()
+{
+	$("button.page").off().click(function(){
+		var page=parseInt($(this).html().substring(5))-1;
+		var choicesDiv=$("div#choicesDiv");
+		if(page!=choicesDiv.attr("page"))
+		{
+			var dataType=colorToDataTypeMap[choicesDiv.css("background-color")];
+			var summonerNumber=choicesDiv.attr("summonerNumber");
+			choicesDiv.attr("page", page);
+			$("button.page").css("display", "none");
+			
+			var leftPage=$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page="+(page-1)+"]")
+			var rightPage=$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page="+(page+1)+"]")
+			for(var i=0; i<leftPage.length; i++)
+			{
+				if(leftPage[i].getAttribute("page")==page-1)
+				{
+					leftPageButton=$("button.page#left");
+					leftPageButton.css("display", "block");
+					leftPageButton.html("Page "+(page))
+					break;
+				}
+			}
+			for(var i=0; i<rightPage.length; i++)
+			{
+				if(rightPage[i].getAttribute("page")==page+1)
+				{
+					rightPageButton=$("button.page#right");
+					rightPageButton.css("display", "block");
+					rightPageButton.html("Page "+(page+2))
+					break;
+				}
+			}
+			
+			$("button.championBlock").css({"display": "none", "border-color": "blue"});
+			$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page="+page+"]").css("display", "block");
+			$("p#helpText").html("");
+		}
+	});
+}
+
+
+
+
 function activateShowSelectionClickListeners()
 {
-	$("button.showSelectionsButton").click(function(){
+	$("button.showSelectionsButton").off().click(function(){
+		var choicesDiv=$("div#choicesDiv");
 		var summonerNumber=$(this).attr("summonerNumber");
-		if(summonerNumber!=$("div#choicesDiv").attr("summonerNumber"))
+		if(summonerNumber!=choicesDiv.attr("summonerNumber"))
 		{
-			$("div#choicesDiv").attr("summonerNumber", summonerNumber);
-			$("div#choicesDiv").css("display", "inline-block");
+			choicesDiv.attr("summonerNumber", summonerNumber);
+			choicesDiv.attr("page", 0);
+			choicesDiv.css("display", "inline-block");
 			$("button.championBlock").css({"display": "none", "border-color": "blue"});
 			if($("button.championBlock[dataType=Good]").length>0)
 				$("#tabGood").css("display", "inline");
@@ -146,7 +192,8 @@ function activateShowSelectionClickListeners()
 			if($("button.championBlock[dataType=Bad]").length>0)
 				$("#tabBad").css("display", "inline");
 			
-			setPrimaryStyleOfChoicesDiv(summonerNumber);
+			setIntitialPageButtonLayout(summonerNumber);
+			setInitialStyleOfChoicesDiv(summonerNumber);
 		}
 	});
 }
@@ -244,14 +291,13 @@ async function calculateAndPrintPercentages()
 		await normalizeAllData();
 		
 		await sortAndPrintAllData(summonerNumber);
+		
+		//Reveal Show Selections Buttons
+		if(summonerChampSelectionsGood.length>0 || summonerChampSelectionsFair.length>0 || summonerChampSelectionsBad.length>0)
+			$("#showSelectionsButton"+summonerNumber).css("display", "block");
 	}
 	
-	$(".showSelectionsButton").each(function(){
-		if($(this).attr("display")=="yes")
-			$(this).css("display", "block");
-	})
-	
-	activateChampionBlockClickListeners()
+	activateChampionBlockClickListeners();
 }
 
 
@@ -672,9 +718,6 @@ function normalizeGivenData(activeSummonerChampSelections, activeSummonerChampFi
 
 function sortAndPrintAllData(summonerNumber)
 {
-	if(summonerChampSelectionsGood.length>0 || summonerChampSelectionsFair.length>0 || summonerChampSelectionsBad.length>0)
-		$("#showSelectionsButton"+summonerNumber).attr("display", "yes");
-	
 	if(summonerChampSelectionsGood.length>0)
 		sortAndPrintData(summonerNumber, "Good", summonerChampSelectionsGood, summonerChampInitialPersGood, summonerChampHelpGood);
 		
@@ -769,28 +812,62 @@ function sortAndPrintData(summonerNumber, dataType, summonerChampSelections, sum
 
 
 
-function setPrimaryStyleOfChoicesDiv(summonerNumber)
+function setIntitialPageButtonLayout(summonerNumber)
+{
+	if($("#tabGood").css("display")!="none")
+	{
+		if($("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Good][page=1]").length>0)
+		{
+			var rightPageButton=$("button.page#right");
+			rightPageButton.css("display", "block");
+			rightPageButton.html("Page 2");
+		}
+	}
+	else if($("#tabFair").css("display")!="none")
+	{
+		if($("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Fair][page=1]").length>0)
+		{
+			var rightPageButton=$("button.page#right");
+			rightPageButton.css("display", "block");
+			rightPageButton.html("Page 2");
+		}
+	}
+	else if($("#tabBad").css("display")!="none")
+	{
+		if($("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Bad][page=1]").length>0)
+		{
+			var rightPageButton=$("button.page#right");
+			rightPageButton.css("display", "block");
+			rightPageButton.html("Page 2");
+		}
+	}
+}
+
+function setInitialStyleOfChoicesDiv(summonerNumber)
 {
 	$("button.tab").css("border-bottom-color", "#737373");
 	
 	if($("#tabGood").css("display")!="none")
 	{
-		$("#tabGood").css("border-bottom-color", "lightgreen");
-		$("#choicesDiv").css({"background-color":"lightgreen", "border-color":"lightgreen"});
-		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Good][page=1]").css("display", "block");
+		var color=dataTypeToColorMap["Good"];
+		$("#tabGood").css("border-bottom-color", color);
+		$("#choicesDiv").css({"background-color":color, "border-color":color});
+		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Good][page=0]").css("display", "block");
 	}
 	
 	else if($("#tabFair").css("display")!="none")
 	{
-		$("#tabFair").css("border-bottom-color", "lightblue");
-		$("#choicesDiv").css({"background-color":"lightblue", "border-color":"lightblue"});
-		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Fair][page=1]").css("display", "block");
+		var color=dataTypeToColorMap["Fair"];
+		$("#tabFair").css("border-bottom-color", color);
+		$("#choicesDiv").css({"background-color":color, "border-color":color});
+		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Fair][page=0]").css("display", "block");
 	}
 
 	else if($("#tabBad").css("display")!="none")
 	{
-		$("#tabBad").css("border-bottom-color", "pink");
-		$("#choicesDiv").css({"background-color":"pink", "border-color":"pink"});
-		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Bad][page=1]").css("display", "block");
+		var color=dataTypeToColorMap["Bad"];
+		$("#tabBad").css("border-bottom-color", color);
+		$("#choicesDiv").css({"background-color":color, "border-color":color});
+		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Bad][page=0]").css("display", "block");
 	}
 }

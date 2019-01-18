@@ -22,7 +22,7 @@ const champSupAccessList=["alistar", "amumu", "anivia", "bard", "blitzcrank", "b
 const champJgList=["Akali", "Amumu", "Cho'Gath", "Diana", "Ekko", "Elise", "Evelynn", "Fiddlesticks", "Fiora", "Fizz", "Gnar", "Graves", "Hecarim", "Ivern", "Jax", "Kai'Sa", "Katarina", "Kayn", "Kha'Zix", "Kindred", "Kled",  "Lee Sin", "Maokai", "Master Yi", "Nautilus", "Nidalee", "Nocturne", "Nunu", "Olaf", "Ornn", "Pantheon", "Pyke", "Rammus", "Rek'Sai", "Renekton", "Rengar", "Riven", "Sejuani", "Shaco", "Shyvana", "Singed", "Sion", "Trundle", "Tryndamere", "Twisted Fate", "Udyr", "Urgot", "Vi", "Volibear", "Warwick", "Wukong", "Xin Zhao", "Zac", "Zed"]
 const champJgAccessList=["akali", "amumu", "chogath", "diana", "ekko", "elise", "evelynn", "fiddlesticks", "fiora", "fizz", "gnar", "graves", "hecarim", "ivern", "jax", "kaisa", "katarina", "kayn", "khazix", "kindred", "kled",  "leesin", "maokai", "masteryi", "nautilus", "nidalee", "nocturne", "nunu", "olaf", "ornn", "pantheon", "pyke", "rammus", "reksai", "renekton", "rengar", "riven", "sejuani", "shaco", "shyvana", "singed", "sion", "trundle", "tryndamere", "twistedfate", "udyr", "urgot", "vi", "volibear", "warwick", "wukong", "xinzhao", "zac", "zed"]
 
-/*Champions per team*/
+/*Champions per team and page*/
 const champsPerTeam=5;
 const champsPerPage=7;
 
@@ -50,3 +50,7 @@ var summonerChampFinalPersGood=Array(0);
 var summonerChampFinalPersFair=Array(0);
 
 var summonerChampFinalPersBad=Array(0);
+
+
+var colorToDataTypeMap={"rgb(144, 238, 144)":"Good", "rgb(173, 216, 230)":"Fair", "rgb(255,192,203)":"Fair"};
+var dataTypeToColorMap={"Good":"lightgreen", "Fair":"lightblue", "Bad":"pink"};
