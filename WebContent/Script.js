@@ -115,12 +115,24 @@ function activateTabClickListeners()
 		{
 			var dataType=$(this).html();
 			var summonerNumber=choicesDiv.attr("summonerNumber");
+			
 			$("button.tab").css("border-bottom-color", "#737373");
 			$(this).css("border-bottom-color", color);
+			
+			$("button.page").css("display", "none");
+			if($("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Good][page=1]").length>0)
+			{
+				var rightPageButton=$("button.page#right");
+				rightPageButton.css("display", "block");
+				rightPageButton.html("Page 2");
+			}
+			
 			choicesDiv.css("background", color);
 			choicesDiv.css("border-color", color);
+			
 			$("button.championBlock").css({"display": "none", "border-color": "blue"});
 			$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page=0]").css("display", "block");
+			
 			$("p#helpText").html("");
 		}
 	});	
@@ -249,12 +261,17 @@ function resetDataArrays()
 /*Calculate the percentages for each unidentified ally*/
 async function calculateAndPrintPercentages()
 {
-	$("#choicesDiv").css("display", "none");
-	$("#choicesDiv").attr("summonerNumber", "");
-	$(".tab").css("display", "none");
+	$("div#choicesDiv").css("display", "none");
+	$("div#choicesDiv").attr("summonerNumber", "");
+	
+	$("button.tab").css("display", "none");
+	
+	$("button.page").css("display", "none");
+	
 	$("button.championBlock").remove();
+	
 	$(".showSelectionsButton").css("display", "none");
-	$(".showSelectionsButton").attr("display", "no");
+	
 	$("p#helpText").css("display", "none");
 	
 	allyChamps=Array(0);
