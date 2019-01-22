@@ -1,19 +1,21 @@
 /*Create the hyperlink that sends you back to the main page and refresh source*/
 function onBodyLoad()
 {
-	var promise = refreshCounterSourceCode()
-	promise.then(doNothing());
+	var promise = refreshCounterSourceCode();
+	promise.then(sendBackToBasePage());
 }
-
-function doNothing()
-{console.log("Back to Base Page")}
 
 function sendBackToBasePage()
 {
-	var a=document.createElement("a");
-	a.setAttribute("href", "https://tjheim.github.io/LoLCounterPicking/WebContent/BasePage.html");
-	a.click();
+	console.log("Back to Base Page");
 }
+
+//function sendBackToBasePage2()
+//{
+//	var a=document.createElement("a");
+//	a.setAttribute("href", "https://tjheim.github.io/LoLCounterPicking/WebContent/BasePage.html");
+//	a.click();
+//}
 
 /*Grabs all the data from the website and saves it to this computer's files*/
 function refreshCounterSourceCode(startIndex)
@@ -37,14 +39,15 @@ function refreshCounterSourceCode(startIndex)
 //				var activeChampPos=champPosAccessList[champPos];
 //				if(counter>=startIndex)
 //				{
-					promiseArray.push(getData("aatrox", "strong", "top"));
-					promiseArray.push(getData("akali", "strong", "top"));
+					promiseArray.push(getData("aatrox", "strong", "top"));		//Test case
+					promiseArray.push(getData("akali", "strong", "top"));		//Test Case
 //					dataArray.push(await (getData(activeChamp, activeCompareType, activeChampPos)));
 //				}
 //			}
 //		}
 //	}
 	
+	/*Save array as a JSON*/
 	dataArray = Promise.all(promiseArray).then(function(){
 					jsonArray=JSON.stringify(dataArray);
 					saveAs(new Blob([jsonArray]), "LolCounterSource.json");
@@ -104,7 +107,6 @@ function makeAndReturnData(html)
 		/*Get name and add it to the data*/
 		var champAccessName=html.substring(startOfChampName, endOfChampName);
 		data.champArray.push(champAccessName);
-//		data=data.concat(champAccessName+"/");
 		
 		/*Find the start of the champion's per*/
 		var startOfChampPer=html.indexOf("width:", activePos)+"width:".length;
@@ -116,7 +118,6 @@ function makeAndReturnData(html)
 		/*Get per and add it to the data*/
 		var champPer=html.substring(startOfChampPer, endOfChampPer);
 		data.perArray.push(champPer);
-//		data=data.concat(champPer+"/");
 	}
 	
 	return Promise.resolve(data);	
