@@ -146,3 +146,28 @@ div.championBlockPercentage
 	position: absolute;
 	right: 8px;
 }
+
+
+#progressBarBorder
+{
+	display: inline-block;
+	background: gray;
+	position: relative;
+	top: 10px;
+	text-align: center;
+	width: 65%;
+	height: 30px;
+	border-color: black;
+	border-style: solid;
+	border-width: 3px;
+	padding: 0px;
+}
+
+#progressBar
+{
+	display: block;
+	background: gold;
+	text-align: left;
+	height: 100%;
+	width: 0%;
+}
