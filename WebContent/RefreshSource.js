@@ -1,13 +1,23 @@
+/*Total data indices to collect on each function call*/
+var maxDataPerCall = 3000;
+
+/*Total data to collect*/
+var totalDataCount = champAccessList.length * champPosAccessList.length * compareTypeAccessList.length;
+
+/*Data collected so far*/
+var dataCount = 0;
+
+var functionRunning = false;
+
 /*Create the hyperlink that sends you back to the main page and refresh source*/
-function onBodyLoad()
+async function onBodyLoad()
 {
-	var promise = refreshCounterSourceCode()
-	promise.then(doNothing());
+	mySetInterval(updateProgressBar, 50);
+	
+	refreshCounterSourceCode().then(sleep(5000))/*.then(sendBackToBasePage)*/;
 }
 
-function doNothing()
-{console.log("Back to Base Page")}
-
+/*Send to the base page*/
 function sendBackToBasePage()
 {
 	var a=document.createElement("a");
@@ -18,66 +28,66 @@ function sendBackToBasePage()
 /*Grabs all the data from the website and saves it to this computer's files*/
 function refreshCounterSourceCode(startIndex)
 {
-	return new Promise(async function(resolve, reject){
-//	if(arguments[0]==undefined)
-//		startIndex=0;
+	return new Promise(async function(resolve){
+	if(startIndex==undefined)
+		startIndex=0;
 	
 	var promiseArray=Array(0);
 	var dataArray=Array(0);
 	
 	var counter=0;
-//	for(var champ=0; champ<champAccessList.length; champ++)
-//	{
-//		for(var compareType=0; compareType<compareTypeAccessList.length; compareType++)
-//		{
-//			for(var champPos=0; champPos<champPosAccessList.length; champPos++)
-//			{
-//				var activeChamp=champAccessList[champ];
-//				var activeCompareType=compareTypeAccessList[compareType];
-//				var activeChampPos=champPosAccessList[champPos];
-//				if(counter>=startIndex)
-//				{
-					promiseArray.push(getData("aatrox", "strong", "top"));
-					promiseArray.push(getData("akali", "strong", "top"));
-//					dataArray.push(await (getData(activeChamp, activeCompareType, activeChampPos)));
-//				}
-//			}
-//		}
-//	}
+	for(var champ=0; champ<champAccessList.length; champ++)
+	{
+		for(var compareType=0; compareType<compareTypeAccessList.length; compareType++)
+		{
+			for(var champPos=0; champPos<champPosAccessList.length; champPos++)
+			{
+				let activeChamp=champAccessList[champ];
+				let activeCompareType=compareTypeAccessList[compareType];
+				let activeChampPos=champPosAccessList[champPos];
+				if(counter>=startIndex && counter<startIndex + maxDataPerCall)
+				{
+					sleep(20);
+					console.log("Call "+counter.toString())
+					
+					promiseArray.push(getDataAndAddToArray(activeChamp, activeCompareType, activeChampPos, dataArray, counter));
+					counter++;
+				}
+			}
+		}
+	}
 	
-	dataArray = Promise.all(promiseArray).then(function(){
+	/*Save array as a JSON*/
+	Promise.all(promiseArray).then(function(){
 					jsonArray=JSON.stringify(dataArray);
 					saveAs(new Blob([jsonArray]), "LolCounterSource.json");
-					resolve();})
+					resolve(); })
 });
 }
 
 
 
-function getData(activeChamp, activeCompareType, activeChampPos)
+
+async function getDataAndAddToArray(activeChamp, activeCompareType, activeChampPos, dataArray, index)
 {
-	return new Promise(function(resolve){
-		var html = $.get("https://api.allorigins.ml/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?");
-		html.catch((activeChamp, activeCompareType, activeChampPos) => getData(activeChamp, activeCompareType, activeChampPos));
-		html.then(html => makeAndReturnData(html))
-		.then(data => resolve(data));
-	});
-//	try
-//	{
-//		var html = await $.get("https://api.allorigins.ml/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?");
-//	}
-//	catch(err)
-//	{
-//		console.log("Failed to get data for vars "+activeChamp+", "+activeCompareType+", "+activeChampPos);
-//		return getData(activeChamp, activeCompareType, activeChampPos);
-//	}
-//	
-//	data = await makeAndReturnData(html);
-//	return data;
+	let html = "";
+	try
+	{
+		html = await $.get("https://api.allorigins.win/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?");
+	}
+	catch(err)
+	{
+		console.log("Failed to get data for vars "+activeChamp+", "+activeCompareType+", "+activeChampPos);
+	}
+	
+	let data = await getDataFromHtml(html);
+	dataArray[index] = data;
+	dataCount++;
+	return Promise.resolve();
 }
 
-
-function makeAndReturnData(html)
+/* Collects the data from the raw html of a page */
+function getDataFromHtml(html)
 {
 	/*Object to contain the collected data*/
 	data={champArray: Array(0), perArray: Array(0)};
@@ -104,7 +114,6 @@ function makeAndReturnData(html)
 		/*Get name and add it to the data*/
 		var champAccessName=html.substring(startOfChampName, endOfChampName);
 		data.champArray.push(champAccessName);
-//		data=data.concat(champAccessName+"/");
 		
 		/*Find the start of the champion's per*/
 		var startOfChampPer=html.indexOf("width:", activePos)+"width:".length;
@@ -116,10 +125,19 @@ function makeAndReturnData(html)
 		/*Get per and add it to the data*/
 		var champPer=html.substring(startOfChampPer, endOfChampPer);
 		data.perArray.push(champPer);
-//		data=data.concat(champPer+"/");
 	}
 	
 	return Promise.resolve(data);	
+}
+
+
+
+function updateProgressBar()
+{
+	let per = (dataCount/totalDataCount)*100;
+	let perString = per.toString() + "%";
+	$("#progressBar").css("width", perString);
+	return Promise.resolve();
 }
 
 
@@ -178,3 +196,41 @@ function makeAndReturnData(html)
 //	
 //	return data;
 //}
+
+
+
+/*Timout function*/
+function sleep(milliseconds)
+{
+	var start = new Date().getTime();
+	for (var i = 0; i < 1e7; i++)
+	{
+		if ((new Date().getTime() - start) > milliseconds)
+			return Promise.resolve();;
+	}
+}
+
+
+function mySetInterval(fn, ms)
+{
+	if(!functionRunning)
+	{
+		functionRunning = true;
+		fn().then(functionRunning = false);
+		setTimeout(() => mySetInterval(fn, ms), ms);
+	}
+}
+
+
+/*Test the callback time of allorigin*/
+function callbackTime(activeChamp, activeCompareType, activeChampPos, index)
+{
+	var start = new Date().getTime();
+	$.get("https://api.allorigins.win/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?")
+	.then(() => new Date().getTime())
+	.then(end => end - start)
+	.then(time => console.log("AllOrigins call "+index+" took "+time.toString()+" ms"))
+}
+
+
+
