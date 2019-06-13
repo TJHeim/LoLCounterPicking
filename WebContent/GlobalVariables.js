@@ -49,3 +49,7 @@ var summonerChampFinalPersGood=Array(0);
 var summonerChampFinalPersFair=Array(0);
 
 var summonerChampFinalPersBad=Array(0);
+
+
+/*Data array*/
+var counterDataArray=Array(0);
