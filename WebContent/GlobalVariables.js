@@ -3,7 +3,7 @@ const champList=["Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie
 const champAccessList=["aatrox", "ahri", "akali", "alistar", "amumu", "anivia", "annie", "ashe", "aurelionsol", "azir", "bard", "blitzcrank", "brand", "braum", "caitlyn", "camille", "cassiopeia", "chogath", "corki", "darius", "diana", "drmundo", "draven", "ekko", "elise", "evelynn", "ezreal", "fiddlesticks", "fiora", "fizz", "galio", "gangplank", "garen", "gnar", "gragas", "graves", "hecarim", "heimerdinger", "illaoi", "irelia", "ivern", "janna", "jarvaniv", "jax", "jayce", "jhin", "jinx", "kaisa", "kalista", "karma", "karthus", "kassadin", "katarina", "kayle", "kayn", "kennen", "khazix", "kindred", "kled", "kogmaw", "leblanc", "leesin", "leona", "lissandra", "lucian", "lulu", "lux", "malphite", "malzahar", "maokai", "masteryi", "missfortune", "mordekaiser", "morgana", "nami", "nasus", "nautilus", "nidalee", "nocturne", "nunu", "olaf", "orianna", "ornn", "pantheon", "poppy", "pyke", "quinn", "rakan", "rammus", "reksai", "renekton", "rengar", "riven", "rumble", "ryze", "sejuani", "shaco", "shen", "shyvana", "singed", "sion", "sivir", "skarner", "sona", "soraka", "swain", "syndra", "tahmkench", "taliyah", "talon", "taric", "teemo", "thresh", "tristana", "trundle", "tryndamere", "twistedfate", "twitch", "udyr", "urgot", "varus", "vayne", "veigar", "velkoz", "vi", "viktor", "vladimir", "volibear", "warwick", "wukong", "xayah", "xerath", "xinzhao", "yasuo", "yorick", "zac", "zed", "ziggs", "zilean", "zoe", "zyra"];
 const champPosList=["", "Top", "Mid", "Bot", "Sup", "Jg"];
 const champPosAccessList=["general", "top", "mid", "bottom", "jungle"];
-const champPosMap={"":"general", "Top":"top", "Mid":"mid", "Bottom":"bottom", "Sup":"bottom", "Jg":"jungle"};
+const champPosMap={"":"general", "Top":"top", "Mid":"mid", "Bot":"bottom", "Sup":"bottom", "Jg":"jungle"};
 const compareTypeList=["Strong", "Weak", "Even", "Well"];
 const compareTypeAccessList=["strong", "weak", "even", "good"];
 
@@ -51,6 +51,8 @@ var summonerChampFinalPersFair=Array(0);
 
 var summonerChampFinalPersBad=Array(0);
 
+/*Data array*/
+var counterDataArray=Array(0)
 
 var colorToDataTypeMap={"rgb(144, 238, 144)":"Good", "rgb(173, 216, 230)":"Fair", "rgb(255, 192, 203)":"Bad"};
 var dataTypeToColorMap={"Good":"lightgreen", "Fair":"lightblue", "Bad":"pink"};
