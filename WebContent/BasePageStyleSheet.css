@@ -64,6 +64,26 @@ button#tabBad
 	background: pink;
 }
 
+button.page
+{
+	display:none;
+	background: gold;
+	border-color: goldenrod;
+	border-radius: 2px;
+	position:absolute;
+	top:52px;
+}
+
+button#left
+{
+	right:510px;
+}
+
+button#right
+{
+	right:448px;
+}
+
 div#choicesDiv
 {
 	display: none; /*inline-block*/
