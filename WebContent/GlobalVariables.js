@@ -8,7 +8,7 @@ const compareTypeList=["Strong", "Weak", "Even", "Well"];
 const compareTypeAccessList=["strong", "weak", "even", "good"];
 
 /*Image access names*/
-const champImgAccessList=["Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Ashe", "AurelionSol", "Azir", "Bard", "Blitzcrank", "Brand", "Braum", "Caitlyn", "Camille", "Cassiopeia", "Chogath", "Corki", "Darius", "Diana", "DrMundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Hecarim", "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin", "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen", "Khazix", "Kindred", "Kled", "Kogmaw", "Leblanc", "LeeSin", "Leona", "Lissandra", "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "MissFortune", "Mordekaiser", "Morgana", "Nami", "Nasus", "Nautilus", "Nidalee", "Nocturne", "Nunu", "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Quinn", "Rakan", "Rammus", "Reksai", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Sejuani", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Sona", "Soraka", "Swain", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo", "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Velkoz", "Vi", "Viktor", "Vladimir", "Volibear", "Warwick", "MonkeyKing", "Xayah", "Xerath", "XinZhao", "Yasuo", "Yorick", "Zac", "Zed", "Ziggs", "Zilean", "Zoe", "Zyra"];
+const champImgAccessList=["Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie", "Ashe", "AurelionSol", "Azir", "Bard", "Blitzcrank", "Brand", "Braum", "Caitlyn", "Camille", "Cassiopeia", "Chogath", "Corki", "Darius", "Diana", "DrMundo", "Draven", "Ekko", "Elise", "Evelynn", "Ezreal", "Fiddlesticks", "Fiora", "Fizz", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Hecarim", "Heimerdinger", "Illaoi", "Irelia", "Ivern", "Janna", "JarvanIV", "Jax", "Jayce", "Jhin", "Jinx", "Kaisa", "Kalista", "Karma", "Karthus", "Kassadin", "Katarina", "Kayle", "Kayn", "Kennen", "Khazix", "Kindred", "Kled", "KogMaw", "Leblanc", "LeeSin", "Leona", "Lissandra", "Lucian", "Lulu", "Lux", "Malphite", "Malzahar", "Maokai", "MasterYi", "MissFortune", "Mordekaiser", "Morgana", "Nami", "Nasus", "Nautilus", "Nidalee", "Nocturne", "Nunu", "Olaf", "Orianna", "Ornn", "Pantheon", "Poppy", "Pyke", "Quinn", "Rakan", "Rammus", "Reksai", "Renekton", "Rengar", "Riven", "Rumble", "Ryze", "Sejuani", "Shaco", "Shen", "Shyvana", "Singed", "Sion", "Sivir", "Skarner", "Sona", "Soraka", "Swain", "Syndra", "TahmKench", "Taliyah", "Talon", "Taric", "Teemo", "Thresh", "Tristana", "Trundle", "Tryndamere", "TwistedFate", "Twitch", "Udyr", "Urgot", "Varus", "Vayne", "Veigar", "Velkoz", "Vi", "Viktor", "Vladimir", "Volibear", "Warwick", "MonkeyKing", "Xayah", "Xerath", "XinZhao", "Yasuo", "Yorick", "Zac", "Zed", "Ziggs", "Zilean", "Zoe", "Zyra"];
 
 /*Access and print lists for champions at each position*/
 const champTopList=["Aatrox", "Amumu", "Camille", "Cho'Gath", "Darius", "Diana", "Dr. Mundo", "Ekko", "Fiora", "Galio", "Gangplank", "Garen", "Gnar", "Gragas", "Graves", "Hecarim", "Illaoi", "Irelia", "Ivern", "Jarvan IV", "Jax", "Jayce", "Jhin", "Kai'Sa", "Karma", "Kayle", "Kennen", "Kled", "Lee Sin", "Malphite", "Maokai", "Master Yi", "Nasus", "Nautilus", "Nunu", "Olaf", "Ornn", "Pantheon", "Poppy", "Quinn", "Rammus", "Renekton", "Riven", "Rumble", "Sejuani", "Shen", "Shyvana", "Singed", "Sion", "Swain", "Tahm Kench", "Teemo", "Trundle", "Tryndamere", "Urgot", "Vi", "Viktor", "Wukong", "Xin Zhao", "Yasuo", "Yorick", "Zac", "Zed"];
@@ -33,23 +33,28 @@ const pixelsBetweenChampBlocks=70;
 
 /*Holds the champs and the percentages for calculation*/
 var summonerChampSelectionsGood=Array(0);
-var summonerChampInitialPersGood=Array(0);
+var summonerChampPersGood=Array(0);
 var summonerChampHelpGood=Array(0);
 
 var summonerChampSelectionsFair=Array(0);
-var summonerChampInitialPersFair=Array(0);
+var summonerChampPersFair=Array(0);
 var summonerChampHelpFair=Array(0);
 
 var summonerChampSelectionsBad=Array(0);
-var summonerChampInitialPersBad=Array(0);
+var summonerChampPersBad=Array(0);
 var summonerChampHelpBad=Array(0);
 
 
-var summonerChampFinalPersGood=Array(0);
+var summonerNormalizedChampPersGood=Array(0);
+var summonerNormalizedChampSelectionsGood=Array(0);
 
-var summonerChampFinalPersFair=Array(0);
+var summonerNormalizedChampPersFair=Array(0);
+var summonerNormalizedChampSelectionsFair=Array(0);
 
-var summonerChampFinalPersBad=Array(0);
+var summonerNormalizedChampPersBad=Array(0);
+var summonerNormalizedChampSelectionsBad=Array(0);
+
+var summonerNormalizedChampHelp=Array(0);
 
 /*Data array*/
 var counterDataArray=Array(0)
