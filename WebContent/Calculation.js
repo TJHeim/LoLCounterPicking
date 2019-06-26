@@ -450,26 +450,27 @@ function normalizeChampData(champ, availableData)
 	let summonerNormalizedChampPerBad
 	
 	summonerNormalizedChampHelp.push("");
+	let arrayLength = summonerNormalizedChampHelp.length;
 	
 	if(availableData.includes("good"))
 	{
 		champIndexGood = summonerChampSelectionsGood.indexOf(champ);
 		perGood = parseInt(summonerChampPersGood[champIndexGood])/100;
-		summonerNormalizedChampHelp[-1]+=summonerChampHelpGood[champIndexGood];
+		summonerNormalizedChampHelp[arrayLength - 1]+=summonerChampHelpGood[champIndexGood];
 	}
 	
 	if(availableData.includes("fair"))
 	{
 		champIndexFair = summonerChampSelectionsFair.indexOf(champ);
 		perFair = parseInt(summonerChampPersFair[champIndexFair])/100;
-		summonerNormalizedChampHelp[-1]+=summonerChampHelpFair[champIndexFair];
+		summonerNormalizedChampHelp[arrayLength - 1]+=summonerChampHelpFair[champIndexFair];
 	}
 	
 	if(availableData.includes("bad"))
 	{
 		champIndexBad = summonerChampSelectionsBad.indexOf(champ);
 		perBad = parseInt(summonerChampPersBad[champIndexBad])/100;
-		summonerNormalizedChampHelp[-1]+=summonerChampHelpBad[champIndexBad];
+		summonerNormalizedChampHelp[arrayLength - 1]+=summonerChampHelpBad[champIndexBad];
 	}
 	
 	if(availableData.toString()==["good"].toString())
