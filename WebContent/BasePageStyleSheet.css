@@ -76,12 +76,12 @@ button.page
 
 button#left
 {
-	right:510px;
+	right: calc(32.5% + 70px);
 }
 
 button#right
 {
-	right:448px;
+	right: calc(32.5% + 5px);
 }
 
 div#choicesDiv
