@@ -2,27 +2,28 @@
 function resetDataArrays()
 {
 	summonerChampSelectionsGood=Array(0);
-	summonerChampPersGood=Array(0);
-	summonerChampHelpGood=Array(0);
+	summonerChampPersGood = Array(0);
 	
 	summonerChampSelectionsFair=Array(0);
-	summonerChampPersFair=Array(0);
-	summonerChampHelpFair=Array(0);
+	summonerChampPersFair = Array(0);
 	
-	summonerChampSelectionsBad=Array(0);
-	summonerChampPersBad=Array(0);
-	summonerChampHelpBad=Array(0);
+	summonerChampSelectionsBad = Array(0);
+	summonerChampPersBad = Array(0);
 	
-	summonerNormalizedChampPersGood=Array(0);
-	summonerNormalizedChampSelectionsGood=Array(0);
+	summonerNormalizedChampPersGood = Array(0);
+	summonerNormalizedChampSelectionsGood = Array(0);
 
-	summonerNormalizedChampPersFair=Array(0);
-	summonerNormalizedChampSelectionsFair=Array(0);
+	summonerNormalizedChampPersFair = Array(0);
+	summonerNormalizedChampSelectionsFair = Array(0);
 
-	summonerNormalizedChampPersBad=Array(0);
-	summonerNormalizedChampSelectionsBad=Array(0);
+	summonerNormalizedChampPersBad = Array(0);
+	summonerNormalizedChampSelectionsBad = Array(0);
 	
-	summonerNormalizedChampHelp=Array(0);
+	summonerAllChampSelections = Array(0);
+	summonerChampHelpStrong = Array(0);
+	summonerChampHelpGood = Array(0);
+	summonerChampHelpEven = Array(0);
+	summonerChampHelpWeak = Array(0);
 	
 	return Promise.resolve();
 }
@@ -43,7 +44,7 @@ async function calculateAndPrintPercentages()
 	
 	$(".showSelectionsButton").css("display", "none");
 	
-	$("p#helpText").css("display", "none");
+	resetHelp();
 	
 	allyChamps=Array(0);
 	enemyChamps=Array(0);
@@ -307,89 +308,145 @@ async function grabDataAndAddToArrays(summonerNumber, champ, champPos, compareTy
 	let champPosIndex = champPosAccessList.indexOf(champPos);
 	let compareTypeIndex = compareTypeAccessList.indexOf(compareType);
 	let dataObject = counterDataArray[champPosIndex + champPosAccessList.length*compareTypeIndex + champPosAccessList.length*compareTypeAccessList.length*champIndex];
-	await addDataToArrays(summonerNumber, champIndex, compareType, champsAtPosList, champsAtPosAccessList, dataObject);
+	await addDataToArrays(summonerNumber, champ, champPos, compareType, champIndex, champsAtPosList, champsAtPosAccessList, dataObject);
 	return Promise.resolve();
 }
 
 
 
 /*Add the found data to the arrays*/
-function addDataToArrays(summonerNumber, activeChampIndex, compareType, champsAtPosList, champsAtPosAccessList, dataObject)
+function addDataToArrays(summonerNumber, activeChamp, activeChampPos, activeCompareType, activeChampIndex, champsAtPosList, champsAtPosAccessList, dataObject)
 {
 	for(let i = 0; i < dataObject.champArray.length; i++)
 	{
 		let champ = dataObject.champArray[i];
 		let champPer = dataObject.perArray[i];
 		
-		if(compareType=="weak")
+		if(activeCompareType=="weak")
 		{
 			if(summonerChampSelectionsGood.includes(champ))
 			{
-				var champPosInArray=summonerChampSelectionsGood.indexOf(champ)
-				var presentPer=summonerChampPersGood[champPosInArray];
+				let champPosInArray=summonerChampSelectionsGood.indexOf(champ)
+				let presentPer=summonerChampPersGood[champPosInArray];
 				summonerChampPersGood[champPosInArray]=(1-(1-presentPer/100)*(1-champPer/100))*100;
-				summonerChampHelpGood[champPosInArray]+=", Strong against "+champList[activeChampIndex];
 			}
 							
 			else if(champsAtPosAccessList.includes(champ))
 			{
 				summonerChampSelectionsGood.push(champ);
 				summonerChampPersGood.push(champPer);
-				summonerChampHelpGood.push("Strong against "+champList[activeChampIndex]);
+			}
+			
+			if(summonerAllChampSelections.includes(champ))
+			{
+				let champPosInArray=summonerAllChampSelections.indexOf(champ);
+				summonerChampHelpStrong[champPosInArray].champs.push(activeChamp);
+				summonerChampHelpStrong[champPosInArray].posses.push(activeChampPos);
+			}
+			
+			else if(champsAtPosAccessList.includes(champ))
+			{
+				summonerAllChampSelections.push(champ);
+				summonerChampHelpStrong.push({champs: [activeChamp], posses: [activeChampPos]});
+				summonerChampHelpGood.push({champs: Array(0), posses: Array(0)});
+				summonerChampHelpEven.push({champs: Array(0), posses: Array(0)});
+				summonerChampHelpWeak.push({champs: Array(0), posses: Array(0)});
 			}
 		}
 						
-		if(compareType=="good")
+		else if(activeCompareType=="good")
 		{
 			if(summonerChampSelectionsGood.includes(champ))
 			{
-				var champPosInArray=summonerChampSelectionsGood.indexOf(champ)
-				var presentPer=summonerChampPersGood[champPosInArray];
+				let champPosInArray=summonerChampSelectionsGood.indexOf(champ)
+				let presentPer=summonerChampPersGood[champPosInArray];
 				summonerChampPersGood[champPosInArray]=(1-(1-presentPer/100)*(1-champPer/100))*100;
-				summonerChampHelpGood[champPosInArray]+=", Good with "+champList[activeChampIndex];
 			}
 							
 			else if(champsAtPosAccessList.includes(champ))
 			{
 				summonerChampSelectionsGood.push(champ);
 				summonerChampPersGood.push(champPer);
-				summonerChampHelpGood.push("Good with "+champList[activeChampIndex]);
+			}
+			
+			if(summonerAllChampSelections.includes(champ))
+			{
+				let champPosInArray=summonerAllChampSelections.indexOf(champ);
+				summonerChampHelpGood[champPosInArray].champs.push(activeChamp);
+				summonerChampHelpGood[champPosInArray].posses.push(activeChampPos);
+			}
+			
+			else if(champsAtPosAccessList.includes(champ))
+			{
+				summonerAllChampSelections.push(champ);
+				summonerChampHelpStrong.push({champs: Array(0), posses: Array(0)});
+				summonerChampHelpGood.push({champs: [activeChamp], posses: [activeChampPos]});
+				summonerChampHelpEven.push({champs: Array(0), posses: Array(0)});
+				summonerChampHelpWeak.push({champs: Array(0), posses: Array(0)});
 			}
 		}
 						
-		else if(compareType=="even")
+		else if(activeCompareType=="even")
 		{
 			if(summonerChampSelectionsFair.includes(champ))
 			{
-				var champPosInArray=summonerChampSelectionsFair.indexOf(champ)
-				var presentPer=summonerChampPersFair[champPosInArray];
+				let champPosInArray=summonerChampSelectionsFair.indexOf(champ)
+				let presentPer=summonerChampPersFair[champPosInArray];
 				summonerChampPersFair[champPosInArray]=(1-(1-presentPer/100)*(1-champPer/100))*100;
-				summonerChampHelpFair[champPosInArray]+=", Goes even with "+champList[activeChampIndex];
 			}
 							
 			else if(champsAtPosAccessList.includes(champ))
 			{
 				summonerChampSelectionsFair.push(champ);
 				summonerChampPersFair.push(champPer);
-				summonerChampHelpFair.push("Goes even with "+champList[activeChampIndex]);
+			}
+			
+			if(summonerAllChampSelections.includes(champ))
+			{
+				let champPosInArray=summonerAllChampSelections.indexOf(champ);
+				summonerChampHelpEven[champPosInArray].champs.push(activeChamp);
+				summonerChampHelpEven[champPosInArray].posses.push(activeChampPos);
+			}
+			
+			else if(champsAtPosAccessList.includes(champ))
+			{
+				summonerAllChampSelections.push(champ);
+				summonerChampHelpStrong.push({champs: Array(0), posses: Array(0)});
+				summonerChampHelpGood.push({champs: Array(0), posses: Array(0)});
+				summonerChampHelpEven.push({champs: [activeChamp], posses: [activeChampPos]});
+				summonerChampHelpWeak.push({champs: Array(0), posses: Array(0)});
 			}
 		}
 						
-		if(compareType=="strong")
+		else if(activeCompareType=="strong")
 		{
 			if(summonerChampSelectionsFair.includes(champ))
 			{
-				var champPosInArray=summonerChampSelectionsBad.indexOf(champ)
-				var presentPer=summonerChampPersBad[champPosInArray];
+				let champPosInArray=summonerChampSelectionsBad.indexOf(champ)
+				let presentPer=summonerChampPersBad[champPosInArray];
 				summonerChampPersBad[champPosInArray]=(1-(1-presentPer/100)*(1-champPer/100))*100;
-				summonerChampHelpBad[champPosInArray]+=", Weak against "+champList[activeChampIndex];
 			}
 							
 			else if(champsAtPosAccessList.includes(champ))
 			{
 				summonerChampSelectionsBad.push(champ);
 				summonerChampPersBad.push(champPer);
-				summonerChampHelpBad.push("Weak against "+champList[activeChampIndex]);
+			}
+			
+			if(summonerAllChampSelections.includes(champ))
+			{
+				let champPosInArray=summonerAllChampSelections.indexOf(champ);
+				summonerChampHelpWeak[champPosInArray].champs.push(activeChamp);
+				summonerChampHelpWeak[champPosInArray].posses.push(activeChampPos);
+			}
+			
+			else if(champsAtPosAccessList.includes(champ))
+			{
+				summonerAllChampSelections.push(champ);
+				summonerChampHelpStrong.push({champs: Array(0), posses: Array(0)});
+				summonerChampHelpGood.push({champs: Array(0), posses: Array(0)});
+				summonerChampHelpEven.push({champs: Array(0), posses: Array(0)});
+				summonerChampHelpWeak.push({champs: [activeChamp], posses: [activeChampPos]});
 			}
 		}
 	}
@@ -449,28 +506,22 @@ function normalizeChampData(champ, availableData)
 	let perBad;
 	let summonerNormalizedChampPerBad
 	
-	summonerNormalizedChampHelp.push("");
-	let arrayLength = summonerNormalizedChampHelp.length;
-	
 	if(availableData.includes("good"))
 	{
 		champIndexGood = summonerChampSelectionsGood.indexOf(champ);
 		perGood = parseInt(summonerChampPersGood[champIndexGood])/100;
-		summonerNormalizedChampHelp[arrayLength - 1]+=summonerChampHelpGood[champIndexGood];
 	}
 	
 	if(availableData.includes("fair"))
 	{
 		champIndexFair = summonerChampSelectionsFair.indexOf(champ);
 		perFair = parseInt(summonerChampPersFair[champIndexFair])/100;
-		summonerNormalizedChampHelp[arrayLength - 1]+=summonerChampHelpFair[champIndexFair];
 	}
 	
 	if(availableData.includes("bad"))
 	{
 		champIndexBad = summonerChampSelectionsBad.indexOf(champ);
 		perBad = parseInt(summonerChampPersBad[champIndexBad])/100;
-		summonerNormalizedChampHelp[arrayLength - 1]+=summonerChampHelpBad[champIndexBad];
 	}
 	
 	if(availableData.toString()==["good"].toString())
@@ -562,19 +613,19 @@ function pushChampIntoAllNormalizedDataArrays(champ)
 function sortAndPrintAllData(summonerNumber)
 {
 	if(summonerNormalizedChampSelectionsGood.length>0)
-		sortAndPrintData(summonerNumber, "Good", summonerNormalizedChampSelectionsGood, summonerNormalizedChampPersGood, summonerNormalizedChampHelp);
+		sortAndPrintData(summonerNumber, "Good", summonerNormalizedChampSelectionsGood, summonerNormalizedChampPersGood);
 		
 	if(summonerNormalizedChampSelectionsFair.length>0)
-		sortAndPrintData(summonerNumber, "Fair", summonerNormalizedChampSelectionsFair, summonerNormalizedChampPersFair, summonerNormalizedChampHelp);
+		sortAndPrintData(summonerNumber, "Fair", summonerNormalizedChampSelectionsFair, summonerNormalizedChampPersFair);
 	
 	if(summonerNormalizedChampSelectionsBad.length>0)
-		sortAndPrintData(summonerNumber, "Bad", summonerNormalizedChampSelectionsBad, summonerNormalizedChampPersBad, summonerNormalizedChampHelp);
+		sortAndPrintData(summonerNumber, "Bad", summonerNormalizedChampSelectionsBad, summonerNormalizedChampPersBad);
 }
 
 
 
 
-function sortAndPrintData(summonerNumber, dataType, summonerChampSelections, summonerChampPers, summonerChampHelp)
+function sortAndPrintData(summonerNumber, dataType, summonerChampSelections, summonerChampPers)
 {
 	/*Sort the data largest first*/
 	for(var i=0; i<summonerChampSelections.length-1; i++)
@@ -588,13 +639,10 @@ function sortAndPrintData(summonerNumber, dataType, summonerChampSelections, sum
 		
 		var tempChamp=summonerChampSelections[i];
 		var tempPer=summonerChampPers[i];
-		var tempHelpText=summonerChampHelp[i];
 		summonerChampSelections[i]=summonerChampSelections[maxIndex];
 		summonerChampPers[i]=summonerChampPers[maxIndex];
-		summonerChampHelp[i]=summonerChampHelp[maxIndex];
 		summonerChampSelections[maxIndex]=tempChamp;
 		summonerChampPers[maxIndex]=tempPer;
-		summonerChampHelp[maxIndex]=tempHelpText;
 	}
 	
 	/*Round the pers for each champ*/
@@ -609,16 +657,18 @@ function sortAndPrintData(summonerNumber, dataType, summonerChampSelections, sum
 		{
 			summonerChampSelections.splice(champ, 1);
 			summonerChampPers.splice(champ, 1);
-			summonerChampHelp.splice(champ, 1);
 		}
 	}
 	
 	/*Print the champion blocks*/
 	for(var ranking=0; ranking<summonerChampSelections.length; ranking++)
 	{
-		var champ=champImgAccessList[champAccessList.indexOf(summonerChampSelections[ranking])];
+		var champImg=champImgAccessList[champAccessList.indexOf(summonerChampSelections[ranking])];
+		var champ=summonerChampSelections[ranking];
 		var per=summonerChampPers[ranking];
-		var helpText=summonerChampHelp[ranking];
+		
+		var champIndex=summonerAllChampSelections.indexOf(champ);
+		var helpText=JSON.stringify({strong: summonerChampHelpStrong[champIndex], good: summonerChampHelpGood[champIndex], even: summonerChampHelpEven[champIndex], weak: summonerChampHelpWeak[champIndex]})
 		
 		var choicesDiv=document.getElementById("choicesDiv");
 		
@@ -632,7 +682,7 @@ function sortAndPrintData(summonerNumber, dataType, summonerChampSelections, sum
 		
 		var championBlockChampImg=document.createElement("div");
 		championBlockChampImg.setAttribute("class", "championBlockImg");
-		championBlockChampImg.style="background: url(http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/"+champ+".png) left/40px 40px";
+		championBlockChampImg.style="background: url(http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/"+champImg+".png) left/40px 40px";
 
 		var championBlockPercentageBoxDiv=document.createElement("div");
 		championBlockPercentageBoxDiv.setAttribute("class", "championBlockPercentageBox");

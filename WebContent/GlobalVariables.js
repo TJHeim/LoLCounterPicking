@@ -3,8 +3,9 @@ const champList=["Aatrox", "Ahri", "Akali", "Alistar", "Amumu", "Anivia", "Annie
 const champAccessList=["aatrox", "ahri", "akali", "alistar", "amumu", "anivia", "annie", "ashe", "aurelionsol", "azir", "bard", "blitzcrank", "brand", "braum", "caitlyn", "camille", "cassiopeia", "chogath", "corki", "darius", "diana", "drmundo", "draven", "ekko", "elise", "evelynn", "ezreal", "fiddlesticks", "fiora", "fizz", "galio", "gangplank", "garen", "gnar", "gragas", "graves", "hecarim", "heimerdinger", "illaoi", "irelia", "ivern", "janna", "jarvaniv", "jax", "jayce", "jhin", "jinx", "kaisa", "kalista", "karma", "karthus", "kassadin", "katarina", "kayle", "kayn", "kennen", "khazix", "kindred", "kled", "kogmaw", "leblanc", "leesin", "leona", "lissandra", "lucian", "lulu", "lux", "malphite", "malzahar", "maokai", "masteryi", "missfortune", "mordekaiser", "morgana", "nami", "nasus", "nautilus", "nidalee", "nocturne", "nunu", "olaf", "orianna", "ornn", "pantheon", "poppy", "pyke", "quinn", "rakan", "rammus", "reksai", "renekton", "rengar", "riven", "rumble", "ryze", "sejuani", "shaco", "shen", "shyvana", "singed", "sion", "sivir", "skarner", "sona", "soraka", "swain", "syndra", "tahmkench", "taliyah", "talon", "taric", "teemo", "thresh", "tristana", "trundle", "tryndamere", "twistedfate", "twitch", "udyr", "urgot", "varus", "vayne", "veigar", "velkoz", "vi", "viktor", "vladimir", "volibear", "warwick", "wukong", "xayah", "xerath", "xinzhao", "yasuo", "yorick", "zac", "zed", "ziggs", "zilean", "zoe", "zyra"];
 const champPosList=["", "Top", "Mid", "Bot", "Sup", "Jg"];
 const champPosAccessList=["general", "top", "mid", "bottom", "jungle"];
+const champPosImgAccessList=["General", "Top", "Mid", "Bottom", "Support", "Jungle"]
 const champPosMap={"":"general", "Top":"top", "Mid":"mid", "Bot":"bottom", "Sup":"bottom", "Jg":"jungle"};
-const compareTypeList=["Strong", "Weak", "Even", "Well"];
+const compareTypeList=["Strong", "Weak", "Even", "Good"];
 const compareTypeAccessList=["strong", "weak", "even", "good"];
 
 /*Image access names*/
@@ -34,17 +35,14 @@ const pixelsBetweenChampBlocks=70;
 /*Holds the champs and the percentages for calculation*/
 var summonerChampSelectionsGood=Array(0);
 var summonerChampPersGood=Array(0);
-var summonerChampHelpGood=Array(0);
 
 var summonerChampSelectionsFair=Array(0);
 var summonerChampPersFair=Array(0);
-var summonerChampHelpFair=Array(0);
 
 var summonerChampSelectionsBad=Array(0);
 var summonerChampPersBad=Array(0);
-var summonerChampHelpBad=Array(0);
 
-
+/*Holds the normalized champ data*/
 var summonerNormalizedChampPersGood=Array(0);
 var summonerNormalizedChampSelectionsGood=Array(0);
 
@@ -54,7 +52,13 @@ var summonerNormalizedChampSelectionsFair=Array(0);
 var summonerNormalizedChampPersBad=Array(0);
 var summonerNormalizedChampSelectionsBad=Array(0);
 
-var summonerNormalizedChampHelp=Array(0);
+/*Holds the help information*/
+var summonerAllChampSelections = Array(0);
+var summonerChampHelpStrong = Array(0);
+var summonerChampHelpGood = Array(0);
+var summonerChampHelpEven = Array(0);
+var summonerChampHelpWeak = Array(0);
+
 
 /*Data array*/
 var counterDataArray=Array(0)

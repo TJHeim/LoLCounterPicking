@@ -15,7 +15,7 @@
 
 	<body onload="onBodyLoad()">
 
-		<button id="calculateButton"onclick="calculateAndPrintPercentages()">Calculate</button>
+		<button id="calculateButton" onclick="calculateAndPrintPercentages()">Calculate</button>
 
 		<br><br>
 
@@ -33,8 +33,24 @@
 		</div>
 
 		<br>
-
-		<p id="helpText"></p>
-
+		
+		<p id='helpTitle'>Pick Information:</p>
+		
+		<br>
+		
+		<div id="allHelpDiv">
+			<div class="helpDiv" id="strongHelpDiv">
+				<div class="helpPic" id="strongHelpPic"></div>
+			</div>
+			<div class="helpDiv" id="goodHelpDiv">
+				<div class="helpPic" id="goodHelpPic"></div>
+			</div>
+			<div class="helpDiv" id="evenHelpDiv">
+				<div class="helpPic" id="evenHelpPic"></div>
+			</div>
+			<div class="helpDiv" id="weakHelpDiv">
+				<div class="helpPic" id="weakHelpPic"></div>
+			</div>
+		</div>
 	</body>
 </html>

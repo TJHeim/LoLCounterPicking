@@ -2,7 +2,7 @@
 
 body
 {
-	background: #d0d0d0;
+	background: #a3a3a3;
 	text-align: center;
 }
 
@@ -167,6 +167,77 @@ div.championBlockPercentage
 	right: 8px;
 }
 
+#helpTitle
+{
+	display: none; /*inline-block*/
+	margin: 10px;
+}
+
+#allHelpDiv
+{
+	display: none; /*inline-block*/
+	width: 35%;
+	height: 120px;
+	border-style: solid none none solid;
+	border-width: 3px;
+	border-color: black;
+}
+
+.helpDiv
+{
+	display: block; /*block*/
+	float: left;
+	text-align: center;
+	width: calc(25% - 3px);
+	height: 100%;
+	border-style:none solid none none;
+	border-width: 3px;
+	border-color: black;
+}
+
+.helpPic
+{
+	display: inline-block;
+	width: 49px;
+	height: 45px;
+	margin: 10px 0px 8px 0px;
+}
+
+#strongHelpPic
+{
+	background: url('https://tjheim.github.io/LoLCounterPicking/WebContent/ComparisonTypePictures/LolCounterSourceStrong.png') left center / 49px 45px;
+}
+
+#goodHelpPic
+{
+	background: url('https://tjheim.github.io/LoLCounterPicking/WebContent/ComparisonTypePictures/LolCounterSourceGood.png') left center / 49px 45px;
+}
+
+#evenHelpPic
+{
+	background: url('https://tjheim.github.io/LoLCounterPicking/WebContent/ComparisonTypePictures/LolCounterSourceEven.png') left center / 49px 45px;
+}
+
+#weakHelpPic
+{
+	background: url('https://tjheim.github.io/LoLCounterPicking/WebContent/ComparisonTypePictures/LolCounterSourceWeak.png') left center / 49px 45px;
+}
+
+.helpBlock
+{
+	display: inline-block;
+	width: 90%;
+	height: 40px;
+	margin: 5px 0px 5px 0px;
+}
+
+.helpBlockEl
+{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	margin: 3px;
+}
 
 #progressBarBorder
 {

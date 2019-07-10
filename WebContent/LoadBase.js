@@ -138,7 +138,7 @@ function activateTabClickListeners()
 			$("button.championBlock").css({"display": "none", "border-color": "blue"});
 			$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page=0]").css("display", "block");
 			
-			$("p#helpText").html("");
+			resetHelp();
 		}
 	});	
 }
@@ -183,7 +183,8 @@ function activatePageButtonClickListeners()
 			
 			$("button.championBlock").css({"display": "none", "border-color": "blue"});
 			$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page="+page+"]").css("display", "block");
-			$("p#helpText").html("");
+			
+			resetHelp();
 		}
 	});
 }
@@ -211,6 +212,8 @@ function activateShowSelectionClickListeners()
 			
 			setIntitialPageButtonLayout(summonerNumber);
 			setInitialStyleOfChoicesDiv(summonerNumber);
+
+			resetHelp();
 		}
 	});
 }
@@ -220,13 +223,42 @@ function activateShowSelectionClickListeners()
 
 function activateChampionBlockClickListeners()
 {
-	/*Highlight championBlock*/
+	/*Activate help when champion block is clicked*/
 	$(document).ready(function(){
     	$("button.championBlock").click(function(){
 			$("button.championBlock").css("border-color", "blue");
 			$(this).css("border-color", "red");
-			$("p#helpText").html($(this).attr("help"));
-			$("p#helpText").css("display", "block");
+			let helpString = $(this).attr("help");
+			let helpObject = JSON.parse(helpString);
+			
+			let comparisonHelpArray = [helpObject.strong, helpObject.good, helpObject.even, helpObject.weak];
+			let helpDivArray = $("#allHelpDiv").children().toArray();
+			
+			resetHelp();
+			
+			for(let i = 0; i<comparisonHelpArray.length; i++)
+			{
+				let champs = comparisonHelpArray[i].champs;
+				let posses = comparisonHelpArray[i].posses;
+				
+				for(let j = 0; j<champs.length; j++)
+				{
+					let helpBlock = document.createElement("div");
+					helpBlock.setAttribute("class","helpBlock");
+					let helpChampPic = document.createElement("div")
+					helpChampPic.setAttribute("class","helpBlockEl");
+					helpChampPic.style = "background: url(http://ddragon.leagueoflegends.com/cdn/8.12.1/img/champion/"+champImgAccessList[champAccessList.indexOf(champs[j])]+".png) left center / 40px 40px;";
+					let helpPosPic = document.createElement("div");
+					helpPosPic.setAttribute("class","helpBlockEl");
+					helpPosPic.style = "background: url(https://tjheim.github.io/LoLCounterPicking/WebContent/PositionPictures/"+champPosImgAccessList[champPosAccessList.indexOf(posses[j])]+".png) left center / 40px 40px;";
+					helpBlock.appendChild(helpChampPic);
+					helpBlock.appendChild(helpPosPic);
+					helpDivArray[i].appendChild(helpBlock);
+				}
+				
+				$("#allHelpDiv").css("display","inline-block");
+				$("#helpTitle").css("display","inline-block");
+			}
 		});
 	});
 }
@@ -295,4 +327,14 @@ function setInitialStyleOfChoicesDiv(summonerNumber)
 		$("#choicesDiv").css({"background-color":color, "border-color":color});
 		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Bad][page=0]").css("display", "block");
 	}
+}
+
+
+
+
+function resetHelp()
+{
+	$("#allHelpDiv").css("display","none");
+	$(".helpBlock").remove();
+	$("#helpTitle").css("display","none");
 }
