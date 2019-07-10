@@ -8,17 +8,17 @@ async function onBodyLoad()
 	const teamArray=["ally", "enemy"];
 	const teamArrayUppercased=["Ally", "Enemy"];
 	
-	for(var summonerBlock=1; summonerBlock<=champsPerTeam; summonerBlock++)
+	for(let summonerBlock=1; summonerBlock<=champsPerTeam; summonerBlock++)
 	{
 		/*Create an allyChamp and an enemyChamp block*/
-		for(var team=0; team<teamArray.length; team++)
+		for(let team=0; team<teamArray.length; team++)
 		{
 			/*Initiate the p and select elements*/
-			var champBlock=document.createElement("p");
-			var champSelect=document.createElement("select");
+			let champBlock=document.createElement("p");
+			let champSelect=document.createElement("select");
 			
 			/*Set the id and class of all elements*/
-			var teamName=teamArray[team];
+			let teamName=teamArray[team];
 			champBlock.setAttribute("id", teamName+"ChampBlock"+summonerBlock);
 			champBlock.setAttribute("class", teamName+"Block");
 			champSelect.setAttribute("id", teamName+"ChampSelect"+summonerBlock);
@@ -28,12 +28,12 @@ async function onBodyLoad()
 			champBlock.setAttribute("style", "top:"+(pixelsBeforeStartofBlocks+pixelsBetweenChampAndPosBlocks*(summonerBlock-1)+pixelsBetweenChampBlocks*(summonerBlock-1))+"px");
 			
 			/*Add the blank option to the champ select tag*/
-			var champOption=document.createElement("option");
+			let champOption=document.createElement("option");
 			champOption.setAttribute("value", "");
 			champSelect.appendChild(champOption);
 
 			/*Add the options to the champ select tag*/
-			for(var champ=0; champ<champList.length; champ++)
+			for(let champ=0; champ<champList.length; champ++)
 			{
 				champOption=document.createElement("option");
 				champOption.setAttribute("value", champAccessList[champ]);
@@ -48,7 +48,7 @@ async function onBodyLoad()
 			/*Add the showSelections buttons*/
 			if(teamArray[team]=="ally")
 			{
-				var showSelectionsButton=document.createElement("button");
+				let showSelectionsButton=document.createElement("button");
 				showSelectionsButton.setAttribute("id", "showSelectionsButton"+summonerBlock);
 				showSelectionsButton.setAttribute("class", "showSelectionsButton");
 				showSelectionsButton.setAttribute("style", "position: relative; top: -6px; left: 225px");
@@ -63,14 +63,14 @@ async function onBodyLoad()
 		}
 		
 		/*Create an allyPos and an enemyPos block*/
-		for(var team=0; team<teamArray.length; team++)
+		for(let team=0; team<teamArray.length; team++)
 		{
 			/*Initiate the p and select elements*/
-			var posBlock=document.createElement("p");
-			var posSelect=document.createElement("select");
+			let posBlock=document.createElement("p");
+			let posSelect=document.createElement("select");
 			
 			/*Set the id and class of all elements*/
-			var teamName=teamArray[team];
+			let teamName=teamArray[team];
 			posBlock.setAttribute("id", teamName+"PosBlock"+summonerBlock);
 			posBlock.setAttribute("class", teamName+"Block");
 			posSelect.setAttribute("id", teamName+"PosSelect"+summonerBlock);
@@ -80,7 +80,7 @@ async function onBodyLoad()
 			posBlock.setAttribute("style", "top:"+(pixelsBeforeStartofBlocks+pixelsBetweenChampAndPosBlocks*summonerBlock+pixelsBetweenChampBlocks*(summonerBlock-1))+"px")
 			
 			/*Add the options to the pos select tag*/
-			for(var champPos=0; champPos<champPosList.length; champPos++)
+			for(let champPos=0; champPos<champPosList.length; champPos++)
 			{
 				posOption=document.createElement("option");
 				posOption.setAttribute("value", champPosMap[champPosList[champPos]]);
@@ -108,17 +108,17 @@ async function onBodyLoad()
 function activateTabClickListeners()
 {
 	$("button.tab").off().click(function(){
-		var choicesDiv=$("div#choicesDiv");
-		var color=$(this).css("background-color");
-		var endOfFirstColor=color.indexOf(")");
+		let choicesDiv=$("div#choicesDiv");
+		let color=$(this).css("background-color");
+		let endOfFirstColor=color.indexOf(")");
 		color=color.substring(0, endOfFirstColor+1);
-		var choicesDivColor=choicesDiv.css("background");
-		var ChoicesDivEndOfFirstColor=choicesDivColor.indexOf(")");
+		let choicesDivColor=choicesDiv.css("background");
+		let ChoicesDivEndOfFirstColor=choicesDivColor.indexOf(")");
 		choicesDivColor=choicesDivColor.substring(0, endOfFirstColor+1);
 		if(color!=choicesDivColor)
 		{
-			var dataType=$(this).html();
-			var summonerNumber=choicesDiv.attr("summonerNumber");
+			let dataType=$(this).html();
+			let summonerNumber=choicesDiv.attr("summonerNumber");
 			
 			$("button.tab").css("border-bottom-color", "#737373");
 			$(this).css("border-bottom-color", color);
@@ -127,7 +127,7 @@ function activateTabClickListeners()
 			$("div#choicesDiv").attr("page", 0);
 			if($("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Good][page=1]").length>0)
 			{
-				var rightPageButton=$("button.page#right");
+				let rightPageButton=$("button.page#right");
 				rightPageButton.css("display", "block");
 				rightPageButton.html("Page 2");
 			}
@@ -149,32 +149,32 @@ function activateTabClickListeners()
 function activatePageButtonClickListeners()
 {
 	$("button.page").off().click(function(){
-		var page=parseInt($(this).html().substring(5))-1;
-		var choicesDiv=$("div#choicesDiv");
+		let page=parseInt($(this).html().substring(5))-1;
+		let choicesDiv=$("div#choicesDiv");
 		if(page!=choicesDiv.attr("page"))
 		{
-			var dataType=colorToDataTypeMap[choicesDiv.css("background-color")];
-			var summonerNumber=choicesDiv.attr("summonerNumber");
+			let dataType=colorToDataTypeMap[choicesDiv.css("background-color")];
+			let summonerNumber=choicesDiv.attr("summonerNumber");
 			choicesDiv.attr("page", page);
 			$("button.page").css("display", "none");
 			
-			var leftPage=$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page="+(page-1)+"]")
-			var rightPage=$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page="+(page+1)+"]")
-			for(var i=0; i<leftPage.length; i++)
+			let leftPage=$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page="+(page-1)+"]")
+			let rightPage=$("button.championBlock[summonerNumber="+summonerNumber+"][dataType="+dataType+"][page="+(page+1)+"]")
+			for(let i=0; i<leftPage.length; i++)
 			{
 				if(leftPage[i].getAttribute("page")==page-1)
 				{
-					leftPageButton=$("button.page#left");
+					let leftPageButton=$("button.page#left");
 					leftPageButton.css("display", "block");
 					leftPageButton.html("Page "+(page))
 					break;
 				}
 			}
-			for(var i=0; i<rightPage.length; i++)
+			for(let i=0; i<rightPage.length; i++)
 			{
 				if(rightPage[i].getAttribute("page")==page+1)
 				{
-					rightPageButton=$("button.page#right");
+					let rightPageButton=$("button.page#right");
 					rightPageButton.css("display", "block");
 					rightPageButton.html("Page "+(page+2))
 					break;
@@ -195,8 +195,8 @@ function activatePageButtonClickListeners()
 function activateShowSelectionClickListeners()
 {
 	$("button.showSelectionsButton").off().click(function(){
-		var choicesDiv=$("div#choicesDiv");
-		var summonerNumber=$(this).attr("summonerNumber");
+		let choicesDiv=$("div#choicesDiv");
+		let summonerNumber=$(this).attr("summonerNumber");
 		if(summonerNumber!=choicesDiv.attr("summonerNumber"))
 		{
 			choicesDiv.attr("summonerNumber", summonerNumber);
@@ -272,7 +272,7 @@ function setIntitialPageButtonLayout(summonerNumber)
 	{
 		if($("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Good][page=1]").length>0)
 		{
-			var rightPageButton=$("button.page#right");
+			let rightPageButton=$("button.page#right");
 			rightPageButton.css("display", "block");
 			rightPageButton.html("Page 2");
 		}
@@ -281,7 +281,7 @@ function setIntitialPageButtonLayout(summonerNumber)
 	{
 		if($("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Fair][page=1]").length>0)
 		{
-			var rightPageButton=$("button.page#right");
+			let rightPageButton=$("button.page#right");
 			rightPageButton.css("display", "block");
 			rightPageButton.html("Page 2");
 		}
@@ -290,7 +290,7 @@ function setIntitialPageButtonLayout(summonerNumber)
 	{
 		if($("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Bad][page=1]").length>0)
 		{
-			var rightPageButton=$("button.page#right");
+			let rightPageButton=$("button.page#right");
 			rightPageButton.css("display", "block");
 			rightPageButton.html("Page 2");
 		}
@@ -306,7 +306,7 @@ function setInitialStyleOfChoicesDiv(summonerNumber)
 	
 	if($("#tabGood").css("display")!="none")
 	{
-		var color=dataTypeToColorMap["Good"];
+		let color=dataTypeToColorMap["Good"];
 		$("#tabGood").css("border-bottom-color", color);
 		$("#choicesDiv").css({"background-color":color, "border-color":color});
 		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Good][page=0]").css("display", "block");
@@ -314,7 +314,7 @@ function setInitialStyleOfChoicesDiv(summonerNumber)
 	
 	else if($("#tabFair").css("display")!="none")
 	{
-		var color=dataTypeToColorMap["Fair"];
+		let color=dataTypeToColorMap["Fair"];
 		$("#tabFair").css("border-bottom-color", color);
 		$("#choicesDiv").css({"background-color":color, "border-color":color});
 		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Fair][page=0]").css("display", "block");
@@ -322,7 +322,7 @@ function setInitialStyleOfChoicesDiv(summonerNumber)
 
 	else if($("#tabBad").css("display")!="none")
 	{
-		var color=dataTypeToColorMap["Bad"];
+		let color=dataTypeToColorMap["Bad"];
 		$("#tabBad").css("border-bottom-color", color);
 		$("#choicesDiv").css({"background-color":color, "border-color":color});
 		$("button.championBlock[summonerNumber="+summonerNumber+"][dataType=Bad][page=0]").css("display", "block");

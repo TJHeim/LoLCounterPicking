@@ -52,7 +52,7 @@ async function calculateAndPrintPercentages()
 	enemyPos=Array(0);
 	
 	/*Find all champs and their pos on each team*/
-	for(var summonerNumber=1; summonerNumber<=champsPerTeam; summonerNumber++)
+	for(let summonerNumber=1; summonerNumber<=champsPerTeam; summonerNumber++)
 	{
 		if($("#allyChampSelect"+summonerNumber).val()!="")
 		{
@@ -68,7 +68,7 @@ async function calculateAndPrintPercentages()
 	}
 	
 	/*Calculate percentages for all empty summoners*/
-	for(var summonerNumber=1; summonerNumber<=champsPerTeam; summonerNumber++)
+	for(let summonerNumber=1; summonerNumber<=champsPerTeam; summonerNumber++)
 	{
 		await resetDataArrays();
 		
@@ -152,10 +152,10 @@ async function grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champ
 			if(enemyChamps.length>0)
 			{
 				/*Calculate "Weak Against" for all enemies in general and the enemy at this ally's position*/
-				var enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
+				let enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
 				if(champPos!="general" && enemyChampAtSamePosIndex!=-1)
 				{
-					for(var enemy=0; enemy<enemyChamps.length; enemy++)
+					for(let enemy=0; enemy<enemyChamps.length; enemy++)
 					{
 						await grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList);
 					}
@@ -167,7 +167,7 @@ async function grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champ
 				/*Else Calculate only "Weak Against" for all enemies in general*/
 				else
 				{
-					for(var enemy=0; enemy<enemyChamps.length; enemy++)
+					for(let enemy=0; enemy<enemyChamps.length; enemy++)
 					{
 						await grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList);
 					}
@@ -185,7 +185,7 @@ async function grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champ
 			if(enemyChamps.length==0)
 			{
 				/*Calculate "Works Well With" from allies*/
-				for(var ally=0; ally<allyChamps.length; ally++)
+				for(let ally=0; ally<allyChamps.length; ally++)
 				{
 					await grabDataAndAddToArrays(summonerNumber, allyChamps[ally], "general", "good", champsAtPosList, champsAtPosAccessList);
 				}
@@ -196,16 +196,16 @@ async function grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champ
 			else //if(enemyChamps.length>0)
 			{
 				/*Calculate "Works Well With" from allies*/
-				for(var ally=0; ally<allyChamps.length; ally++)
+				for(let ally=0; ally<allyChamps.length; ally++)
 				{
 					await grabDataAndAddToArrays(summonerNumber, allyChamps[ally], "general", "good", champsAtPosList, champsAtPosAccessList);
 				}
 				
 				/*Calculate "Weak Against" for all enemies in general and the enemy at this ally's position*/
-				var enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
+				let enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
 				if(champPos!="general" && enemyChampAtSamePosIndex!=-1)
 				{
-					for(var enemy=0; enemy<enemyChamps.length; enemy++)
+					for(let enemy=0; enemy<enemyChamps.length; enemy++)
 					{
 						await grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList);
 					}
@@ -217,7 +217,7 @@ async function grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champ
 				/*Else Calculate only "Weak Against" for all enemies in general*/
 				else
 				{
-					for(var enemy=0; enemy<enemyChamps.length; enemy++)
+					for(let enemy=0; enemy<enemyChamps.length; enemy++)
 					{
 						await grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "weak", champsAtPosList, champsAtPosAccessList);
 					}
@@ -238,7 +238,7 @@ async function grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champ
 			enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
 			if(champPos!="general" && enemyChampAtSamePosIndex!=-1)
 			{
-				for(var enemy=0; enemy<enemyChamps.length; enemy++)
+				for(let enemy=0; enemy<enemyChamps.length; enemy++)
 				{
 					await grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "even", champsAtPosList, champsAtPosAccessList);
 				}
@@ -250,7 +250,7 @@ async function grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champ
 			/*Else Calculate only "Goes Even With" for all enemies in general*/
 			else
 			{
-				for(var enemy=0; enemy<enemyChamps.length; enemy++)
+				for(let enemy=0; enemy<enemyChamps.length; enemy++)
 				{	
 					await grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "even", champsAtPosList, champsAtPosAccessList);
 				}
@@ -273,7 +273,7 @@ async function grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champ
 			enemyChampAtSamePosIndex=enemyChamps.indexOf(champPos);
 			if(champPos!="general" && enemyChampAtSamePosIndex!=-1)
 			{
-				for(var enemy=0; enemy<enemyChamps.length; enemy++)
+				for(let enemy=0; enemy<enemyChamps.length; enemy++)
 				{
 					await grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "strong", champsAtPosList, champsAtPosAccessList);
 				}
@@ -285,7 +285,7 @@ async function grabDataAndPrint(summonerNumber, champPos, champsAtPosList, champ
 			/*Else Calculate only "Strong Against" for all enemies in general*/
 			else
 			{
-				for(var enemy=0; enemy<enemyChamps.length; enemy++)
+				for(let enemy=0; enemy<enemyChamps.length; enemy++)
 				{
 					await grabDataAndAddToArrays(summonerNumber, enemyChamps[enemy], "general", "strong", champsAtPosList, champsAtPosAccessList);
 				}
@@ -472,7 +472,7 @@ function normalizeFromDataArray(dataArray)
 {
 	let availableData = Array(0);
 	
-	for(var i = 0; i<dataArray.length; i++)
+	for(let i = 0; i<dataArray.length; i++)
 	{
 		let champ = dataArray[i];
 		if(!summonerNormalizedChampSelectionsGood.includes(champ))

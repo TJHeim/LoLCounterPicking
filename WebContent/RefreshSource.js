@@ -20,7 +20,7 @@ async function onBodyLoad()
 /*Send to the base page*/
 function sendBackToBasePage()
 {
-	var a=document.createElement("a");
+	let a=document.createElement("a");
 	a.setAttribute("href", "https://tjheim.github.io/LoLCounterPicking/WebContent/BasePage.html");
 	a.click();
 }
@@ -32,15 +32,15 @@ function refreshCounterSourceCode(startIndex)
 	if(startIndex==undefined)
 		startIndex=0;
 	
-	var promiseArray=Array(0);
-	var dataArray=Array(0);
+	let promiseArray=Array(0);
+	let dataArray=Array(0);
 	
-	var counter=0;
-	for(var champ=0; champ<champAccessList.length; champ++)
+	let counter=0;
+	for(let champ=0; champ<champAccessList.length; champ++)
 	{
-		for(var compareType=0; compareType<compareTypeAccessList.length; compareType++)
+		for(let compareType=0; compareType<compareTypeAccessList.length; compareType++)
 		{
-			for(var champPos=0; champPos<champPosAccessList.length; champPos++)
+			for(let champPos=0; champPos<champPosAccessList.length; champPos++)
 			{
 				let activeChamp=champAccessList[champ];
 				let activeCompareType=compareTypeAccessList[compareType];
@@ -93,37 +93,37 @@ function getDataFromHtml(html)
 	data={champArray: Array(0), perArray: Array(0)};
 	
 	/*Find the start of the data and trim the html*/
-	var startOfData=html.indexOf("<div class='weak-block full'");
+	let startOfData=html.indexOf("<div class='weak-block full'");
 	html=html.substring(startOfData).replace(/\s/g, "");
 	
 	/*Run through the html to find the data and give it to the data Object*/
-	var activePos=0;
+	let activePos=0;
 	while(activePos<html.length)
 	{
 		/*Find the start of the champion's name and break the loop if there are no more*/
-		var startOfChampName=html.indexOf('find=', activePos);
+		let startOfChampName=html.indexOf('find=', activePos);
 		if(startOfChampName==-1)
 			break;
 		else
 			startOfChampName=startOfChampName+'find="'.length;
 		
 		/*Find the end of the champion's name*/
-		var endOfChampName=html.indexOf("'", startOfChampName);
+		let endOfChampName=html.indexOf("'", startOfChampName);
 		activePos=endOfChampName;
 		
 		/*Get name and add it to the data*/
-		var champAccessName=html.substring(startOfChampName, endOfChampName);
+		let champAccessName=html.substring(startOfChampName, endOfChampName);
 		data.champArray.push(champAccessName);
 		
 		/*Find the start of the champion's per*/
-		var startOfChampPer=html.indexOf("width:", activePos)+"width:".length;
+		let startOfChampPer=html.indexOf("width:", activePos)+"width:".length;
 		
 		/*Find the end of the champion's per*/
-		var endOfChampPer=html.indexOf("%", startOfChampPer);
+		let endOfChampPer=html.indexOf("%", startOfChampPer);
 		activePos=endOfChampPer;
 		
 		/*Get per and add it to the data*/
-		var champPer=html.substring(startOfChampPer, endOfChampPer);
+		let champPer=html.substring(startOfChampPer, endOfChampPer);
 		data.perArray.push(champPer);
 	}
 	
@@ -202,8 +202,8 @@ function updateProgressBar()
 /*Timout function*/
 function sleep(milliseconds)
 {
-	var start = new Date().getTime();
-	for (var i = 0; i < 1e7; i++)
+	let start = new Date().getTime();
+	for (let i = 0; i < 1e7; i++)
 	{
 		if ((new Date().getTime() - start) > milliseconds)
 			return Promise.resolve();;
@@ -225,7 +225,7 @@ function mySetInterval(fn, ms)
 /*Test the callback time of allorigin*/
 function callbackTime(activeChamp, activeCompareType, activeChampPos, index)
 {
-	var start = new Date().getTime();
+	let start = new Date().getTime();
 	$.get("https://api.allorigins.win/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?")
 	.then(() => new Date().getTime())
 	.then(end => end - start)

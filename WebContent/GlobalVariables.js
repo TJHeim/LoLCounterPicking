@@ -63,5 +63,5 @@ var summonerChampHelpWeak = Array(0);
 /*Data array*/
 var counterDataArray=Array(0)
 
-var colorToDataTypeMap={"rgb(144, 238, 144)":"Good", "rgb(173, 216, 230)":"Fair", "rgb(255, 192, 203)":"Bad"};
-var dataTypeToColorMap={"Good":"lightgreen", "Fair":"lightblue", "Bad":"pink"};
+const colorToDataTypeMap={"rgb(144, 238, 144)":"Good", "rgb(173, 216, 230)":"Fair", "rgb(255, 192, 203)":"Bad"};
+const dataTypeToColorMap={"Good":"lightgreen", "Fair":"lightblue", "Bad":"pink"};
