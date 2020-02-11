@@ -1,3 +1,5 @@
+// Functions to collect the data for the statistics from lolcounter.com
+
 /*Total data indices to collect on each function call*/
 var maxDataPerCall = 3000;
 
@@ -12,28 +14,38 @@ var functionRunning = false;
 /*Create the hyperlink that sends you back to the main page and refresh source*/
 async function onBodyLoad()
 {
-	mySetInterval(updateProgressBar, 50);
-	
-	refreshCounterSourceCode().then(sleep(5000))/*.then(sendBackToBasePage)*/;
+	let returnData = await refreshCounterSourceCode();
+	let promiseArray = returnData[0];
+	let dataArray = returnData[1];
+	setInterval(updateProgressBar, 50);
+	Promise.all(promiseArray).then(function(){
+		jsonArray = JSON.stringify(dataArray);
+		saveAs(new Blob([jsonArray]), "LolCounterSource.json");
+		return Promise.resolve(); })
+		.then(sleep(5000)).then(sendBackToBasePage);
 }
+
+
 
 /*Send to the base page*/
 function sendBackToBasePage()
 {
-	let a=document.createElement("a");
-	a.setAttribute("href", "https://tjheim.github.io/LoLCounterPicking/WebContent/BasePage.html");
+	let a = document.createElement("a");
+	a.setAttribute("href", "../WebContent/BasePage.html");
 	a.click();
 }
 
+
+
 /*Grabs all the data from the website and saves it to this computer's files*/
-function refreshCounterSourceCode(startIndex)
+async function refreshCounterSourceCode(startIndex)
 {
 	return new Promise(async function(resolve){
 	if(startIndex==undefined)
 		startIndex=0;
 	
-	let promiseArray=Array(0);
-	let dataArray=Array(0);
+	let promiseArray=Array(totalDataCount);
+	let dataArray=Array(totalDataCount);
 	
 	let counter=0;
 	for(let champ=0; champ<champAccessList.length; champ++)
@@ -47,24 +59,20 @@ function refreshCounterSourceCode(startIndex)
 				let activeChampPos=champPosAccessList[champPos];
 				if(counter>=startIndex && counter<startIndex + maxDataPerCall)
 				{
-					sleep(20);
+					await sleep(5);
+					
 					console.log("Call "+counter.toString())
 					
-					promiseArray.push(getDataAndAddToArray(activeChamp, activeCompareType, activeChampPos, dataArray, counter));
+					promiseArray[getDataAndAddToArray(activeChamp, activeCompareType, activeChampPos, dataArray, counter)];
 					counter++;
 				}
 			}
 		}
 	}
 	
-	/*Save array as a JSON*/
-	Promise.all(promiseArray).then(function(){
-					jsonArray=JSON.stringify(dataArray);
-					saveAs(new Blob([jsonArray]), "LolCounterSource.json");
-					resolve(); })
+	resolve([promiseArray, dataArray]);
 });
 }
-
 
 
 
@@ -85,6 +93,8 @@ async function getDataAndAddToArray(activeChamp, activeCompareType, activeChampP
 	dataCount++;
 	return Promise.resolve();
 }
+
+
 
 /* Collects the data from the raw html of a page */
 function getDataFromHtml(html)
@@ -142,84 +152,12 @@ function updateProgressBar()
 
 
 
-///*Collect the data at the given indicators and save it as a file on this computer*/
-//function collectDataAndSaveFile(activeChamp, activeCompareType, activeChampPos)
-//{
-//	var html=$.get("https://allorigins.me/get?method=raw&url="+encodeURIComponent("https://lolcounter.com/champions/"+activeChamp+"/"+activeCompareType+"/"+activeChampPos)+"&callback=?");
-//	html.catch((activeChamp, activeCompareType, activeChampPos) => collectDataAndSaveFile(activeChamp, activeCompareType, activeChampPos));
-//	html.then(html => collectData(html))
-//	.then(data => saveAs(new Blob([data]), activeChamp+"!"+activeCompareType+"!"+activeChampPos+".txt"));
-//}
-//
-//
-//
-///*Collect the data from the given html file*/
-//function collectData(html)
-//{
-//	/*String to contain the collected data*/
-//	var data="";
-//	
-//	/*Find the start and end of the data and trim the html*/
-//	var startOfData=html.indexOf("<div class='weak-block full'");
-//	html=html.substring(startOfData).replace(/\s/g, "");
-//	
-//	/*Run through the html to find the data and give it to the data var*/
-//	var activePos=0;
-//	while(activePos<html.length)
-//	{
-//		/*Find the start of the champion's name and break the loop if there are no more*/
-//		var startOfChampName=html.indexOf('find=', activePos);
-//		if(startOfChampName==-1)
-//			break;
-//		else
-//			startOfChampName=startOfChampName+'find="'.length;
-//		
-//		/*Find the end of the champion's name*/
-//		var endOfChampName=html.indexOf("'", startOfChampName);
-//		activePos=endOfChampName;
-//		
-//		/*Get name and add it to the data*/
-//		var champAccessName=html.substring(startOfChampName, endOfChampName);
-//		data=data.concat(champAccessName+"/");
-//		
-//		/*Find the start of the champion's per*/
-//		var startOfChampPer=html.indexOf("width:", activePos)+"width:".length;
-//		
-//		/*Find the end of the champion's per*/
-//		var endOfChampPer=html.indexOf("%", startOfChampPer);
-//		activePos=endOfChampPer;
-//		
-//		/*Get per and add it to the data*/
-//		var champPer=html.substring(startOfChampPer, endOfChampPer);
-//		data=data.concat(champPer+"/");
-//	}
-//	
-//	return data;
-//}
-
-
-
 /*Timout function*/
-function sleep(milliseconds)
+function sleep(ms)
 {
-	let start = new Date().getTime();
-	for (let i = 0; i < 1e7; i++)
-	{
-		if ((new Date().getTime() - start) > milliseconds)
-			return Promise.resolve();;
-	}
+	  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
-function mySetInterval(fn, ms)
-{
-	if(!functionRunning)
-	{
-		functionRunning = true;
-		fn().then(functionRunning = false);
-		setTimeout(() => mySetInterval(fn, ms), ms);
-	}
-}
 
 
 /*Test the callback time of allorigin*/
@@ -231,6 +169,3 @@ function callbackTime(activeChamp, activeCompareType, activeChampPos, index)
 	.then(end => end - start)
 	.then(time => console.log("AllOrigins call "+index+" took "+time.toString()+" ms"))
 }
-
-
-

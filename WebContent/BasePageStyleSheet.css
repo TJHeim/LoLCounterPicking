@@ -66,7 +66,7 @@ button#tabBad
 
 button.page
 {
-	display:none;
+	display: none;
 	background: gold;
 	border-color: goldenrod;
 	border-radius: 2px;

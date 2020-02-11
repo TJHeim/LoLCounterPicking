@@ -1,3 +1,5 @@
+// Contains functions to calculate percentages for the statistics
+
 /*Empty the data arrays*/
 function resetDataArrays()
 {

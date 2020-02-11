@@ -1,3 +1,5 @@
+// Base page loading functions
+
 /*Create necessary elements in the BasePage.html*/
 async function onBodyLoad()
 {
