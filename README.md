@@ -10,6 +10,6 @@ Main access is at "https://tjheim.github.io/LoLCounterPicking/WebContent/BasePag
 ## Warning
 "https://tjheim.github.io/LoLCounterPicking/WebContent/RefreshSource.html" This page will download a JSON file to your device.
 
-`RefreshSource.html` is a download page for myself. If you go to this page and the download finishes, a JSON will be downloaded to your computer which is how I implemented data collection. This is the JSON that is being held in `LoLCounterPicking/WebContent/ChampionCounterSource`. This site uses a webscraper API to collect all relevant data from "lolcounter.com" and order it for easy access in JSON array format.
+`RefreshSource.html` is a download page for myself. If you go to this page and the download finishes, a JSON will be downloaded to your computer which is how I implemented data collection. This is the JSON that is being held in `LoLCounterPicking/WebContent/ChampionCounterSource`. This site uses a webscraper API to collect all relevant data from "lolcounter.com" and order it for easy access in JSON array format. The data that I collect is in percentaes of votes and this percentage is what is stored in the JSON. THis will collect ALL data for each type of comparison, for each champion, for each position.
 
-I cannot promise this currently works as this API and the website are not my own and are subject to change without my notice. The most recent JSON is found in the above directory.
+I cannot promise this currently works as this API and the website are not my own and are subject to change without my notice. The most recent JSON is found in the above directory. I apologize for the many 'txt' files as this was a previous implementation that was scrapped in favor of a single file.
