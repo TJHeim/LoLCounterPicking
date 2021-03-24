@@ -11,3 +11,5 @@ Main access is at "https://tjheim.github.io/LoLCounterPicking/WebContent/BasePag
 "https://tjheim.github.io/LoLCounterPicking/WebContent/RefreshSource.html" This page will download a JSON file to your device.
 
 `RefreshSource.html` is a download page for myself. If you go to this page and the download finishes, a JSON will be downloaded to your computer which is how I implemented data collection. This is the JSON that is being held in `LoLCounterPicking/WebContent/ChampionCounterSource`. This site uses a webscraper API to collect all relevant data from "lolcounter.com" and order it for easy access in JSON array format.
+
+I cannot promise this currently works as this API and the website are not my own and are subject to change without my notice. The most recent JSON is found in the above directory.
